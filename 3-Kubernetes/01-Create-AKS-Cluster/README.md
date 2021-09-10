@@ -7,9 +7,9 @@
 ## Step-02: Create AKS Cluster
 - Create Kubernetes Cluster
 - **Basics**
-  - **Resource Group:** Create New: aks-rg-<yourname>
+  - **Resource Group:** Create New: aks-rg-\<yourname\>
   - **Kubernetes Cluster Name:** aksdemo-<yourname>
-  - **Region:** <Your Region>
+  - **Region:** \<Your Region\>
   - **Node Count:** 1
 - **Authentication**
   - Authentication method: 	System-assigned managed identity
