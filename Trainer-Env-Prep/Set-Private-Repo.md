@@ -19,7 +19,7 @@ notepad .\.gitignore
 
 - Add origin of private git repo and push the code to private git repo
 ```
-git remote add gitlab-origin git@gitlab.com:atin-trainings/intellipaat-azure-data-engineer-may-oct-21.git
+git remote add gitlab-origin git@gitlab.com:atin-trainings/Terraform-on-Azure-with-Kubernetes-and-DevOps.git
 git push -u gitlab-origin master
 git add *
 git commit -am "-"
