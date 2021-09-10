@@ -123,7 +123,7 @@ Example: https://github.com/stacksimplify/azure-devops-aks-kubernetes-terraform-
 
 
 ## Step-05: Create New Azure DevOps Project for IAC
-- Go to -> Azure DevOps -> Select Organization -> aksdemo2 ->  Create New Project
+- Go to -\> Azure DevOps -> Select Organization -> aksdemo2 ->  Create New Project
 - Project Name: terraform-azure-aks
 - Project Descritpion: Provision Azure AKS Cluster using Azure DevOps & Terraform
 - Visibility: Private
