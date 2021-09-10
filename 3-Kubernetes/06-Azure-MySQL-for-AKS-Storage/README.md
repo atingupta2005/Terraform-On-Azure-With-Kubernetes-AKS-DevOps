@@ -31,8 +31,8 @@
 - It will take close to 15 minutes to create the database. 
 
 ## Step-03: Update Security Settings for Database
-- Go to **Azure Database for MySQL Servers** -> **akswebappdb**
-- **Settings -> Connection Security**
+- Go to **Azure Database for MySQL Servers** -\> **akswebappdb**
+- **Settings -\> Connection Security**
   - **Very Important**: Enable **Allow Access to Azure Services**
   - Update Firewall rules to allow from local desktop (Add current client IP Address)
   - **SSL Settings**: Disabled  
@@ -66,15 +66,15 @@ kubectl apply -f kube-manifests/01-MySQL-externalName-Service.yml
 ## Step-04:  Connect to RDS Database using kubectl and create usermgmt schema/db
 ```
 # Template
-kubectl run -it --rm --image=mysql:5.7.22 --restart=Never mysql-client -- mysql -h <AZURE-MYSQ-DB-HOSTNAME> -u <USER_NAME> -p<PASSWORD>
+kubectl run -it --rm --image=mysql:5.7.22 --restart=Never mysql-client -- mysql -h \<AZURE-MYSQ-DB-HOSTNAME\> -u \<USER_NAME\> -p\<PASSWORD\>
 
 # Replace Host Name of Azure MySQL Database and Username and Password
 kubectl run -it --rm --image=mysql:5.7.22 --restart=Never mysql-client -- mysql -h akswebappdb.mysql.database.azure.com -u dbadmin@akswebappdb -pRedhat1449
 
-mysql> show schemas;
-mysql> create database webappdb;
-mysql> show schemas;
-mysql> exit
+mysql\> show schemas;
+mysql\> create database webappdb;
+mysql\> show schemas;
+mysql\> exit
 ```
 ## Step-05: In User Management WebApp deployment file change username from `root` to `dbadmin@akswebappdb`
 - **02-UserMgmtWebApp-Deployment.yml**
@@ -85,7 +85,7 @@ mysql> exit
           - name: DB_PASSWORD
             value: "dbpassword11"               
 
-# Change To dbadmin@<YOUR-Azure-MYSQL-DB-NAME>
+# Change To dbadmin@\<YOUR-Azure-MYSQL-DB-NAME\>
             - name: DB_USERNAME
               value: "dbadmin@akswebappdb"            
             - name: DB_PASSWORD
@@ -102,7 +102,7 @@ kubectl apply -f kube-manifests/
 kubectl get pods
 
 # Stream pod logs to verify DB Connection is successful from SpringBoot Application
-kubectl logs -f <pod-name>
+kubectl logs -f \<pod-name\>
 ```
 ## Step-07: Access Application
 ```
@@ -110,7 +110,7 @@ kubectl logs -f <pod-name>
 kubectl get svc
 
 # Access Application
-http://<External-IP-from-get-service-output>
+http://\<External-IP-from-get-service-output\>
 Username: admin101
 Password: password101
 ```

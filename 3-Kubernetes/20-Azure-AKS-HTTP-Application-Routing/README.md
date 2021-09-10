@@ -18,8 +18,8 @@ description: Enable HTTP Application Routing AddOn to enable Ingress and Externa
 - To enable **HTTP Application Routing Add On** we have two options
 ### Option-1A: Using Azure Portal 
 - For existing clusters, enable HTTP Application Routing Add On using Azure Portal
-- Go to All Services -> Kubernetes Services -> aksdemo2
-- Go to Settings -> Networking 
+- Go to All Services -\> Kubernetes Services -\> aksdemo2
+- Go to Settings -\> Networking 
 - Enable HTTP application routing: Check the box 
 - Click on **SAVE**
 - Verify the same in AKS Cluster using kubectl
@@ -136,7 +136,7 @@ Result
 7b8803340f38495c8402.centralus.aksapp.io
 ```
 ### From Azure Portal
-- Go to All Services -> DNS Zones -> Get the DNS Zone Name
+- Go to All Services -\> DNS Zones -\> Get the DNS Zone Name
 ```
 # Example DNS Zone name
 7b8803340f38495c8402.centralus.aksapp.io
@@ -170,7 +170,7 @@ kubectl get pods
 kubectl get ingress
 
 # Verify new Recordset added in DNS Zones
-Go to Services -> DNS Zones -> 7b8803340f38495c8402.centralus.aksapp.io
+Go to Services -\> DNS Zones -\> 7b8803340f38495c8402.centralus.aksapp.io
 REFRESH to see DNS A and TXT records
 
 # nslookup test
@@ -191,12 +191,12 @@ kubectl -n kube-system logs -f $(kubectl -n kube-system get po | egrep -o 'addon
 kubectl delete -f  kube-manifests/
 
 # Verify Recordset added in DNS Zones got deleted
-Go to Services -> DNS Zones -> 7b8803340f38495c8402.centralus.aksapp.io
+Go to Services -\> DNS Zones -\> 7b8803340f38495c8402.centralus.aksapp.io
 REFRESH to see DNS A and TXT records for app1 got deleted
 ```
 ## Step-09: Disable HTTP Application Routing Add On
 ### Disable using Azure Portal
-- Go to All Services -> Kubernetes Services -> aksdemo2 -> Settings -> Networking
+- Go to All Services -\> Kubernetes Services -\> aksdemo2 -\> Settings -\> Networking
 - Enable HTTP application routing: Disable check box
 - Click on **SAVE**
 ```

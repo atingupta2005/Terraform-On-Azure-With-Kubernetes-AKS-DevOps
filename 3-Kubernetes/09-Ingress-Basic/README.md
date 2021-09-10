@@ -22,7 +22,7 @@
 az aks show --resource-group aks-rg1 --name aksdemo1 --query nodeResourceGroup -o tsv
 
 # TEMPLATE - Create a public IP address with the static allocation
-az network public-ip create --resource-group <REPLACE-OUTPUT-RG-FROM-PREVIOUS-COMMAND> --name myAKSPublicIPForIngress --sku Standard --allocation-method static --query publicIp.ipAddress -o tsv
+az network public-ip create --resource-group \<REPLACE-OUTPUT-RG-FROM-PREVIOUS-COMMAND\> --name myAKSPublicIPForIngress --sku Standard --allocation-method static --query publicIp.ipAddress -o tsv
 
 # REPLACE - Create Public IP: Replace Resource Group value
 az network public-ip create --resource-group MC_aks-rg1_aksdemo1_centralus --name myAKSPublicIPForIngress --sku Standard --allocation-method static --query publicIp.ipAddress -o tsv
@@ -77,13 +77,13 @@ kubectl get all -n ingress-basic
 
 
 # Access Public IP
-http://<Public-IP-created-for-Ingress>
+http://\<Public-IP-created-for-Ingress\>
 
 # Output should be
 404 Not Found from Nginx
 
 # Verify Load Balancer on Azure Mgmt Console
-Primarily refer Settings -> Frontend IP Configuration
+Primarily refer Settings -\> Frontend IP Configuration
 ```
 
 ## Step-04: Review Application k8s manifests
@@ -106,12 +106,12 @@ kubectl get svc
 kubectl get ingress
 
 # Access Application
-http://<Public-IP-created-for-Ingress>/app1/index.html
-http://<Public-IP-created-for-Ingress>
+http://\<Public-IP-created-for-Ingress\>/app1/index.html
+http://\<Public-IP-created-for-Ingress\>
 
 # Verify Ingress Controller Logs
 kubectl get pods -n ingress-basic
-kubectl logs -f <pod-name> -n ingress-basic
+kubectl logs -f \<pod-name\> -n ingress-basic
 ```
 
 ## Step-06: Clean-Up Apps

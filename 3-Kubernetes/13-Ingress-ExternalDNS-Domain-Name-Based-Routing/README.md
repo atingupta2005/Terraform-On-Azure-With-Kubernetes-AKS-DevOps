@@ -31,7 +31,7 @@ kubectl get ingress
 
 # Verify Ingress Controller Logs
 kubectl get pods -n ingress-basic
-kubectl logs -f <pod-name> -n ingress-basic
+kubectl logs -f \<pod-name\> -n ingress-basic
 
 # Verify External DNS pod to ensure record set got deleted
 kubectl logs -f $(kubectl get po | egrep -o 'external-dns[A-Za-z0-9-]+')
@@ -39,7 +39,7 @@ kubectl logs -f $(kubectl get po | egrep -o 'external-dns[A-Za-z0-9-]+')
 
 # Verify Record set got automatically deleted in DNS Zones
 # Template Command
-az network dns record-set a list -g <Resource-Group-dnz-zones> -z <yourdomain.com>
+az network dns record-set a list -g \<Resource-Group-dnz-zones\> -z \<yourdomain.com\>
 
 # Replace DNS Zones Resource Group and yourdomain
 az network dns record-set a list -g dns-zones -z kubeoncloud.com
@@ -67,7 +67,7 @@ kubectl delete -R -f kube-manifests/
 
 # Verify Record set got automatically deleted in DNS Zones
 # Template Command
-az network dns record-set a list -g <Resource-Group-dnz-zones> -z <yourdomain.com>
+az network dns record-set a list -g \<Resource-Group-dnz-zones\> -z \<yourdomain.com\>
 
 # Replace DNS Zones Resource Group and yourdomain
 az network dns record-set a list -g dns-zones -z kubeoncloud.com

@@ -41,7 +41,7 @@ server {
     server_name  localhost;
     location / {
     # Update your backend application Kubernetes Cluster-IP Service name  and port below      
-    # proxy_pass http://<Backend-ClusterIp-Service-Name>:<Port>;      
+    # proxy_pass http://\<Backend-ClusterIp-Service-Name\>:\<Port\>;      
     proxy_pass http://my-backend-service:8080;
     }
     error_page   500 502 503 504  /50x.html;
@@ -63,11 +63,11 @@ kubectl get svc
 
 # Get Load Balancer IP
 kubectl get svc
-http://<External-IP-from-get-service-output>/hello
+http://\<External-IP-from-get-service-output\>/hello
 
 # Scale backend with 10 replicas
 kubectl scale --replicas=10 deployment/my-backend-rest-app
 
 # Test again to view the backend service Load Balancing
-http://<External-IP-from-get-service-output>/hello
+http://\<External-IP-from-get-service-output\>/hello
 ```

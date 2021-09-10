@@ -52,14 +52,14 @@ kubectl get sc, pvc, pv
 
 # Verify Pod
 kubectl get pods
-kubectl describe pod <pod-name>
+kubectl describe pod \<pod-name\>
 
 # Get Load Balancer Public IP
 kubectl get svc
 
 # Access Application
-http://<External-IP-from-get-service-output>
-http://<External-IP-from-get-service-output>/app1/index.html
+http://\<External-IP-from-get-service-output\>
+http://\<External-IP-from-get-service-output\>/app1/index.html
 ```
 
 ## Step-04: Upload Nginx Files to Azure File Share
@@ -74,8 +74,8 @@ http://<External-IP-from-get-service-output>/app1/index.html
 ## Step-05: Access Application & Test
 ```
 # URLs
-http://<External-IP-from-get-service-output>/app1/file1.html
-http://<External-IP-from-get-service-output>/app1/file2.html
+http://\<External-IP-from-get-service-output\>/app1/file1.html
+http://\<External-IP-from-get-service-output\>/app1/file2.html
 ```  
 
 ## Step-06: Clean-Up
@@ -104,13 +104,13 @@ kubectl get sc, pvc, pv
 
 # Verify Pod
 kubectl get pods
-kubectl describe pod <pod-name>
+kubectl describe pod \<pod-name\>
 
 # Get Load Balancer Public IP
 kubectl get svc
 
 # Access Application
-http://<External-IP-from-get-service-output>
+http://\<External-IP-from-get-service-output\>
 ```
 
 ## Step-09: Upload Nginx Files to Azure File Share
@@ -125,8 +125,8 @@ http://<External-IP-from-get-service-output>
 ## Step-10: Access Application & Test
 ```
 # URLs
-http://<External-IP-from-get-service-output>/app1/file1.html
-http://<External-IP-from-get-service-output>/app1/file2.html
+http://\<External-IP-from-get-service-output\>/app1/file1.html
+http://\<External-IP-from-get-service-output\>/app1/file2.html
 ```  
 
 ## Step-11: Clean-Up

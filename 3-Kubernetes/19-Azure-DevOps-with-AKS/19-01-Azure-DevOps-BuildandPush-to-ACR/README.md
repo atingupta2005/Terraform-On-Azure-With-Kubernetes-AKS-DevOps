@@ -37,7 +37,7 @@ cd azure-devops-github-acr-aks-app1
 git init
 
 # Do local Commit
-echo "# Azure DevOps App1 Demo with AKS, Github and ACR" >> README.md
+echo "# Azure DevOps App1 Demo with AKS, Github and ACR" \>\> README.md
 git add .
 git commit -am "V1 Base Commit"
 
@@ -57,7 +57,7 @@ https://github.com/stacksimplify/azure-devops-github-acr-aks-app1
 - index.html
 
 ## Step-04: Create Azure Container Registry ACR
-- Go to Services -> Container Registries
+- Go to Services -\> Container Registries
 - Click on **Add**
 - Subscription: StackSimplify-Paid-Subsciption
 - Resource Group: acr-rg1
@@ -84,8 +84,8 @@ https://github.com/stacksimplify/azure-devops-github-acr-aks-app1
   - Work Item Process: Basic
 
 ## Step-07: Create Basic Build Pipeline
-- Create Folder -> App1-Pipelines
-- Go to Pipelines -> Create New Pipeline
+- Create Folder -\> App1-Pipelines
+- Go to Pipelines -\> Create New Pipeline
 - Where is your Code?: Github  
 - Select Repository: azure-devops-github-acr-aks-app1
   - Provide Github Password
@@ -108,7 +108,7 @@ https://github.com/stacksimplify/azure-devops-github-acr-aks-app1
 - Review Image in ACR
 
 ## Step-09: Rename Pipeline Name
-- Click on Pipeline -> Rename/Move
+- Click on Pipeline -\> Rename/Move
 - Name: 01-Docker-Build-and-Push-to-ACR
 
 ## Step-10: Make changes to index.html and push changes to git repo - V2 Commit
@@ -129,7 +129,7 @@ git push
 - Verify ACR Image
 
 ## Step-12: Add Namespace for Docker Images stored in ACR
-- Go to Pipeline -> 01-Docker-Build-and-Push-to-ACR -> Edit
+- Go to Pipeline -\> 01-Docker-Build-and-Push-to-ACR -\> Edit
 - Update the below and Save
 ```yaml
 # Before
@@ -159,10 +159,10 @@ git push
 - Verify ACR Image
 
 ## Step-14: Disable Pipeline
-- Go to Pipeline -> 01-Docker-Build-and-Push-to-ACR -> Settings -> Disable
+- Go to Pipeline -\> 01-Docker-Build-and-Push-to-ACR -\> Settings -\> Disable
 
 ## Step-15: Review Pipeline code
-- Click on Pipeline -> Edit Pipeline
+- Click on Pipeline -\> Edit Pipeline
 - Review pipeline code
 - Review Service Connections
 ```yaml

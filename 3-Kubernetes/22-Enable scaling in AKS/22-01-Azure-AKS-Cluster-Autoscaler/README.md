@@ -45,13 +45,13 @@ kubectl config current-context
 
 ## Step-03: Compare & Observe aksdemo2 and aks-autoscaling-demo cluster nodepools
 ### Cluster: aksdemo2
-- Go to All Services -> Kubernetes Services -> aksdemo2 -> Settings -> Nodepools 
+- Go to All Services -\> Kubernetes Services -\> aksdemo2 -\> Settings -\> Nodepools 
 - Select Scale
 - Compare the setting with aks-autoscaling-demo cluster
 - Scale Method: Manual (Observe the setting)
 - We can even enable autoscaling from here on Portal Management console 
 ### Cluster: aks-autoscaling-demo
-- Go to All Services -> Kubernetes Services -> aksdemo2 -> Settings -> Nodepools 
+- Go to All Services -\> Kubernetes Services -\> aksdemo2 -\> Settings -\> Nodepools 
 - Select Scale
 - Scale Method: Automatic (Nothing but --enable-cluster-autoscaler)
 - Node Count Rage: 1 to 5 (Nothing but what we defined in Min and Max)
@@ -67,7 +67,7 @@ kubectl get pods
 
 # Access Application
 kubectl get svc
-http://<PublicIP-from-get-svc-output>/hello
+http://\<PublicIP-from-get-svc-output\>/hello
 curl -w "\n" http://52.154.217.196/hello
 ```
 
@@ -86,7 +86,7 @@ kubectl get nodes -o wide
 
 # Access Application
 kubectl get svc
-http://<PublicIP-from-get-svc-output>/hello
+http://\<PublicIP-from-get-svc-output\>/hello
 curl -w "\n" http://52.154.217.196/hello
 ```
 ## Step-06: Cluster Scale DOWN: Scale our application to 1 pod

@@ -29,19 +29,19 @@ kubectl get ingress
 
 # Verify Ingress Controller Logs
 kubectl get pods -n ingress-basic
-kubectl logs -f <pod-name> -n ingress-basic
+kubectl logs -f \<pod-name\> -n ingress-basic
 ```
 
 ## Step-05: Access Applications
 ```
 # Access App1
-http://<Public-IP-created-for-Ingress>/app1/index.html
+http://\<Public-IP-created-for-Ingress\>/app1/index.html
 
 # Access App2
-http://<Public-IP-created-for-Ingress>/app2/index.html
+http://\<Public-IP-created-for-Ingress\>/app2/index.html
 
 # Access Usermgmt Web App
-http://<Public-IP-created-for-Ingress>
+http://\<Public-IP-created-for-Ingress\>
 Username: admin101
 Password: password101
 
@@ -53,7 +53,7 @@ Password: password101
 kubectl delete -f kube-manifests/
 
 # Delete Azure Disk created for Usermgmt Web App
-Go to All Services -> Azure Disks -> Delete disk
+Go to All Services -\> Azure Disks -\> Delete disk
 ```
 
 ## Ingress Annotation Reference

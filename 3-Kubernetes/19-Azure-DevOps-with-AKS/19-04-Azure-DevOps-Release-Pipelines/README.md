@@ -32,7 +32,7 @@ kubectl get ns
 
 ## Step-03: Create Service Connections for Dev, QA, Staging and Prod Namespaces in Kubernetes Cluster
 ### Dev Service Connection
-- Go to Project -> azure-devops-github-acr-aks-app1 -> Project Settings -> Pipelines -> Service Connections
+- Go to Project -\> azure-devops-github-acr-aks-app1 -\> Project Settings -\> Pipelines -\> Service Connections
 - Click on **New Service Connection**
 - Choose a service or connection type: kubernetes
 - Authentication Method: Azure Subscription
@@ -46,7 +46,7 @@ kubectl get ns
 - Click on **SAVE** 
 
 ### QA Service Connection
-- Go to Project -> azure-devops-github-acr-aks-app1 -> Project Settings -> Pipelines -> Service Connections
+- Go to Project -\> azure-devops-github-acr-aks-app1 -\> Project Settings -\> Pipelines -\> Service Connections
 - Click on **New Service Connection**
 - Choose a service or connection type: kubernetes
 - Authentication Method: Azure Subscription
@@ -60,7 +60,7 @@ kubectl get ns
 - Click on **SAVE** 
 
 ### Staging Service Connection
-- Go to Project -> azure-devops-github-acr-aks-app1 -> Project Settings -> Pipelines -> Service Connections
+- Go to Project -\> azure-devops-github-acr-aks-app1 -\> Project Settings -\> Pipelines -\> Service Connections
 - Click on **New Service Connection**
 - Choose a service or connection type: kubernetes
 - Authentication Method: Azure Subscription
@@ -75,7 +75,7 @@ kubectl get ns
 
 
 ### Production Service Connection
-- Go to Project -> azure-devops-github-acr-aks-app1 -> Project Settings -> Pipelines -> Service Connections
+- Go to Project -\> azure-devops-github-acr-aks-app1 -\> Project Settings -\> Pipelines -\> Service Connections
 - Click on **New Service Connection**
 - Choose a service or connection type: kubernetes
 - Authentication Method: Azure Subscription
@@ -104,7 +104,7 @@ kubectl get ns
 
 
 ## Step-05: Release Pipeline - Create Dev Stage
-- Go to Pipelines -> Releases
+- Go to Pipelines -\> Releases
 - Create new **Release Pipeline**
 ### Create Dev Stage and Test
 - Stage Name: Dev
@@ -166,11 +166,11 @@ git push
 kubectl get svc -n dev
 
 # Access Application
-http://<Public-IP-from-Get-Service-Output>
+http://\<Public-IP-from-Get-Service-Output\>
 ```
 
 ## Step-08: Update Deploy to AKS Task with Build.SourceVersion in Release Pipelines
-- Go to Release Pipelines -> 01-app1-release-pipeline -> Edit -> Dev Tasks
+- Go to Release Pipelines -\> 01-app1-release-pipeline -\> Edit -\> Dev Tasks
 - Go to **Deploy to AKS** Task
 - Replace
 ```
@@ -199,7 +199,7 @@ git push
 kubectl get svc -n dev
 
 # Access Application
-http://<Public-IP-from-Get-Service-Output>
+http://\<Public-IP-from-Get-Service-Output\>
 ```
 - Verify Github Commit Id on Github Repository and Container Registry
 
@@ -209,8 +209,8 @@ http://<Public-IP-from-Get-Service-Output>
 - Click on **SAVE** to save release
 
 ### Clone Dev Stage to Create QA Stage
-- Go to Releases -> 01-app1-release-pipeline -> Edit
-- Select **Dev Stage** -> Add -> **Clone Stage**
+- Go to Releases -\> 01-app1-release-pipeline -\> Edit
+- Select **Dev Stage** -\> Add -\> **Clone Stage**
 - Stage Name: QA
 #### Task-1: Create Secret
 - Kubernetes service connection: qa-ns-k8s-aks-svc-conn
@@ -248,7 +248,7 @@ kubectl get svc -n prod
 kubect get svc --all-namespaces
 
 # Access Application
-http://<Public-IP-from-Get-Service-Output>
+http://\<Public-IP-from-Get-Service-Output\>
 ```
 
 ## Step-12: Clean-Up Apps

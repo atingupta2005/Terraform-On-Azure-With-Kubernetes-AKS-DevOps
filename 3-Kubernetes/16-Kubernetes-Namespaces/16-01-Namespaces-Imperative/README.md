@@ -36,7 +36,7 @@ kubectl get nodes -o wide
 kubectl get ns 
 
 # Craete Namespace
-kubectl create namespace <namespace-name>
+kubectl create namespace \<namespace-name\>
 kubectl create namespace dev1
 kubectl create namespace dev2
 
@@ -64,7 +64,7 @@ kubectl get all -n dev2
 kubectl get svc
 
 # Access Application
-http://<Public-IP-from-List-Services-Output>/app1/index.html
+http://\<Public-IP-from-List-Services-Output\>/app1/index.html
 ```
 
 ### Dev1 Namespace
@@ -73,7 +73,7 @@ http://<Public-IP-from-List-Services-Output>/app1/index.html
 kubectl get svc -n dev1
 
 # Access Application
-http://<Public-IP-from-List-Services-Output>/app1/index.html
+http://\<Public-IP-from-List-Services-Output\>/app1/index.html
 ```
 ### Dev2 Namespace
 ```
@@ -81,7 +81,7 @@ http://<Public-IP-from-List-Services-Output>/app1/index.html
 kubectl get svc -n dev2
 
 # Access Application
-http://<Public-IP-from-List-Services-Output>/app1/index.html
+http://\<Public-IP-from-List-Services-Output\>/app1/index.html
 ```
 ## Step-05: Clean-Up
 ```

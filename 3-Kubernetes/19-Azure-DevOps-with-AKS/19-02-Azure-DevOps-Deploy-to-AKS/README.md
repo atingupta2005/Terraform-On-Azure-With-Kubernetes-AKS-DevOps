@@ -21,7 +21,7 @@ kubectl get nodes -o wide
 [![Image](https://www.stacksimplify.com/course-images/azure-devops-pipelines-deploy-to-aks.png "Azure AKS Kubernetes - Masterclass")](https://www.stacksimplify.com/course-images/azure-devops-pipelines-deploy-to-aks.png)
 
 ## Step-02: Create Pipeline for Deploy to AKS
-- Go to Pipleines -> Create new Pipleine
+- Go to Pipleines -\> Create new Pipleine
 - Where is your code?: Github
 - Select a Repository: "select your repo" (stacksimplify/azure-devops-github-acr-aks-app1)
 - Configure your pipeline: Deploy to Azure Kubernetes Service
@@ -47,7 +47,7 @@ kubectl get nodes -o wide
 
 
 ## Step-04: Verify Build and Deploy pipeline logs
-- Go to Pipeline -> Verify logs
+- Go to Pipeline -\> Verify logs
 ```
 # Verify Pods
 kubectl get pods
@@ -56,15 +56,15 @@ kubectl get pods
 kubectl get svc
 
 # Access Application
-http://<Public-IP-from-Get-Service-Output>
+http://\<Public-IP-from-Get-Service-Output\>
 ```
 
  ## Step-05: Rename Pipeline Name
-- Go to pipeline -> Rename / Move
+- Go to pipeline -\> Rename / Move
 - Name: 02-Docker-BuildPushToACR-DeployToAKSCluster
 - Folder: App1-Pipelines
 - Refresh till changes reflect
-- Verify -> Pipelines -> Click on **All** tab
+- Verify -\> Pipelines -\> Click on **All** tab
 
 ## Step-06: Make Changes to index.html and Verify
 ```
@@ -90,16 +90,16 @@ kubectl get pods
 kubectl get svc
 
 # Access Application
-http://<Public-IP-from-Get-Service-Output>
+http://\<Public-IP-from-Get-Service-Output\>
 
 ``` 
 
 ## Step-07: Disable Pipeline
-- Go to Pipeline -> 02-Docker-BuildPushToACR-DeployToAKSCluster -> Settings -> Disable
+- Go to Pipeline -\> 02-Docker-BuildPushToACR-DeployToAKSCluster -\> Settings -\> Disable
 
 
 ## Step-08: Review Pipeline code
-- Click on Pipeline -> Edit Pipeline
+- Click on Pipeline -\> Edit Pipeline
 - Review pipeline code
 - Review Service Connections
  ```yaml

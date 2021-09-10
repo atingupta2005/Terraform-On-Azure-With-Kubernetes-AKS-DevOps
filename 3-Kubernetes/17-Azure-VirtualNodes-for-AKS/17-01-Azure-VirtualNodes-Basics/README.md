@@ -93,7 +93,7 @@ kubectl get pods -o wide
 kubectl get svc
 
 # Access Application
-http://<Public-ip-captured-from-get-service>
+http://\<Public-ip-captured-from-get-service\>
 ```
 
 ## Step-06: Scale the Deployment 

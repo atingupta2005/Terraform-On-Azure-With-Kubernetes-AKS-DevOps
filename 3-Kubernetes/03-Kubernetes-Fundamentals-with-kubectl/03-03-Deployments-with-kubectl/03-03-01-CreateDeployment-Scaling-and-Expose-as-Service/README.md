@@ -13,7 +13,7 @@
 - **Docker Image Location:** https://hub.docker.com/repository/docker/stacksimplify/kubenginx
 ```
 # Create Deployment
-kubectl create deployment <Deplyment-Name> --image=<Container-Image>
+kubectl create deployment \<Deplyment-Name\> --image=\<Container-Image\>
 kubectl create deployment my-first-deployment --image=stacksimplify/kubenginx:1.0.0
 
 # Verify Deployment
@@ -21,7 +21,7 @@ kubectl get deployments
 kubectl get deploy
 
 # Describe Deployment
-kubectl describe deployment <deployment-name>
+kubectl describe deployment \<deployment-name\>
 kubectl describe deployment my-first-deployment
 
 # Verify ReplicaSet
@@ -34,7 +34,7 @@ kubectl get po
 - Scale the deployment to increase the number of replicas (pods)
 ```
 # Scale Up the Deployment
-kubectl scale --replicas=10 deployment/<Deployment-Name>
+kubectl scale --replicas=10 deployment/\<Deployment-Name\>
 kubectl scale --replicas=10 deployment/my-first-deployment
 
 # Verify Deployment
@@ -55,7 +55,7 @@ kubectl get deploy
 - Expose **Deployment** with a service (LoadBalancer Service) to access the application externally (from internet)
 ```
 # Expose Deployment as a Service
-kubectl expose deployment <Deployment-Name>  --type=LoadBalancer --port=80 --target-port=80 --name=<Service-Name-To-Be-Created>
+kubectl expose deployment \<Deployment-Name\>  --type=LoadBalancer --port=80 --target-port=80 --name=\<Service-Name-To-Be-Created\>
 kubectl expose deployment my-first-deployment --type=LoadBalancer --port=80 --target-port=80 --name=my-first-deployment-service
 
 # Get Service Info
@@ -64,5 +64,5 @@ kubectl get svc
 ```
 - **Access the Application using Public IP**
 ```
-http://<External-IP-from-get-service-output>
+http://\<External-IP-from-get-service-output\>
 ```

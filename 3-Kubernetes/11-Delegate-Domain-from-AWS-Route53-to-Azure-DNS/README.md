@@ -10,7 +10,7 @@
 
 
 ## Step-02: DNS Zones - Create DNS Zone
-- Go to Service -> **DNS Zones**
+- Go to Service -\> **DNS Zones**
 - **Subscription:** StackSimplify-Paid-Subscription (You need to have a paid subscription for this)
 - **Resource Group:** dns-zones
 - **Name:** kubeoncloud.com
@@ -18,7 +18,7 @@
 - Click on **Review + Create**
 
 ## Step-03: Make a note of Azure Nameservers
-- Go to Services -> **DNS Zones** -> **kubeoncloud.com**
+- Go to Services -\> **DNS Zones** -\> **kubeoncloud.com**
 - Make a note of Nameservers
 ```
 ns1-04.azure-dns.com.
@@ -34,7 +34,7 @@ nslookup -type=SOA kubeoncloud.com
 nslookup -type=NS kubeoncloud.com
 ```
 - Go to AWS Route53 (This is my Domain Provider)
-- Go to Services -> Route53 -> Registered Domains -> kubeoncloud.com
+- Go to Services -\> Route53 -\> Registered Domains -\> kubeoncloud.com
 - Click on **Add or edit name servers**
 - Update Azure Name servers here and click on **Update**
 - Click on **Hosted Zones**

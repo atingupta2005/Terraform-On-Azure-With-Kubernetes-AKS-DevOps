@@ -2,7 +2,7 @@
 
 ## Step-01: Introduction
 - Create Azure DevOps Pipeline to create AKS cluster using Terraform
-- We are going to create two environments Dev and QA using single pipeline. 
+- We are going to create two environments Dev and QA using single pipeline.
 - Terraform Manifests Validate
 - Provision Dev AKS Cluster
 - Provision QA AKS Cluster
@@ -21,7 +21,7 @@
 
 ### 02-variables.tf
 - Two variables we will define in Azure DevOps and use it
-  - Environment 
+  - Environment
   - SSH Public Key
 - Just comment the default values here (ideally not needed but we will do that)  
 
@@ -32,11 +32,11 @@
   - terraform-aks-qa
 
 ### 04-aks-versions-datasource.tf
-- We will get the latest version of AKS using this datasource. 
+- We will get the latest version of AKS using this datasource.
 - `include_preview = false` will ensure that preview versions are not listed
 
 ### 05-log-analytics-workspace.tf
-- Log Analytics workspace will be created per environment. 
+- Log Analytics workspace will be created per environment.
 - Example Name:
   - dev-logs-some-random-petname
   - qa-logs-some-random-petname
@@ -44,7 +44,7 @@
 ### 06-aks-administrators-azure-ad.tf
 - We are going to create Azure AD Group per environment for AKS Admins
 - To create this group we need to ensure Azure AD Directory Write permission is there for our Service Principal (Service Connection) created in Azure DevOps
-- We will see that in detail in upcoming steps. 
+- We will see that in detail in upcoming steps.
 - VERY VERY IMPORTANT FIX TO MAKE THIS WORK
 
 ### 07-aks-cluster.tf
@@ -56,11 +56,11 @@
 
 ### 08-outputs.tf  
 - We will put out output values very simple
-- Resource Group 
+- Resource Group
   - Location
   - Name
   - ID
-- AKS Cluster 
+- AKS Cluster
   - AKS Versions
   - AKS Latest Version
   - AKS Cluster ID
@@ -69,7 +69,7 @@
 - AD Group
   - ID
   - Object ID
- 
+
  ### 09-aks-cluster-linux-user-nodepools.tf
  - We will comment this file and leave it that way.
  - If you need to provision the new nodepool , uncomment all lines except first line and check-in code and new nodepool will be created
@@ -114,7 +114,7 @@ git commit -am "First Commit"
 
 # Add Remote Origin and Push to Remote Repo
 git remote add origin https://github.com/stacksimplify/azure-devops-aks-kubernetes-terraform-pipeline.git
-git push --set-upstream origin master 
+git push --set-upstream origin master
 
 # Verify the same on Github Repository
 Refersh browser for Repo you have created
@@ -123,7 +123,7 @@ Example: https://github.com/stacksimplify/azure-devops-aks-kubernetes-terraform-
 
 
 ## Step-05: Create New Azure DevOps Project for IAC
-- Go to -> Azure DevOps -> Select Organization -> aksdemo2 ->  Create New Project
+- Go to -\> Azure DevOps -\> Select Organization -\> aksdemo2 -\>  Create New Project
 - Project Name: terraform-azure-aks
 - Project Descritpion: Provision Azure AKS Cluster using Azure DevOps & Terraform
 - Visibility: Private
@@ -131,10 +131,10 @@ Example: https://github.com/stacksimplify/azure-devops-aks-kubernetes-terraform-
 
 ## Step-07: Create Azure RM Service Connection for Terraform Commands
 - This is a pre-requisite step required during Azure Pipelines
-- We can create from Azure Pipelines -> Terraform commands screen but just to be in a orderly manner we are creating early.
-- Go to -> Azure DevOps -> Select Organization -> Select project **terraform-azure-aks**
+- We can create from Azure Pipelines -\> Terraform commands screen but just to be in a orderly manner we are creating early.
+- Go to -\> Azure DevOps -\> Select Organization -\> Select project **terraform-azure-aks**
 - Go to **Project Settings**
-- Go to Pipelines -> Service Connections -> Create Service Connection
+- Go to Pipelines -\> Service Connections -\> Create Service Connection
 - Choose a Service Connection type: Azure Resource Manager
 - Authentication Method: Service Princiapl (automatic)
 - Scope Level: Subscription
@@ -148,10 +148,10 @@ Example: https://github.com/stacksimplify/azure-devops-aks-kubernetes-terraform-
 
 ## Step-08: VERY IMPORTANT FIX: Provide Permission to create Azure AD Groups
 - Provide permission for Service connection created in previous step to create Azure AD Groups
-- Go to -> Azure DevOps -> Select Organization -> Select project **terraform-azure-aks**
-- Go to **Project Settings** -> Pipelines -> Service Connections 
+- Go to -\> Azure DevOps -\> Select Organization -\> Select project **terraform-azure-aks**
+- Go to **Project Settings** -\> Pipelines -\> Service Connections
 - Open **terraform-aks-azurerm-svc-con**
-- Click on **Manage Service Principal**, new tab will be opened 
+- Click on **Manage Service Principal**, new tab will be opened
 - Click on **View API Permissions**
 - Click on **Add Permission**
 - Select an API: Microsoft APIs
@@ -163,7 +163,7 @@ Example: https://github.com/stacksimplify/azure-devops-aks-kubernetes-terraform-
 
 
 ## Step-09: Create SSH Public Key for Linux VMs
-- Create this out of your git repository 
+- Create this out of your git repository
 - **Important Note:**  We should not have these files in our git repos for security Reasons
 ```
 # Create Folder
@@ -186,15 +186,15 @@ Public File: aks-terraform-devops-ssh-key-ububtu.pub (To be uploaded to Azure De
 ```
 
 ## Step-10: Upload file to Azure DevOps as Secure File
-- Go to Azure DevOps -> aksdemo2 -> terraform-azure-aks -> Pipelines -> Library
-- Secure File -> Upload file named **aks-terraform-devops-ssh-key-ububtu.pub**
-- Open the file and click on **Pipeline permissions -> Authorize for use in all pipelines**
+- Go to Azure DevOps -\> aksdemo2 -\> terraform-azure-aks -\> Pipelines -\> Library
+- Secure File -\> Upload file named **aks-terraform-devops-ssh-key-ububtu.pub**
+- Open the file and click on **Pipeline permissions -\> Authorize for use in all pipelines**
 - Click on **SAVE**
 
 
 ## Step-11: Create Azure Pipeline to Provision AKS Cluster
-- Go to -> Azure DevOps -> Select Organization -> Select project **terraform-azure-aks**
-- Go to Pipelines -> Pipelines -> Create Pipeline
+- Go to -\> Azure DevOps -\> Select Organization -\> Select project **terraform-azure-aks**
+- Go to Pipelines -\> Pipelines -\> Create Pipeline
 ### Where is your Code?
 - Github
 - Select a Repository: stacksimplify/azure-devops-aks-kubernetes-terraform-pipeline
@@ -288,9 +288,9 @@ stages:
 # Define Variables
 variables:
 - name: DEV_ENVIRONMENT
-  value: dev 
+  value: dev
 - name: QA_ENVIRONMENT
-  value: qa 
+  value: qa
 # Stage-2: Deploy Stages for Dev & QA
 # Deployment-1: Deploy Dev AKS Cluster
 ## Step-1: Define Variables for environments
@@ -352,7 +352,7 @@ variables:
 - Click on **Job** and Verify Pipeline
 
 
-## Step-13: Verify all the resources created 
+## Step-13: Verify all the resources created
 ### Verify Pipeline logs
 - Verify Pipeline logs for all the tasks
 
@@ -363,7 +363,7 @@ variables:
 - Verify tfstate file got created in storage container
 
 ### Verify new AKS Cluster in Azure Mgmt Console
-- Verify Resource Group 
+- Verify Resource Group
 - Verify AKS Cluster
 - Verify AD Group
 - Verify Tags for a nodepool
@@ -371,7 +371,7 @@ variables:
 ### Connect to AKS Cluster
 ```
 # Setup kubeconfig
-az aks get-credentials --resource-group <Resource-Group-Name>  --name <AKS-Cluster-Name>
+az aks get-credentials --resource-group \<Resource-Group-Name\>  --name \<AKS-Cluster-Name\>
 az aks get-credentials --resource-group terraform-aks-dev  --name terraform-aks-dev-cluster --admin
 
 # View Cluster Info
@@ -388,7 +388,7 @@ kubectl get nodes
 # Deployment-2: Deploy QA AKS Cluster
 ## Step-1: Download Secure File
 ## Step-2: Terraform Initialize (State Storage to store in Azure Storage Account)
-## Step-3: Terraform Plan 
+## Step-3: Terraform Plan
 ## Step-4: Terraform Apply
 
     - deployment: DeployQAAKSCluster
@@ -443,7 +443,7 @@ kubectl get nodes
 - Commit Message: Third Commit - QA AKS Cluster Provision via terraform
 - Click on **Job** and Verify Pipeline
 
-## Step-15: Verify all the resources created 
+## Step-15: Verify all the resources created
 ### Verify Pipeline logs
 - Verify Pipeline logs for all the tasks
 
@@ -454,7 +454,7 @@ kubectl get nodes
 - Verify tfstate file got created in storage container
 
 ### Verify new AKS Cluster in Azure Mgmt Console
-- Verify Resource Group 
+- Verify Resource Group
 - Verify AKS Cluster
 - Verify AD Group
 - Verify Tags for a nodepool
@@ -462,7 +462,7 @@ kubectl get nodes
 ### Connect to AKS Cluster
 ```
 # Setup kubeconfig
-az aks get-credentials --resource-group <Resource-Group-Name>  --name <AKS-Cluster-Name>
+az aks get-credentials --resource-group \<Resource-Group-Name\>  --name \<AKS-Cluster-Name\>
 az aks get-credentials --resource-group terraform-aks-qa  --name terraform-aks-qa-cluster --admin
 
 # View Cluster Info
@@ -501,11 +501,11 @@ resource "azurerm_kubernetes_cluster_node_pool" "linux102" {
     "nodepool-type" = "user"
     "environment"   = var.environment
     "nodepoolos"    = "linux"
-    "ui-app"        = "reactjs-apps" 
+    "ui-app"        = "reactjs-apps"
   }
 }
 ```
-- Commit Code 
+- Commit Code
 ```
 # First sync Remote repo with local repo
 git pull
@@ -523,7 +523,7 @@ git push
 az aks nodepool list --cluster-name terraform-aks-dev-cluster --resource-group terraform-aks-dev -o table
 
 # Setup kubeconfig
-az aks get-credentials --resource-group <Resource-Group-Name>  --name <AKS-Cluster-Name>
+az aks get-credentials --resource-group \<Resource-Group-Name\>  --name \<AKS-Cluster-Name\>
 az aks get-credentials --resource-group terraform-aks-dev  --name terraform-aks-dev-cluster --admin
 
 # View Cluster Info
@@ -540,7 +540,7 @@ kubectl get nodes
 az aks nodepool list --cluster-name terraform-aks-qa-cluster --resource-group terraform-aks-qa -o table
 
 # Setup kubeconfig
-az aks get-credentials --resource-group <Resource-Group-Name>  --name <AKS-Cluster-Name>
+az aks get-credentials --resource-group \<Resource-Group-Name\>  --name \<AKS-Cluster-Name\>
 az aks get-credentials --resource-group terraform-aks-qa  --name terraform-aks-qa-cluster --admin
 
 
@@ -561,5 +561,3 @@ kubectl get nodes
 ## References
 - [Publish & Download Artifacts in Azure DevOps Pipeline](https://docs.microsoft.com/en-us/azure/devops/pipelines/artifacts/pipeline-artifacts?view=azure-devops&tabs=yaml)
 - [Azure Pipelines - Deployment Jobs](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/deployment-jobs?view=azure-devops)
-
-

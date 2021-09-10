@@ -35,7 +35,7 @@ kubectl get all
 kubectl get svc
 
 # Access REST Application 
-http://<Load-Balancer-Service-IP>/hello
+http://\<Load-Balancer-Service-IP\>/hello
 ```
 
 ## Step-04: Delete & Recreate Objects using kubectl apply

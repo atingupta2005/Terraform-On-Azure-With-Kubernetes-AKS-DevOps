@@ -17,14 +17,14 @@ kubectl get rs
 Observation: Make a note of number of replicaSets present.
 
 # Access the Application
-http://<External-IP-from-get-service-output>
+http://\<External-IP-from-get-service-output\>
 Observation: Make a note of application version
 ```
 
 ### Pause Deployment and Two Changes
 ```
 # Pause the Deployment
-kubectl rollout pause deployment/<Deployment-Name>
+kubectl rollout pause deployment/\<Deployment-Name\>
 kubectl rollout pause deployment/my-first-deployment
 
 # Update Deployment - Application Version from V3 to V4
@@ -60,7 +60,7 @@ kubectl get svc
 ### Access Application
 ```
 # Access the Application
-http://<External-IP-from-get-service-output>
+http://\<External-IP-from-get-service-output\>
 Observation: You should see Application V4 version
 ```
 

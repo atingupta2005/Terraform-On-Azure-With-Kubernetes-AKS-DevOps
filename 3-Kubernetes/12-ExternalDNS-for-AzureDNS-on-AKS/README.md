@@ -108,7 +108,7 @@ spec:
 ## Step-03: Create MSI - Managed Service Identity for External DNS to access Azure DNS Zones
 
 ### Create Manged Service Identity (MSI)
-- Go to All Services -> Managed Identities -> Add
+- Go to All Services -\> Managed Identities -\> Add
 - Resource Name: aksdemo1-externaldns-access-to-dnszones
 - Subscription: Pay-as-you-go
 - Resource group: aks-rg1
@@ -116,23 +116,23 @@ spec:
 - Click on **Create**
 
 ### Add Azure Role Assignment in MSI
-- Opem MSI -> aksdemo1-externaldns-access-to-dnszones 
-- Click on **Azure Role Assignments** -> **Add role assignment**
+- Opem MSI -\> aksdemo1-externaldns-access-to-dnszones 
+- Click on **Azure Role Assignments** -\> **Add role assignment**
 - Scope: Resource group
 - Subscription: Pay-as-you-go
 - Resource group: dns-zones
 - Role: Contributor
 
 ### Make a note of Client Id and update in azure.json
-- Go to **Overview** -> Make a note of **Client ID"
+- Go to **Overview** -\> Make a note of **Client ID"
 - Update in **azure.json** value for **userAssignedIdentityID**
 ```
   "userAssignedIdentityID": "de836e14-b1ba-467b-aec2-93f31c027ab7"
 ```
 
 ## Step-04: Associate MSI in AKS Cluster VMSS
-- Go to All Services -> Virtual Machine Scale Sets (VMSS) -> Open aksdemo1 related VMSS (aks-agentpool-27193923-vmss)
-- Go to Settings -> Identity -> User assigned -> Add -> aksdemo1-externaldns-access-to-dnszones 
+- Go to All Services -\> Virtual Machine Scale Sets (VMSS) -\> Open aksdemo1 related VMSS (aks-agentpool-27193923-vmss)
+- Go to Settings -\> Identity -\> User assigned -\> Add -\> aksdemo1-externaldns-access-to-dnszones 
 
 
 
@@ -192,12 +192,12 @@ time="2020-08-24T11:30:54Z" level=info msg="Updating A record named 'eapp1' to '
 time="2020-08-24T11:30:55Z" level=info msg="Updating TXT record named 'eapp1' to '\"heritage=external-dns,external-dns/owner=default,external-dns/resource=ingress/default/nginxapp1-ingress-service\"' for Azure DNS zone 'kubeoncloud.com'."
 ```
 
-### Verify Record Set in DNZ Zones -> kubeoncloud.com
-- Go to All Services -> DNS Zones -> kubeoncloud.com
+### Verify Record Set in DNZ Zones -\> kubeoncloud.com
+- Go to All Services -\> DNS Zones -\> kubeoncloud.com
 - Verify if we have `eapp1.kubeoncloud.com` created
 ```
 # Template Command
-az network dns record-set a list -g <Resource-Group-dnz-zones> -z <yourdomain.com>
+az network dns record-set a list -g \<Resource-Group-dnz-zones\> -z \<yourdomain.com\>
 
 # Replace DNS Zones Resource Group and yourdomain
 az network dns record-set a list -g dns-zones -z kubeoncloud.com
@@ -235,7 +235,7 @@ kubectl logs -f $(kubectl get po | egrep -o 'external-dns[A-Za-z0-9-]+')
 
 # Verify Record set got automatically deleted in DNS Zones
 # Template Command
-az network dns record-set a list -g <Resource-Group-dnz-zones> -z <yourdomain.com>
+az network dns record-set a list -g \<Resource-Group-dnz-zones\> -z \<yourdomain.com\>
 
 # Replace DNS Zones Resource Group and yourdomain
 az network dns record-set a list -g dns-zones -z kubeoncloud.com

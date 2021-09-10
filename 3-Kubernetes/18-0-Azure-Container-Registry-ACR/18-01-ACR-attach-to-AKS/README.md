@@ -37,7 +37,7 @@ kubectl logs -f $(kubectl get po -n kube-system | egrep -o 'aci-connector-linux-
 [![Image](https://stacksimplify.com/course-images/azure-container-registry-pricing-tiers.png "Azure AKS Kubernetes - Masterclass")](https://stacksimplify.com/course-images/azure-container-registry-pricing-tiers.png)
 
 ## Step-02: Create Azure Container Registry
-- Go to Services -> Container Registries
+- Go to Services -\> Container Registries
 - Click on **Add**
 - Subscription: StackSimplify-Paid-Subsciption
 - Resource Group: aks-rg2
@@ -74,7 +74,7 @@ docker stop kube-nginx-acr
 ```
 
 ## Step-04: Enable Docker Login for ACR Repository 
-- Go to Services -> Container Registries -> acrforaksdemo2
+- Go to Services -\> Container Registries -\> acrforaksdemo2
 - Go to **Access Keys**
 - Click on **Enable Admin User**
 - Make a note of Username and password
@@ -106,8 +106,8 @@ docker images $ACR_REGISTRY/$ACR_NAMESPACE/$ACR_IMAGE_NAME:$ACR_IMAGE_TAG
 docker push $ACR_REGISTRY/$ACR_NAMESPACE/$ACR_IMAGE_NAME:$ACR_IMAGE_TAG
 ```
 ### Verify Docker Image in ACR Repository
-- Go to Services -> Container Registries -> acrforaksdemo2
-- Go to **Repositories** -> **app1/kube-nginx-acr**
+- Go to Services -\> Container Registries -\> acrforaksdemo2
+- Go to **Repositories** -\> **app1/kube-nginx-acr**
 
 
 ## Step-05: Configure ACR integration for existing AKS clusters
@@ -117,7 +117,7 @@ export ACR_NAME=acrforaksdemo2
 echo $ACR_NAME
 
 # Template
-az aks update -n myAKSCluster -g myResourceGroup --attach-acr <acr-name>
+az aks update -n myAKSCluster -g myResourceGroup --attach-acr \<acr-name\>
 
 # Replace Cluster, Resource Group and ACR Repo Name
 az aks update -n aksdemo2 -g aks-rg2 --attach-acr $ACR_NAME
@@ -145,13 +145,13 @@ kubectl apply -f kube-manifests/
 kubectl get pods
 
 # Describe Pod
-kubectl describe pod <pod-name>
+kubectl describe pod \<pod-name\>
 
 # Get Load Balancer IP
 kubectl get svc
 
 # Access Application
-http://<External-IP-from-get-service-output>
+http://\<External-IP-from-get-service-output\>
 ```
 
 ## Step-07: Clean-Up
@@ -170,6 +170,6 @@ echo $ACR_NAME
 az aks update -n aksdemo2 -g aks-rg2 --detach-acr $ACR_NAME
 
 # Delete ACR Repository
-Go To Services -> Container Registries -> acrforaksdemo2 -> Delete it
+Go To Services -\> Container Registries -\> acrforaksdemo2 -\> Delete it
 ```
 

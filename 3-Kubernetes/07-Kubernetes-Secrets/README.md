@@ -57,7 +57,7 @@ kubectl get pods
 kubectl get svc
 
 # Access Application
-http://<External-IP-from-get-service-output>
+http://\<External-IP-from-get-service-output\>
 Username: admin101
 Password: password101
 ```

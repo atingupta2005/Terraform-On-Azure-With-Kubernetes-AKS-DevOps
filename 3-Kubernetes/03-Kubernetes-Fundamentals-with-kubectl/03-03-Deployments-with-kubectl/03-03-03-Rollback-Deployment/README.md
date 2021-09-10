@@ -10,7 +10,7 @@
 ### Check the Rollout History of a Deployment
 ```
 # List Deployment Rollout History
-kubectl rollout history deployment/<Deployment-Name>
+kubectl rollout history deployment/\<Deployment-Name\>
 kubectl rollout history deployment/my-first-deployment  
 ```
 
@@ -49,7 +49,7 @@ kubectl describe deploy my-first-deployment
 kubectl get svc
 
 # Application URL
-http://<External-IP-from-get-service-output>
+http://\<External-IP-from-get-service-output\>
 ```
 
 
@@ -57,7 +57,7 @@ http://<External-IP-from-get-service-output>
 ### Check the Rollout History of a Deployment
 ```
 # List Deployment Rollout History
-kubectl rollout history deployment/<Deployment-Name>
+kubectl rollout history deployment/\<Deployment-Name\>
 kubectl rollout history deployment/my-first-deployment
 ```
 ### Rollback to specific revision
@@ -81,14 +81,14 @@ kubectl rollout history deployment/my-first-deployment
 kubectl get svc
 
 # Application URL
-http://<Load-Balancer-IP>
+http://\<Load-Balancer-IP\>
 ```
 
 ## Step-03: Rolling Restarts of Application
 - Rolling restarts will kill the existing pods and recreate new pods in a rolling fashion.
 ```
 # Rolling Restarts
-kubectl rollout restart deployment/<Deployment-Name>
+kubectl rollout restart deployment/\<Deployment-Name\>
 kubectl rollout restart deployment/my-first-deployment
 
 # Get list of Pods

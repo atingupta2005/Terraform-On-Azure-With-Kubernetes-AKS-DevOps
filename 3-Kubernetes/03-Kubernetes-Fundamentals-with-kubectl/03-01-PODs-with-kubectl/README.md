@@ -21,7 +21,7 @@ kubectl get nodes -o wide
 - Create a Pod
 ```
 # Template
-kubectl run <desired-pod-name> --image <Container-Image>
+kubectl run \<desired-pod-name\> --image \<Container-Image\>
 
 # Replace Pod Name, Container Image
 kubectl run my-first-pod --image stacksimplify/kubenginx:1.0.0
@@ -58,7 +58,7 @@ kubectl get pods -o wide
 kubectl get pods
 
 # Describe the Pod
-kubectl describe pod <Pod-Name>
+kubectl describe pod \<Pod-Name\>
 kubectl describe pod my-first-pod
 ```
 
@@ -73,7 +73,7 @@ kubectl describe pod my-first-pod
 kubectl get pods
 
 # Delete Pod
-kubectl delete pod <Pod-Name>
+kubectl delete pod \<Pod-Name\>
 kubectl delete pod my-first-pod
 ```
 
@@ -91,11 +91,11 @@ kubectl delete pod my-first-pod
   - Azure Public IP
 ```
 # Create  a Pod
-kubectl run <desired-pod-name> --image <Container-Image>
+kubectl run \<desired-pod-name\> --image \<Container-Image\>
 kubectl run my-first-pod --image stacksimplify/kubenginx:1.0.0
 
 # Expose Pod as a Service
-kubectl expose pod <Pod-Name>  --type=LoadBalancer --port=80 --name=<Service-Name>
+kubectl expose pod \<Pod-Name\>  --type=LoadBalancer --port=80 --name=\<Service-Name\>
 kubectl expose pod my-first-pod  --type=LoadBalancer --port=80 --name=my-first-service
 
 # Get Service Info
@@ -106,7 +106,7 @@ kubectl get svc
 kubectl describe service my-first-service
 
 # Access Application
-http://<External-IP-from-get-service-output>
+http://\<External-IP-from-get-service-output\>
 ```
 - Verify the following after LB Service creation
   - Azure Standard Load Balancer created for Azure AKS Cluster
@@ -123,18 +123,18 @@ http://<External-IP-from-get-service-output>
 kubectl get po
 
 # Dump Pod logs
-kubectl logs <pod-name>
+kubectl logs \<pod-name\>
 kubectl logs my-first-pod
 
 # Stream pod logs with -f option and access application to see logs
-kubectl logs <pod-name>
+kubectl logs \<pod-name\>
 kubectl logs -f my-first-pod
 ```
 ### Connect to Container in a POD
 - **Connect to a Container in POD and execute commands**
 ```
 # Connect to Nginx Container in a POD
-kubectl exec -it <pod-name> -- /bin/bash
+kubectl exec -it \<pod-name\> -- /bin/bash
 kubectl exec -it my-first-pod -- /bin/bash
 
 # Execute some commands in Nginx container
@@ -146,7 +146,7 @@ exit
 
 - **Running individual commands in a Container**
 ```
-kubectl exec -it <pod-name> -- env
+kubectl exec -it \<pod-name\> -- env
 
 # Sample Commands
 kubectl exec -it my-first-pod -- env

@@ -21,9 +21,9 @@
 - [Terraform Configuration Syntax](https://www.terraform.io/docs/configuration/syntax.html)
 ```
 # Template
-<BLOCK TYPE> "<BLOCK LABEL>" "<BLOCK LABEL>"   {
+\<BLOCK TYPE\> "\<BLOCK LABEL\>" "\<BLOCK LABEL\>"   {
   # Block body
-  <IDENTIFIER> = <EXPRESSION> # Argument
+  \<IDENTIFIER\> = \<EXPRESSION\> # Argument
 }
 
 # Example
@@ -53,24 +53,24 @@ resource "azurerm_resource_group" "aksdev" {   # BLOCK
 # Terraform Settings Block (https://www.terraform.io/docs/configuration/terraform.html)
 terraform {
   # Use a recent version of Terraform
-  required_version = ">= 0.13"
+  required_version = "\>= 0.13"
 
   # Map providers to thier sources, required in Terraform 13+
   required_providers {
     # Azure Resource Manager 2.x (Base Azure RM Module)
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 2.0"
+      version = "~\> 2.0"
     }
     # Azure Active Directory 1.x (required for AKS and Azure AD Integration)
     azuread = {
       source  = "hashicorp/azuread"
-      version = "~> 1.0"
+      version = "~\> 1.0"
     }
     # Random 3.x (Required to generate random names for Log Analytics Workspace)
     random = {
       source  = "hashicorp/random"
-      version = "~> 3.0"
+      version = "~\> 3.0"
     }
   }
 # Configure Terraform State Storage
@@ -234,7 +234,7 @@ Observation: You can see that variable present in dev.auto.tfvars autoloaded now
 - **Important Note:** Be sure to keep in mind that if the Operating System is case-sensitive, then Terraform will match variable names exactly as given during configuration. 
 ```
 # Template
-TF_VAR_<VARIABLE-NAME>  - case-sensitive
+TF_VAR_\<VARIABLE-NAME\>  - case-sensitive
 # Set Environment Variable using Bash
 export TF_VAR_location="westus"
 ```

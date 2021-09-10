@@ -53,7 +53,7 @@ az aks nodepool list --cluster-name aksdemo2 --resource-group aks-rg2 --output t
 
 # Access Application
 kubectl get svc
-http://<Public-IP-from-Get-Service-Output>
+http://\<Public-IP-from-Get-Service-Output\>
 Username: admin101
 Password: password101
 ```

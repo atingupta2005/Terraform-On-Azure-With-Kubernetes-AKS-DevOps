@@ -40,7 +40,7 @@ kubectl get rs
 kubectl get pods
 
 # Delete Pod
-kubectl delete pod <Pod-Name>
+kubectl delete pod \<Pod-Name\>
 ```
 
 ## Step-03: Create LoadBalancer Service for ReplicaSet
@@ -68,7 +68,7 @@ kubectl apply -f 03-replicaset-LoadBalancer-servie.yml
 kubectl get svc
 
 # Access Application
-http://<Load-Balancer-Service-IP>
+http://\<Load-Balancer-Service-IP\>
 
 ```
 

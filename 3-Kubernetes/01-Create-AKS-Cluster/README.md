@@ -8,7 +8,7 @@
 - Create Kubernetes Cluster
 - **Basics**
   - **Resource Group:** Create New: aks-rg-\<yourname\>
-  - **Kubernetes Cluster Name:** aksdemo-<yourname>
+  - **Kubernetes Cluster Name:** aksdemo-\<yourname\>
   - **Region:** \<Your Region\>
   - **Node Count:** 1
 - **Authentication**
@@ -26,7 +26,7 @@
 - Go to https://shell.azure.com
 ```
 # Template
-az aks get-credentials --resource-group <Resource-Group-Name> --name <Cluster-Name>
+az aks get-credentials --resource-group \<Resource-Group-Name\> --name \<Cluster-Name\>
 
 # List Kubernetes Worker Nodes
 kubectl get nodes
@@ -72,7 +72,7 @@ az login
 az aks install-cli
 
 # Configure Cluster Creds (kube config)
-az aks get-credentials --resource-group <> --name <>
+az aks get-credentials --resource-group \<\> --name \<\>
 
 # List AKS Nodes
 kubectl get nodes
@@ -93,7 +93,7 @@ kubectl get deployment
 kubectl get service
 
 # Access Application
-http://<External-IP-from-get-service-output>
+http://\<External-IP-from-get-service-output\>
 ```
 
 ## Step-07: Clean-Up

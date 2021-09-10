@@ -42,7 +42,7 @@ docker stop acr-app3
 ```
 
 ## Step-04: Enable Docker Login for ACR Repository 
-- Go to Services -> Container Registries -> acrdemo2ss
+- Go to Services -\> Container Registries -\> acrdemo2ss
 - Go to **Access Keys**
 - Click on **Enable Admin User**
 - Make a note of Username and password
@@ -74,8 +74,8 @@ docker images $ACR_REGISTRY/$ACR_NAMESPACE/$ACR_IMAGE_NAME:$ACR_IMAGE_TAG
 docker push $ACR_REGISTRY/$ACR_NAMESPACE/$ACR_IMAGE_NAME:$ACR_IMAGE_TAG
 ```
 ### Verify Docker Image in ACR Repository
-- Go to Services -> Container Registries -> acrdemo2ss
-- Go to **Repositories** -> **app3/acr-app3**
+- Go to Services -\> Container Registries -\> acrdemo2ss
+- Go to **Repositories** -\> **app3/acr-app3**
 
 ## Step-06: Review & Update Deployment Manifest with Image Name, ImagePullSecrets
 ```yaml
@@ -116,7 +116,7 @@ kubectl get pods -o wide
 kubectl get svc
 
 # Access Application
-http://<External-IP-from-get-service-output>
+http://\<External-IP-from-get-service-output\>
 ```
 
 ## Step-07: Clean-Up
@@ -125,8 +125,8 @@ http://<External-IP-from-get-service-output>
 kubectl delete -f kube-manifests/
 
 # Delete Container Registry
-Go to Services -> Container Registries -> acrdemo2ss -> Delete
+Go to Services -\> Container Registries -\> acrdemo2ss -\> Delete
 
 # Delete AKS Cluster
-Go to Services -> Resource Groups -> aks-rg2 -> Delete
+Go to Services -\> Resource Groups -\> aks-rg2 -\> Delete
 ```

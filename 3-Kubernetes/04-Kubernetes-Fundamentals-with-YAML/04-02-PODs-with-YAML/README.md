@@ -66,7 +66,7 @@ kubectl apply -f 03-pod-LoadBalancer-service.yml
 kubectl get svc
 
 # Access Application
-http://<Load-Balancer-Service-IP>
+http://\<Load-Balancer-Service-IP\>
 
 ```
 

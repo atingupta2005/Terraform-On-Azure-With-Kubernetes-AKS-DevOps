@@ -22,7 +22,7 @@ kubectl get pod
 kubect get svc
 
 # Access Application (Only if our Cluster is Public Subnet)
-http://<PublicIP-from-Get-SVC-Output>
+http://\<PublicIP-from-Get-SVC-Output\>
 ```
 
 ## Step-03: Create a Horizontal Pod Autoscaler resource for the "hpa-demo-deployment" 
@@ -31,7 +31,7 @@ http://<PublicIP-from-Get-SVC-Output>
 - When the load is greater than 20 percent, the autoscaler tries to increase the number of pods in the deployment, up to a maximum of ten
 ```
 # HPA Imperative - Template
-kubectl autoscale deployment <deployment-name> --cpu-percent=20 --min=1 --max=10
+kubectl autoscale deployment \<deployment-name\> --cpu-percent=20 --min=1 --max=10
 
 # HPA Imperative - Replace
 kubectl autoscale deployment hpa-demo-deployment --cpu-percent=20 --min=1 --max=10

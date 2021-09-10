@@ -44,7 +44,7 @@ kubectl get rs
 ### Describe ReplicaSet
 - Describe the newly created ReplicaSet
 ```
-kubectl describe rs/<replicaset-name>
+kubectl describe rs/\<replicaset-name\>
 
 kubectl describe rs/my-helloworld-rs
 [or]
@@ -56,7 +56,7 @@ kubectl describe rs my-helloworld-rs
 ```
 #Get list of Pods
 kubectl get pods
-kubectl describe pod <pod-name>
+kubectl describe pod \<pod-name\>
 
 # Get list of Pods with Pod IP and Node in which it is running
 kubectl get pods -o wide
@@ -66,7 +66,7 @@ kubectl get pods -o wide
 - Verify the owner reference of the pod.
 - Verify under **"name"** tag under **"ownerReferences"**. We will find the replicaset name to which this pod belongs to.
 ```
-kubectl get pods <pod-name> -o yaml
+kubectl get pods \<pod-name\> -o yaml
 kubectl get pods my-helloworld-rs-c8rrj -o yaml
 ```
 
@@ -74,7 +74,7 @@ kubectl get pods my-helloworld-rs-c8rrj -o yaml
 - Expose ReplicaSet with a service (Load Balancer Service) to access the application externally (from internet)
 ```
 # Expose ReplicaSet as a Service
-kubectl expose rs <ReplicaSet-Name>  --type=LoadBalancer --port=80 --target-port=8080 --name=<Service-Name-To-Be-Created>
+kubectl expose rs \<ReplicaSet-Name\>  --type=LoadBalancer --port=80 --target-port=8080 --name=\<Service-Name-To-Be-Created\>
 kubectl expose rs my-helloworld-rs  --type=LoadBalancer --port=80 --target-port=8080 --name=my-helloworld-rs-service
 
 # Get Service Info
@@ -84,7 +84,7 @@ kubectl get svc
 ```
 - **Access the Application using External or Public IP**
 ```
-http://<External-IP-from-get-service-output>/hello
+http://\<External-IP-from-get-service-output\>/hello
 ```
 
 ## Step-04: Test Replicaset Reliability or High Availability
@@ -95,7 +95,7 @@ http://<External-IP-from-get-service-output>/hello
 kubectl get pods
 
 # Delete the Pod
-kubectl delete pod <Pod-Name>
+kubectl delete pod \<Pod-Name\>
 
 # Verify the new pod got created automatically
 kubectl get pods   (Verify Age and name of new pod)
@@ -126,7 +126,7 @@ kubectl get pods -o wide
 ### Delete ReplicaSet
 ```
 # Delete ReplicaSet
-kubectl delete rs <ReplicaSet-Name>
+kubectl delete rs \<ReplicaSet-Name\>
 
 # Sample Commands
 kubectl delete rs/my-helloworld-rs
@@ -140,7 +140,7 @@ kubectl get rs
 ### Delete Service created for ReplicaSet
 ```
 # Delete Service
-kubectl delete svc <service-name>
+kubectl delete svc \<service-name\>
 
 # Sample Commands
 kubectl delete svc my-helloworld-rs-service

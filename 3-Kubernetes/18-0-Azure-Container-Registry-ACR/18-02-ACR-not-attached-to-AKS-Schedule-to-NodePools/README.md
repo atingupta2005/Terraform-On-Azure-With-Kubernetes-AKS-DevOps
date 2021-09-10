@@ -37,7 +37,7 @@ kubectl logs -f $(kubectl get po -n kube-system | egrep -o 'aci-connector-linux-
 
 
 ## Step-02: Create Azure Container Registry
-- Go to Services -> Container Registries
+- Go to Services -\> Container Registries
 - Click on **Add**
 - Subscription: StackSimplify-Paid-Subsciption
 - Resource Group: acr-rg2
@@ -73,7 +73,7 @@ docker stop acr-app2
 ```
 
 ## Step-04: Enable Docker Login for ACR Repository 
-- Go to Services -> Container Registries -> acrdemo2ss
+- Go to Services -\> Container Registries -\> acrdemo2ss
 - Go to **Access Keys**
 - Click on **Enable Admin User**
 - Make a note of Username and password
@@ -105,8 +105,8 @@ docker images $ACR_REGISTRY/$ACR_NAMESPACE/$ACR_IMAGE_NAME:$ACR_IMAGE_TAG
 docker push $ACR_REGISTRY/$ACR_NAMESPACE/$ACR_IMAGE_NAME:$ACR_IMAGE_TAG
 ```
 ### Verify Docker Image in ACR Repository
-- Go to Services -> Container Registries -> acrdemo2ss
-- Go to **Repositories** -> **app2/acr-app2**
+- Go to Services -\> Container Registries -\> acrdemo2ss
+- Go to **Repositories** -\> **app2/acr-app2**
 
 ## Step-05: Create Service Principal to access Azure Container Registry
 - Review file: shell-script/generate-service-principal.sh
@@ -118,7 +118,7 @@ docker push $ACR_REGISTRY/$ACR_NAMESPACE/$ACR_IMAGE_NAME:$ACR_IMAGE_TAG
 # Modify for your environment.
 # ACR_NAME: The name of your Azure Container Registry
 # SERVICE_PRINCIPAL_NAME: Must be unique within your AD tenant
-#ACR_NAME=<container-registry-name>
+#ACR_NAME=\<container-registry-name\>
 ACR_NAME=acrdemo2ss
 SERVICE_PRINCIPAL_NAME=acr-sp-demo
 
@@ -143,11 +143,11 @@ echo "Service principal password: $SP_PASSWD"
 ## Step-06: Create Image Pull Secret
 ```
 # Template
-kubectl create secret docker-registry <secret-name> \
-    --namespace <namespace> \
-    --docker-server=<container-registry-name>.azurecr.io \
-    --docker-username=<service-principal-ID> \
-    --docker-password=<service-principal-password>
+kubectl create secret docker-registry \<secret-name\> \
+    --namespace \<namespace\> \
+    --docker-server=\<container-registry-name\>.azurecr.io \
+    --docker-username=\<service-principal-ID\> \
+    --docker-password=\<service-principal-password\>
 
 # Replace
 kubectl create secret docker-registry acrdemo2ss-secret \
@@ -184,13 +184,13 @@ kubectl apply -f kube-manifests/
 kubectl get pods
 
 # Describe Pod
-kubectl describe pod <pod-name>
+kubectl describe pod \<pod-name\>
 
 # Get Load Balancer IP
 kubectl get svc
 
 # Access Application
-http://<External-IP-from-get-service-output>
+http://\<External-IP-from-get-service-output\>
 ```
 
 ## Step-07: Clean-Up

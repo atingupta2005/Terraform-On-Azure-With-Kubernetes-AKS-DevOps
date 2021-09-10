@@ -46,7 +46,7 @@ kubectl apply -f kube-manifests/
 kubectl get pods -n dev3
 
 # View Pod Specification (CPU & Memory)
-kubectl get pod <pod-name> -o yaml -n dev3
+kubectl get pod \<pod-name\> -o yaml -n dev3
 
 # Get & Describe Limits
 kubectl get limits -n dev3
@@ -60,7 +60,7 @@ kubectl describe quota ns-resource-quota -n dev3
 kubectl get svc -n dev3
 
 # Access Application
-http://<Public-IP-from-List-Services-Output>/app1/index.html
+http://\<Public-IP-from-List-Services-Output\>/app1/index.html
 
 ```
 ## Step-04: Clean-Up
