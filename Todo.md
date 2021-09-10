@@ -1,0 +1,3 @@
+- Remove stacksimplify
+- Fix spelling issues
+- 
