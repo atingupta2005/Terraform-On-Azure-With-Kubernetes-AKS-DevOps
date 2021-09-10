@@ -17,6 +17,8 @@ git status
 notepad .\.gitignore
 ```
 
+- Add git hook from ./Trainer-Env-Prep/post-checkout to ./.git/hook/post-checkout
+
 - Add origin of private git repo and push the code to private git repo
 ```
 git remote add gitlab-origin git@gitlab.com:atin-trainings/Terraform-on-Azure-with-Kubernetes-and-DevOps.git
