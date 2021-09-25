@@ -1,15 +1,25 @@
-*Finance*
-*Finance*/*
+**/*assessment*
+**/*.xlsx
 **/*Finance*
-**/*Finance*/*
 **/*.pyc
+**/*.pptx
 Recycled/*
 **/Recycled/*
+**/Future/*
+Future/*
+*Optional*
+**/*Optional*
+*Skip*
+**/*Skip*
+*Pending*
+**/*Pending*
 **/Debug
 **/debug
 **/Bin
 **/bin
 **/*.exe
+**Extra**
+**/**Extra**
 
 # Terraform Files and Folders
 .terraform
