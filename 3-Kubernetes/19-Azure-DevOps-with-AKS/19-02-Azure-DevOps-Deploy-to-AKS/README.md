@@ -11,21 +11,19 @@ description: Create Azure Pipeline to Build and Push Docker Image to Azure Conta
 az aks get-credentials --name aksdemo2 --resource-group aks-rg2
 
 # Verify Nodes
-kubectl get nodes 
+kubectl get nodes
 kubectl get nodes -o wide
 ```
 
 ## Step-01: Introduction
 - Add a Deployment Pipeline in Azure Pipelines to Deploy newly built docker image from ACR to Azure AKS
 
-[![Image](https://www.stacksimplify.com/course-images/azure-devops-pipelines-deploy-to-aks.png "Azure AKS Kubernetes - Masterclass")](https://www.stacksimplify.com/course-images/azure-devops-pipelines-deploy-to-aks.png)
-
 ## Step-02: Create Pipeline for Deploy to AKS
-- Go to Pipleines -\> Create new Pipleine
+- Go to Pipleines -> Create new Pipleine
 - Where is your code?: Github
-- Select a Repository: "select your repo" (stacksimplify/azure-devops-github-acr-aks-app1)
+- Select a Repository: "select your repo" (atingupta2005/azure-devops-github-acr-aks-app1)
 - Configure your pipeline: Deploy to Azure Kubernetes Service
-- Select Subscription: stacksimplify-paid-subscription (select your subscription)
+- Select Subscription: Azure Pass - Sponsorship (select your subscription)
 - Provide username and password (Azure cloud admin user)
 - Deploy to Azure Kubernetes Service
   - Cluster: aksdemo3
@@ -47,7 +45,7 @@ kubectl get nodes -o wide
 
 
 ## Step-04: Verify Build and Deploy pipeline logs
-- Go to Pipeline -\> Verify logs
+- Go to Pipeline -> Verify logs
 ```
 # Verify Pods
 kubectl get pods
@@ -56,15 +54,15 @@ kubectl get pods
 kubectl get svc
 
 # Access Application
-http://\<Public-IP-from-Get-Service-Output\>
+curl http://<Public-IP-from-Get-Service-Output>
 ```
 
  ## Step-05: Rename Pipeline Name
-- Go to pipeline -\> Rename / Move
+- Go to pipeline -> Rename / Move
 - Name: 02-Docker-BuildPushToACR-DeployToAKSCluster
 - Folder: App1-Pipelines
 - Refresh till changes reflect
-- Verify -\> Pipelines -\> Click on **All** tab
+- Verify -> Pipelines -> Click on **All** tab
 
 ## Step-06: Make Changes to index.html and Verify
 ```
@@ -84,25 +82,25 @@ git push
 - Verify ACR Repository
 
 # List Pods (Verify Age of Pod)
-kubectl get pods 
+kubectl get pods
 
 # Get Public IP
 kubectl get svc
 
 # Access Application
-http://\<Public-IP-from-Get-Service-Output\>
+curl http://<Public-IP-from-Get-Service-Output>
 
-``` 
+```
 
 ## Step-07: Disable Pipeline
-- Go to Pipeline -\> 02-Docker-BuildPushToACR-DeployToAKSCluster -\> Settings -\> Disable
+- Go to Pipeline -> 02-Docker-BuildPushToACR-DeployToAKSCluster -> Settings -> Disable
 
 
 ## Step-08: Review Pipeline code
-- Click on Pipeline -\> Edit Pipeline
+- Click on Pipeline -> Edit Pipeline
 - Review pipeline code
 - Review Service Connections
- ```yaml
+```yaml
  # Deploy to Azure Kubernetes Service
 # Build and push image to Azure Container Registry; Deploy to Azure Kubernetes Service
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
@@ -125,7 +123,7 @@ variables:
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
-  
+
 
 stages:
 - stage: Build
@@ -145,7 +143,7 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
-          
+
     - upload: manifests
       artifact: manifests
 
@@ -158,7 +156,7 @@ stages:
     displayName: Deploy
     pool:
       vmImage: $(vmImageName)
-    environment: 'stacksimplifyazuredevopsgithubacraksapp1internal-1561.default'
+    environment: 'atingupta2005azuredevopsgithubacraksapp1internal-1561.default'
     strategy:
       runOnce:
         deploy:
@@ -169,7 +167,7 @@ stages:
               action: createSecret
               secretName: $(imagePullSecret)
               dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
-              
+
           - task: KubernetesManifest@0
             displayName: Deploy to Kubernetes cluster
             inputs:
@@ -181,10 +179,10 @@ stages:
                 $(imagePullSecret)
               containers: |
                 $(containerRegistry)/$(imageRepository):$(tag)
- ``` 
+```
 
  ## Step-09: Clean-Up Apps in AKS Cluster
- ```
+```
  # Delete Deployment
  kubectl get deploy
  kubectl delete deploy app1nginxaks
@@ -192,4 +190,4 @@ stages:
  # Delete Service
  kubectl get svc
  kubectl delete svc app1nginxaks
- ```
+```

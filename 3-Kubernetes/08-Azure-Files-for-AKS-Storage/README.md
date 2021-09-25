@@ -6,7 +6,7 @@
 - We are going to mount the file share to a specific path `mountPath: "/usr/share/nginx/html/app1"` in the Nginx container
 
 ### kube-manifests-v1: Custom Storage Class
-- We will define our own custom storage class with desired permissions 
+- We will define our own custom storage class with desired permissions
   - Standard_LRS - standard locally redundant storage (LRS)
   - Standard_GRS - standard geo-redundant storage (GRS)
   - Standard_ZRS - standard zone redundant storage (ZRS)
@@ -40,26 +40,34 @@
         - name: my-azurefile-volume
           persistentVolumeClaim:
             claimName: my-azurefile-pvc    
-```  
+```
 
 ## Step-03: Deploy Kube Manifests V1
 ```
 # Deploy
 kubectl apply -f kube-manifests-v1/
-
+```
+```
 # Verify SC, PVC, PV
 kubectl get sc, pvc, pv
-
+```
+```
 # Verify Pod
 kubectl get pods
-kubectl describe pod \<pod-name\>
-
+```
+```
+kubectl describe pod <pod-name>
+```
+```
 # Get Load Balancer Public IP
 kubectl get svc
-
+```
+```
 # Access Application
-http://\<External-IP-from-get-service-output\>
-http://\<External-IP-from-get-service-output\>/app1/index.html
+curl http://<External-IP-from-get-service-output>
+```
+```
+curl http://<External-IP-from-get-service-output>/app1/index.html
 ```
 
 ## Step-04: Upload Nginx Files to Azure File Share
@@ -67,16 +75,18 @@ http://\<External-IP-from-get-service-output\>/app1/index.html
 - Select and Open storage account under resoure group **mc_aks-rg1_aksdemo1_eastus**
 - In **Overview**, go to **File Shares**
 - Open File share with name which starts as **kubernetes-dynamic-pv-xxxxxx**
-- Click on **Upload** and upload 
-  - file1.html 
+- Click on **Upload** and upload
+  - file1.html
   - file2.html
 
 ## Step-05: Access Application & Test
 ```
 # URLs
-http://\<External-IP-from-get-service-output\>/app1/file1.html
-http://\<External-IP-from-get-service-output\>/app1/file2.html
-```  
+curl http://<External-IP-from-get-service-output>/app1/file1.html
+```
+```
+curl http://<External-IP-from-get-service-output>/app1/file2.html
+```
 
 ## Step-06: Clean-Up
 ```
@@ -98,19 +108,25 @@ kubectl delete -f kube-manifests-v1/
 ```
 # Deploy
 kubectl apply -f kube-manifests-v2/
-
+```
+```
 # Verify SC, PVC, PV
 kubectl get sc, pvc, pv
-
+```
+```
 # Verify Pod
 kubectl get pods
-kubectl describe pod \<pod-name\>
-
+```
+```
+kubectl describe pod <pod-name>
+```
+```
 # Get Load Balancer Public IP
 kubectl get svc
-
+```
+```
 # Access Application
-http://\<External-IP-from-get-service-output\>
+curl http://<External-IP-from-get-service-output>
 ```
 
 ## Step-09: Upload Nginx Files to Azure File Share
@@ -118,16 +134,18 @@ http://\<External-IP-from-get-service-output\>
 - Select and Open storage account under resoure group **mc_aks-rg1_aksdemo1_eastus**
 - In **Overview**, go to **File Shares**
 - Open File share with name which starts as **kubernetes-dynamic-pv-xxxxxx**
-- Click on **Upload** and upload 
-  - file1.html 
+- Click on **Upload** and upload
+  - file1.html
   - file2.html
 
 ## Step-10: Access Application & Test
 ```
 # URLs
-http://\<External-IP-from-get-service-output\>/app1/file1.html
-http://\<External-IP-from-get-service-output\>/app1/file2.html
-```  
+curl http://<External-IP-from-get-service-output>/app1/file1.html
+```
+```
+curl http://<External-IP-from-get-service-output>/app1/file2.html
+```
 
 ## Step-11: Clean-Up
 ```

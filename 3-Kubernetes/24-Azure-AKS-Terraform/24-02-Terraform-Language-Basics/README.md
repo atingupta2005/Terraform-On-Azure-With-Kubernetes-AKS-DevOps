@@ -1,7 +1,7 @@
 # Understand Terraform Language Basics
 
 ## Step-01: Introduction
-- Understand Terraform language basics 
+- Understand Terraform language basics
   - Understand Resources
   - Understand Blocks
   - Understand Arguments
@@ -21,9 +21,9 @@
 - [Terraform Configuration Syntax](https://www.terraform.io/docs/configuration/syntax.html)
 ```
 # Template
-\<BLOCK TYPE\> "\<BLOCK LABEL\>" "\<BLOCK LABEL\>"   {
+<BLOCK TYPE> "<BLOCK LABEL>" "<BLOCK LABEL>"   {
   # Block body
-  \<IDENTIFIER\> = \<EXPRESSION\> # Argument
+  <IDENTIFIER> = <EXPRESSION> # Argument
 }
 
 # Example
@@ -53,24 +53,24 @@ resource "azurerm_resource_group" "aksdev" {   # BLOCK
 # Terraform Settings Block (https://www.terraform.io/docs/configuration/terraform.html)
 terraform {
   # Use a recent version of Terraform
-  required_version = "\>= 0.13"
+  required_version = ">= 0.13"
 
   # Map providers to thier sources, required in Terraform 13+
   required_providers {
     # Azure Resource Manager 2.x (Base Azure RM Module)
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~\> 2.0"
+      version = "~> 2.0"
     }
     # Azure Active Directory 1.x (required for AKS and Azure AD Integration)
     azuread = {
       source  = "hashicorp/azuread"
-      version = "~\> 1.0"
+      version = "~> 1.0"
     }
     # Random 3.x (Required to generate random names for Log Analytics Workspace)
     random = {
       source  = "hashicorp/random"
-      version = "~\> 3.0"
+      version = "~> 3.0"
     }
   }
 # Configure Terraform State Storage
@@ -108,7 +108,7 @@ resource "random_pet" "aksrandom" {}
 terraform init
 ```
 ## Step-06: Create a Resource Group Resource
-- Create a file named **03-resource-group.tf** 
+- Create a file named **03-resource-group.tf**
 ```
 resource "azurerm_resource_group" "aks_rg" {
   location = "Central US"
@@ -148,7 +148,7 @@ resource "azurerm_resource_group" "aks_rg" {
 
 # Define Input Variables
 # 1. Azure Location (CentralUS)
-# 2. Azure Resource Group Name 
+# 2. Azure Resource Group Name
 # 3. Azure AKS Environment Name (Dev, QA, Prod)
 # 4. Azure AKS Cluster Name
 
@@ -195,22 +195,22 @@ Observation: Value to should be picked from runtime -var what ever provided whic
 - `-var-file` flag enables multiple input variable values to be passed in by referencing a file that contains the values.
 - Create file `terraform.tfvars`
 ```
-terraform.tfvars with content in it as 
+terraform.tfvars with content in it as
 location = "westus"
 
-# Run plan and observe 
-terraform plan 
-Observation: No need to give -var-file when name terraform.tfvars and values pickup directly from terraform.tfvars
+# Run plan and observe
+terraform plan
+#Observation: No need to give -var-file when name terraform.tfvars and values pickup directly from terraform.tfvars
 ```
 - Rename file name `terraform.tfvars` to `dev.tfvars`
 ```
-# Run plan and observe 
-terraform plan 
-Observation: dev.tfvars will not be picked and value comes from variables.tf default attribute
+# Run plan and observe
+terraform plan
+#Observation: dev.tfvars will not be picked and value comes from variables.tf default attribute
 
 # Run plan with -var-file 'dev.tfvars'
 terraform plan -var-file 'dev.tfvars'
-Observation: value to should be picked from dev.tfvars now
+#Observation: value to should be picked from dev.tfvars now
 ```
 
 ### Option-3: With filename.auto.tfvars
@@ -218,23 +218,24 @@ Observation: value to should be picked from dev.tfvars now
 - Now we can also do that when we have the file names with `filname.auto.tfvars`
 - Lets try out
 ```
-# Rename file 
+# Rename file
 mv dev.tfvars dev.auto.tfvars
-
+```
+```
 # Execute Terraform plan (No runtime arguments like -var-file)
 terraform plan
-Observation: You can see that variable present in dev.auto.tfvars autoloaded now. 
+#Observation: You can see that variable present in dev.auto.tfvars autoloaded now.
 ```
 
 - **Clean-Up:** Move `dev.auto.tfvars` to backup folder for reference and move back to original `02-variables.tf` and move to next step.
 
 
 ### Option-4: With Environment Variables
-- When running Terraform commands, we can also use Environment Variables to define the values for Input Variables 
-- **Important Note:** Be sure to keep in mind that if the Operating System is case-sensitive, then Terraform will match variable names exactly as given during configuration. 
+- When running Terraform commands, we can also use Environment Variables to define the values for Input Variables
+- **Important Note:** Be sure to keep in mind that if the Operating System is case-sensitive, then Terraform will match variable names exactly as given during configuration.
 ```
 # Template
-TF_VAR_\<VARIABLE-NAME\>  - case-sensitive
+TF_VAR_<VARIABLE-NAME>  - case-sensitive
 # Set Environment Variable using Bash
 export TF_VAR_location="westus"
 ```
@@ -277,23 +278,32 @@ output "resource_group_name" {
 
 ## Step-11: Create or Deploy Terraform Resources & Verify
 ```
-# Initialize Terraform 
+# Initialize Terraform
 terraform init
-
+```
+```
 # Validate Terraform Templates
 terraform validate
-
+```
+```
 # Execute Terraform Plan
 terraform plan
+```
+```
 terraform plan -out v1out.plan
-
+```
+```
 # Create / Deploy Terraform Resources
-terrafrom apply 
-terraform apply v1out.plan 
-
+terrafrom apply
+```
+```
+terraform apply v1out.plan
+```
+```
 # Verify current infrastructure state
 terraform show
-
+```
+```
 # Format Terraform files
 terraform fmt
 ```
@@ -306,7 +316,7 @@ terraform fmt
 ## Step-13: Migrate Terraform State Storage to Azure Storage Account
 
 ### Create Azure Storage Account in new Resource Group
-- Why should be we create terraform state storage in different resource group? 
+- Why should be we create terraform state storage in different resource group?
   - State storage is key for all terraform resources and it should be deleted at any point of time even accidentally.
 - **Create New Resource Group:** terraform-storage-rg
 - **Create Storage Account:** terraformstatexlrwdrzs  (Note: Name should be unique across Azure)
@@ -331,27 +341,30 @@ terraform {
 ```
 # Backup existing terraform.tfstate present locally
 mkdir BACKUP-LOCAL-TFSTATE
+```
+```
 mv terraform.tfstate BACKUP-LOCAL-TFSTATE
-
+```
+```
 # Try terraform validate
 terraform validate
-
+```
+```
 # Try terraform plan (Should fail telling us to re-initialize backed)
 terraform plan
-
+```
+```
 # Re-Initialize Terraform Backend
-terraform init 
-
+terraform init
+```
+```
 # Verify if any local state file
 ls -lrta
 ```
 - This completes successful migration of **terraform.tfstate** from local to Azure Storage Container
-- No local dependency now. Straight away initialize your terraform files from any folder and start working 
+- No local dependency now. Straight away initialize your terraform files from any folder and start working
 
 ## References
 - [Terraform Syntax](https://www.terraform.io/docs/configuration/syntax.html)
 - [Terraform Azure Get Started](https://learn.hashicorp.com/collections/terraform/azure-get-started)
 - [Store Terraform state in Azure Storage](https://docs.microsoft.com/en-us/azure/developer/terraform/store-state-in-azure-storage)
-
-
-

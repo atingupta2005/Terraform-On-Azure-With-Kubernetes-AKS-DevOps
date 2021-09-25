@@ -18,19 +18,19 @@ description: Create Azure Pipeline to Build and Push Docker Image to Azure Conta
 - **Task-2:** Copy files from System Default Working Directory to Build Artifact Staging Directory
 - **Task-3:** Publish Artifacts to Azure Pipelines
 
-[![Image](https://stacksimplify.com/course-images/azure-devops-pipelines-key-concepts-1.png "Azure AKS Kubernetes - Masterclass")](https://stacksimplify.com/course-images/azure-devops-pipelines-key-concepts-1.png)
 
-[![Image](https://stacksimplify.com/course-images/azure-devops-pipelines-key-concepts-2.png "Azure AKS Kubernetes - Masterclass")](https://stacksimplify.com/course-images/azure-devops-pipelines-key-concepts-1.png)
 
-[![Image](https://stacksimplify.com/course-images/azure-devops-starter-pipeline.png "Azure AKS Kubernetes - Masterclass")](https://stacksimplify.com/course-images/azure-devops-starter-pipeline.png)
+
+
+
 
 
 ## Step-02: Task-1: Create a Build Pipeline and Publish Artifacts to Azure Pipelines
-- Go to Pipelines -\> Create New Pipeline
+- Go to Pipelines -> Create New Pipeline
 - Where is your Code?: Github  
 - Select Repository: azure-devops-github-acr-aks-app1
 - Configure Your Pipeline: Docker (Build and Push Image to Azure Container Registry )
-- Select an Azure Subscription: stacksimplify-paid-subscription
+- Select an Azure Subscription: Azure Pass - Sponsorship
 - Continue (Login as admin user)
 - Container Registry: aksdevopsacr
 - Image Name: custom1aksnginxapp1
@@ -77,17 +77,17 @@ description: Create Azure Pipeline to Build and Push Docker Image to Azure Conta
 - Publish Task should pass. Verify logs
 
  ## Step-06: Rename Pipeline Name
-- Go to pipeline -\> Rename / Move
+- Go to pipeline -> Rename / Move
 - Name: 03-custom1-BuildPushToACR-Publish-k8s-manifests-to-AzurePipelines
 - Folder: App1-Pipelines
 - Refresh till changes reflect
-- Verify -\> Pipelines -\> Click on **All** tab
+- Verify -> Pipelines -> Click on **All** tab
 
 ## Step-07: Disable Pipeline
-- Go to Pipeline -\> 03-custom1-BuildPushToACR-Publish-k8s-manifests-to-AzurePipelines -\> Settings -\> Disable
+- Go to Pipeline -> 03-custom1-BuildPushToACR-Publish-k8s-manifests-to-AzurePipelines -> Settings -> Disable
 
 ## Step-08: Create Service Connection to Azure Container Registry ACR
-- Go to Project -\> azure-devops-github-acr-aks-app1 -\> Project Settings -\> Pipelines -\> Service Connections
+- Go to Project -> azure-devops-github-acr-aks-app1 -> Project Settings -> Pipelines -> Service Connections
 - Click on **New Service Connection**
 - Choose a Service or Connection Type: Docker Registry
 - Registry Type: Azure Container Registry
@@ -101,12 +101,12 @@ description: Create Azure Pipeline to Build and Push Docker Image to Azure Conta
 - Click on **Save**
 
 ## Step-09: Create a Starter Pipeline from scratch 
-- Go to Pipelines -\> Create New Pipeline
+- Go to Pipelines -> Create New Pipeline
 - Where is your Code?: Github  
 - Select Repository: azure-devops-github-acr-aks-app1
 - Configure Your Pipeline: Starter Pipeline
 - Understand Pipeline concepts
-  - Stages -\> Stage -\> Jobs -\> Job -\> Steps -\> Task1, Task2, Task3
+  - Stages -> Stage -> Jobs -> Job -> Steps -> Task1, Task2, Task3
 - Change Pipeline name to  04-custom2-pipeline-build-from-scratch.yml
 
 ### Discuss about tags
@@ -120,7 +120,7 @@ description: Create Azure Pipeline to Build and Push Docker Image to Azure Conta
   # Task-1: Build Docker Image and push to Azure Container Registry ACR
   # Task-2: Copy kube-manifest files to Build Artifact Directory
   # Task-3: Publish build articats to Azure Pipelines
-# Pipeline Hierarchial Flow: Stages -\> Stage -\> Jobs -\> Job -\> Steps -\> Task1, Task2, Task3  
+# Pipeline Hierarchial Flow: Stages -> Stage -> Jobs -> Job -> Steps -> Task1, Task2, Task3  
 
 trigger:
 - master
@@ -182,11 +182,11 @@ stages:
 - Verify ACR Image **custom2aksnginxapp1**
 
  ## Step-11: Rename Pipeline Name
-- Go to pipeline -\> Rename / Move
+- Go to pipeline -> Rename / Move
 - Name: 04-custom2-BuildPushToACR-Publish-k8s-manifests-to-AzurePipelines
 - Folder: App1-Pipelines
 - Refresh till changes reflect
-- Verify -\> Pipelines -\> Click on **All** tab
+- Verify -> Pipelines -> Click on **All** tab
 
 ## Step-12: Sync your local Repo with all new pipeline changes
 ```

@@ -10,7 +10,6 @@
 ### Check the Rollout History of a Deployment
 ```
 # List Deployment Rollout History
-kubectl rollout history deployment/\<Deployment-Name\>
 kubectl rollout history deployment/my-first-deployment  
 ```
 
@@ -19,7 +18,11 @@ kubectl rollout history deployment/my-first-deployment
 ```
 # List Deployment History with revision information
 kubectl rollout history deployment/my-first-deployment --revision=1
+```
+```
 kubectl rollout history deployment/my-first-deployment --revision=2
+```
+```
 kubectl rollout history deployment/my-first-deployment --revision=3
 ```
 
@@ -29,7 +32,8 @@ kubectl rollout history deployment/my-first-deployment --revision=3
 ```
 # Undo Deployment
 kubectl rollout undo deployment/my-first-deployment
-
+```
+```
 # List Deployment Rollout History
 kubectl rollout history deployment/my-first-deployment  
 ```
@@ -37,8 +41,14 @@ kubectl rollout history deployment/my-first-deployment
 ### Verify Deployment, Pods, ReplicaSets
 ```
 kubectl get deploy
+```
+```
 kubectl get rs
+```
+```
 kubectl get po
+```
+```
 kubectl describe deploy my-first-deployment
 ```
 
@@ -47,9 +57,10 @@ kubectl describe deploy my-first-deployment
 ```
 # Get Load Balancer IP
 kubectl get svc
-
+```
+```
 # Application URL
-http://\<External-IP-from-get-service-output\>
+curl http://<External-IP-from-get-service-output>
 ```
 
 
@@ -57,7 +68,6 @@ http://\<External-IP-from-get-service-output\>
 ### Check the Rollout History of a Deployment
 ```
 # List Deployment Rollout History
-kubectl rollout history deployment/\<Deployment-Name\>
 kubectl rollout history deployment/my-first-deployment
 ```
 ### Rollback to specific revision
@@ -79,18 +89,19 @@ kubectl rollout history deployment/my-first-deployment
 ```
 # Get Load Balancer IP
 kubectl get svc
-
+```
+```
 # Application URL
-http://\<Load-Balancer-IP\>
+curl http://<Load-Balancer-IP>
 ```
 
 ## Step-03: Rolling Restarts of Application
 - Rolling restarts will kill the existing pods and recreate new pods in a rolling fashion.
 ```
 # Rolling Restarts
-kubectl rollout restart deployment/\<Deployment-Name\>
 kubectl rollout restart deployment/my-first-deployment
-
+```
+```
 # Get list of Pods
 kubectl get po
 ```

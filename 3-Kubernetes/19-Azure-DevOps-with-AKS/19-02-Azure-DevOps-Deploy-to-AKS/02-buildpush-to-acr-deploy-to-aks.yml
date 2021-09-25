@@ -53,7 +53,7 @@ stages:
     displayName: Deploy
     pool:
       vmImage: $(vmImageName)
-    environment: 'stacksimplifyazuredevopsgithubacraksapp1internal-1561.default'
+    environment: 'atingupta2005azuredevopsgithubacraksapp1internal-1561.default'
     strategy:
       runOnce:
         deploy:

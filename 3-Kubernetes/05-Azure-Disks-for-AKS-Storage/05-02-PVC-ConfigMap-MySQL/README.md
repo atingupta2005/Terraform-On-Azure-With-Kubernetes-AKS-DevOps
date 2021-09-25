@@ -24,7 +24,7 @@ metadata:
 spec:
   accessModes:
   - ReadWriteOnce
-  storageClassName: managed-premium 
+  storageClassName: managed-premium
   resources:
     requests:
       storage: 5Gi  
@@ -34,27 +34,32 @@ spec:
 ```
 # Create MySQL Database
 kubectl apply -f kube-manifests/
-
+```
+```
 # List Storage Classes
 kubectl get sc
-
+```
+```
 # List PVC
-kubectl get pvc 
-
+kubectl get pvc
+```
+```
 # List PV
 kubectl get pv
-
+```
+```
 # List pods
-kubectl get pods 
+kubectl get pods
 ```
 
 ## Step-05: Connect to MySQL Database
 ```
 # Connect to MYSQL Database
 kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h mysql -pdbpassword11
-
+```
+```
 # Verify usermgmt schema got created which we provided in ConfigMap
-mysql\> show schemas;
+mysql> show schemas;
 ```
 
 ## Step-06: Clean-Up

@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: myapp2
-        image: stacksimplify/kubenginx:2.0.0
+        image: atingupta2005/kubenginx:2.0.0
         ports:
           - containerPort: 80
 ```
@@ -28,19 +28,21 @@ spec:
 - Create ReplicaSet with 3 Replicas
 ```
 # Create ReplicaSet
-kubectl apply -f 02-replicaset-definition.yml
-
+kubectl apply -f kube-manifests/02-replicaset-definition.yml
+```
+```
 # List Replicasets
 kubectl get rs
 ```
 - Delete a pod
-- ReplicaSet immediately creates the pod. 
+- ReplicaSet immediately creates the pod.
 ```
 # List Pods
 kubectl get pods
-
+```
+```
 # Delete Pod
-kubectl delete pod \<Pod-Name\>
+kubectl delete pod <Pod-Name>
 ```
 
 ## Step-03: Create LoadBalancer Service for ReplicaSet
@@ -50,26 +52,27 @@ kind: Service
 metadata:
   name: replicaset-loadbalancer-service
 spec:
-  type: LoadBalancer 
-  selector: 
-    app: myapp2 
-  ports: 
+  type: LoadBalancer
+  selector:
+    app: myapp2
+  ports:
     - name: http
       port: 80
       targetPort: 80
-     
+
 ```
 - **Create LoadBalancer Service for ReplicaSet & Test**
 ```
 # Create LoadBalancer Service
-kubectl apply -f 03-replicaset-LoadBalancer-servie.yml
-
+kubectl apply -f kube-manifests/03-replicaset-LoadBalancer-servie.yml
+```
+```
 # List LoadBalancer Service
 kubectl get svc
-
+```
+```
 # Access Application
-http://\<Load-Balancer-Service-IP\>
-
+curl http://<Load-Balancer-Service-IP>
 ```
 
 ## API References

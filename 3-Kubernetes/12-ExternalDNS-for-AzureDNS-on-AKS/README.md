@@ -5,21 +5,21 @@
 - Provide Access to DNZ Zones using **Azure Managed Service Identity** for External DNS pod to create **Record Sets** in Azure DNS Zones
 - Review Application & Ingress Manifests
 - Deploy and Test
-[![Image](https://www.stacksimplify.com/course-images/azure-aks-ingress-external-dns.png "Azure AKS Kubernetes - Masterclass")](https://www.udemy.com/course/aws-eks-kubernetes-masterclass-devops-microservices/?referralCode=257C9AD5B5AF8D12D1E1)
 
 ## Step-02: Create External DNS Manifests
 - External-DNS needs permissions to Azure DNS to modify (Add, Update, Delete DNS Record Sets)
-- We can provide permissions to External-DNS pod in two ways in Azure 
+- We can provide permissions to External-DNS pod in two ways in Azure
   - Using Azure Service Principal
   - Using Azure Managed Service Identity (MSI)
-- We are going to use `MSI` for providing necessary permissions here which is latest and greatest in Azure as on today. 
+- We are going to use `MSI` for providing necessary permissions here which is latest and greatest in Azure as on today.
 
 
 ### Gather Information Required for azure.json file
 ```
 # To get Azure Tenant ID
 az account show --query "tenantId"
-
+```
+```
 # To get Azure Subscription ID
 az account show --query "id"
 ```
@@ -29,7 +29,7 @@ az account show --query "id"
 {
   "tenantId": "c81f465b-99f9-42d3-a169-8082d61c677a",
   "subscriptionId": "82808767-144c-4c66-a320-b30791668b0a",
-  "resourceGroup": "dns-zones", 
+  "resourceGroup": "dns-zones",
   "useManagedIdentityExtension": true,
   "userAssignedIdentityID": "404b0cc1-ba04-4933-bcea-7d002d184436"  
 }
@@ -51,7 +51,7 @@ rules:
   resources: ["services","endpoints","pods"]
   verbs: ["get","watch","list"]
 - apiGroups: ["extensions","networking.k8s.io"]
-  resources: ["ingresses"] 
+  resources: ["ingresses"]
   verbs: ["get","watch","list"]
 - apiGroups: [""]
   resources: ["nodes"]
@@ -108,7 +108,7 @@ spec:
 ## Step-03: Create MSI - Managed Service Identity for External DNS to access Azure DNS Zones
 
 ### Create Manged Service Identity (MSI)
-- Go to All Services -\> Managed Identities -\> Add
+- Go to All Services -> Managed Identities -> Add
 - Resource Name: aksdemo1-externaldns-access-to-dnszones
 - Subscription: Pay-as-you-go
 - Resource group: aks-rg1
@@ -116,23 +116,23 @@ spec:
 - Click on **Create**
 
 ### Add Azure Role Assignment in MSI
-- Opem MSI -\> aksdemo1-externaldns-access-to-dnszones 
-- Click on **Azure Role Assignments** -\> **Add role assignment**
+- Opem MSI -> aksdemo1-externaldns-access-to-dnszones
+- Click on **Azure Role Assignments** -> **Add role assignment**
 - Scope: Resource group
 - Subscription: Pay-as-you-go
 - Resource group: dns-zones
 - Role: Contributor
 
 ### Make a note of Client Id and update in azure.json
-- Go to **Overview** -\> Make a note of **Client ID"
+- Go to **Overview** -> Make a note of **Client ID"
 - Update in **azure.json** value for **userAssignedIdentityID**
 ```
   "userAssignedIdentityID": "de836e14-b1ba-467b-aec2-93f31c027ab7"
 ```
 
 ## Step-04: Associate MSI in AKS Cluster VMSS
-- Go to All Services -\> Virtual Machine Scale Sets (VMSS) -\> Open aksdemo1 related VMSS (aks-agentpool-27193923-vmss)
-- Go to Settings -\> Identity -\> User assigned -\> Add -\> aksdemo1-externaldns-access-to-dnszones 
+- Go to All Services -> Virtual Machine Scale Sets (VMSS) -> Open aksdemo1 related VMSS (aks-agentpool-27193923-vmss)
+- Go to Settings -> Identity -> User assigned -> Add -> aksdemo1-externaldns-access-to-dnszones
 
 
 
@@ -141,14 +141,17 @@ spec:
 # Create Secret
 cd kube-manifests/01-ExteranlDNS
 kubectl create secret generic azure-config-file --from-file=azure.json
-
+cd ../..
+```
+```
 # List Secrets
 kubectl get secrets
-
-# Deploy ExternalDNS 
-cd kube-manifests/01-ExteranlDNS
-kubectl apply -f external-dns.yml
-
+```
+```
+# Deploy ExternalDNS
+kubectl apply -f kube-manifests/01-ExteranlDNS/external-dns.yml
+```
+```
 # Verify ExternalDNS Logs
 kubectl logs -f $(kubectl get po | egrep -o 'external-dns[A-Za-z0-9-]+')
 ```
@@ -158,7 +161,7 @@ kubectl logs -f $(kubectl get po | egrep -o 'external-dns[A-Za-z0-9-]+')
 time="2020-08-24T11:25:04Z" level=error msg="azure.BearerAuthorizer#WithAuthorization: Failed to refresh the Token for request to https://management.azure.com/subscriptions/82808767-144c-4c66-a320-b30791668b0a/resourceGroups/dns-zones/providers/Microsoft.Network/dnsZones?api-version=2018-05-01: StatusCode=400 -- Original Error: adal: Refresh request failed. Status Code = '400'. Response body: {\"error\":\"invalid_request\",\"error_description\":\"Identity not found\"}"
 
 # Error Type: 403
-Notes: Error 403 will come when our Managed Service Identity dont have access to respective destination resource 
+Notes: Error 403 will come when our Managed Service Identity dont have access to respective destination resource
 
 # When all good, we should get log as below
 time="2020-08-24T11:27:59Z" level=info msg="Resolving to user assigned identity, client id is 404b0cc1-ba04-4933-bcea-7d002d184436."
@@ -172,10 +175,12 @@ time="2020-08-24T11:27:59Z" level=info msg="Resolving to user assigned identity,
 ```
 # Deploy Application
 kubectl apply -f kube-manifests/02-NginxApp1
-
+```
+```
 # Verify Pods and Services
 kubectl get po,svc
-
+```
+```
 # Verify Ingress
 kubectl get ingress
 ```
@@ -192,20 +197,21 @@ time="2020-08-24T11:30:54Z" level=info msg="Updating A record named 'eapp1' to '
 time="2020-08-24T11:30:55Z" level=info msg="Updating TXT record named 'eapp1' to '\"heritage=external-dns,external-dns/owner=default,external-dns/resource=ingress/default/nginxapp1-ingress-service\"' for Azure DNS zone 'kubeoncloud.com'."
 ```
 
-### Verify Record Set in DNZ Zones -\> kubeoncloud.com
-- Go to All Services -\> DNS Zones -\> kubeoncloud.com
+### Verify Record Set in DNZ Zones -> kubeoncloud.com
+- Go to All Services -> DNS Zones -> kubeoncloud.com
 - Verify if we have `eapp1.kubeoncloud.com` created
 ```
 # Template Command
-az network dns record-set a list -g \<Resource-Group-dnz-zones\> -z \<yourdomain.com\>
-
+#az network dns record-set a list -g <Resource-Group-dnz-zones> -z <yourdomain.com>
+```
+```
 # Replace DNS Zones Resource Group and yourdomain
 az network dns record-set a list -g dns-zones -z kubeoncloud.com
 ```
 - Perform `nslookup` test
 ```
 # nslookup Test
-Kalyans-MacBook-Pro:01-ExternalDNS kdaida$ nslookup eapp1.kubeoncloud.com
+ating-ubuntu-lts:01-ExternalDNS kdaida$ nslookup eapp1.kubeoncloud.com
 Server:		192.168.0.1
 Address:	192.168.0.1#53
 
@@ -213,14 +219,14 @@ Non-authoritative answer:
 Name:	eapp1.kubeoncloud.com
 Address: 20.37.141.33
 
-Kalyans-MacBook-Pro:01-ExternalDNS kdaida$ 
+ating-ubuntu-lts:01-ExternalDNS kdaida$
 ```
 
 ### Access Application and Test
 ```
 # Access Application
-http://eapp1.kubeoncloud.com
-http://eapp1.kubeoncloud.com/app1/index.html
+curl http://eapp1.kubeoncloud.com
+curl http://eapp1.kubeoncloud.com/app1/index.html
 
 # Note: Replace kubeoncloud.com with your domain name
 ```
@@ -229,14 +235,17 @@ http://eapp1.kubeoncloud.com/app1/index.html
 ```
 # Delete Application
 kubectl delete -f kube-manifests/02-NginxApp1
-
+```
+```
 # Verify External DNS pod to ensure record set got deleted
 kubectl logs -f $(kubectl get po | egrep -o 'external-dns[A-Za-z0-9-]+')
-
+```
+```
 # Verify Record set got automatically deleted in DNS Zones
 # Template Command
-az network dns record-set a list -g \<Resource-Group-dnz-zones\> -z \<yourdomain.com\>
-
+#az network dns record-set a list -g <Resource-Group-dnz-zones> -z <yourdomain.com>
+```
+```
 # Replace DNS Zones Resource Group and yourdomain
 az network dns record-set a list -g dns-zones -z kubeoncloud.com
 ```

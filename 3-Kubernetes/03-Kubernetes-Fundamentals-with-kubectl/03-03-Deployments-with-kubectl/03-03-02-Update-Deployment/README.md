@@ -8,21 +8,22 @@
 ## Step-01: Updating Application version V1 to V2 using "Set Image" Option
 ### Update Deployment
 - **Observation:** Please Check the container name in `spec.container.name` yaml output and make a note of it and
-replace in `kubectl set image` command \<Container-Name\>
+replace in `kubectl set image` command <Container-Name>
 ```
 # Get Container Name from current deployment
 kubectl get deployment my-first-deployment -o yaml
-
+```
+```
 # Update Deployment - SHOULD WORK NOW
-kubectl set image deployment/\<Deployment-Name\> \<Container-Name\>=\<Container-Image\> --record=true
-kubectl set image deployment/my-first-deployment kubenginx=stacksimplify/kubenginx:2.0.0 --record=true
+kubectl set image deployment/my-first-deployment kubenginx=atingupta2005/kubenginx:2.0.0 --record=true
 ```
 ### Verify Rollout Status (Deployment Status)
 - **Observation:** By default, rollout happens in a rolling update model, so no downtime.
 ```
 # Verify Rollout Status
 kubectl rollout status deployment/my-first-deployment
-
+```
+```
 # Verify Deployment
 kubectl get deploy
 ```
@@ -55,7 +56,6 @@ revision history available to us.
 
 ```
 # Check the Rollout History of a Deployment
-kubectl rollout history deployment/\<Deployment-Name\>
 kubectl rollout history deployment/my-first-deployment  
 ```
 
@@ -66,7 +66,7 @@ kubectl rollout history deployment/my-first-deployment
 kubectl get svc
 
 # Application URL
-http://\<External-IP-from-get-service-output\>
+curl http://<External-IP-from-get-service-output>
 ```
 
 
@@ -74,7 +74,6 @@ http://\<External-IP-from-get-service-output\>
 ### Edit Deployment
 ```
 # Edit Deployment
-kubectl edit deployment/\<Deployment-Name\> --record=true
 kubectl edit deployment/my-first-deployment --record=true
 ```
 
@@ -82,12 +81,12 @@ kubectl edit deployment/my-first-deployment --record=true
 # Change From 2.0.0
     spec:
       containers:
-      - image: stacksimplify/kubenginx:2.0.0
+      - image: atingupta2005/kubenginx:2.0.0
 
 # Change To 3.0.0
     spec:
       containers:
-      - image: stacksimplify/kubenginx:3.0.0
+      - image: atingupta2005/kubenginx:3.0.0
 ```
 
 ### Verify Rollout Status
@@ -101,12 +100,13 @@ kubectl rollout status deployment/my-first-deployment
 ```
 # Verify ReplicaSet and Pods
 kubectl get rs
+```
+```
 kubectl get po
 ```
 ### Verify Rollout History
 ```
 # Check the Rollout History of a Deployment
-kubectl rollout history deployment/\<Deployment-Name\>
 kubectl rollout history deployment/my-first-deployment   
 ```
 
@@ -115,7 +115,8 @@ kubectl rollout history deployment/my-first-deployment
 ```
 # Get Load Balancer IP
 kubectl get svc
-
+```
+```
 # Application URL
-http://\<External-IP-from-get-service-output\>
+curl http://<External-IP-from-get-service-output>
 ```

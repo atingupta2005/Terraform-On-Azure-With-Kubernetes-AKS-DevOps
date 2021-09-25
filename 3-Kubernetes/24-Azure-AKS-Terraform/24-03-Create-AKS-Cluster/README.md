@@ -16,7 +16,8 @@
 ```
 # Create Folder
 mkdir $HOME/.ssh/aks-prod-sshkeys-terraform
-
+```
+```
 # Create SSH Key
 ssh-keygen \
     -m PEM \
@@ -26,6 +27,8 @@ ssh-keygen \
     -f ~/.ssh/aks-prod-sshkeys-terraform/aksprodsshkey \
     -N mypassphrase
 
+```
+```
 # List Files
 ls -lrt $HOME/.ssh/aks-prod-sshkeys-terraform
 ```
@@ -57,9 +60,9 @@ variable "windows_admin_password" {
 }
 ```
 
-## Step-04: Create a Terraform Datasource for getting latest Azure AKS Versions 
+## Step-04: Create a Terraform Datasource for getting latest Azure AKS Versions
 - Understand [Terraform Datasources](https://www.terraform.io/docs/configuration/data-sources.html) concept as part of this step
-- Data sources allow data to be fetched or computed for use elsewhere in Terraform configuration. 
+- Data sources allow data to be fetched or computed for use elsewhere in Terraform configuration.
 - Use of data sources allows a Terraform configuration to make use of information defined outside of Terraform, or defined by another separate Terraform configuration.
 - Use Azure AKS versions datasource API to get the latest version and use it
 ```
@@ -94,7 +97,7 @@ resource "azurerm_log_analytics_workspace" "insights" {
 ```
 
 ## Step-06: Create Azure AD Group for AKS Admins Terraform Resource
-- To enable AKS AAD Integration, we need to provide Azure AD group object id. 
+- To enable AKS AAD Integration, we need to provide Azure AD group object id.
 - We wil create a [Azure Active Directory group](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/group) for AKS Admins
 ```
 # Create Azure AD Group in Active Directory for AKS Admins
@@ -125,7 +128,7 @@ resource "azuread_group" "aks_administrators" {
   - node_labels
   - tags
 3. Enable MSI
-4. Add On Profiles 
+4. Add On Profiles
   - Azure Policy
   - Azure Monitor (Reference Log Analytics Workspace id)
 5. RBAC & Azure AD Integration
@@ -158,14 +161,14 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
       "nodepool-type"    = "system"
       "environment"      = "dev"
       "nodepoolos"       = "linux"
-      "app"              = "system-apps" 
-    } 
+      "app"              = "system-apps"
+    }
    tags = {
       "nodepool-type"    = "system"
       "environment"      = "dev"
       "nodepoolos"       = "linux"
-      "app"              = "system-apps" 
-   } 
+      "app"              = "system-apps"
+   }
   }
 
 # Identity (System Assigned or Service Principal)
@@ -276,35 +279,44 @@ output "aks_cluster_kubernetes_version" {
 
 ## Step-09: Deploy Terraform Resources
 ```
-# Change Directory 
+# Change Directory
 cd 24-03-Create-AKS-Cluster/terraform-manifests-aks
-
+```
+```
 # Initialize Terraform from this new folder
 # Anyway our state storage is from Azure Storage we are good from any folder
 terraform init
-
+```
+```
 # Validate Terraform manifests
 terraform validate
-
+```
+```
 # Review the Terraform Plan
 terraform plan
-
+```
+```
 # Deploy Terraform manifests
-terraform apply 
+terraform apply
 ```
 
 ## Step-10: Access Terraform created AKS cluster using AKS default admin
 ```
 # Azure AKS Get Credentials with --admin
 az aks get-credentials --resource-group terraform-aks-dev --name terraform-aks-dev-cluster --admin
-
+```
+```
 # Get Full Cluster Information
 az aks show --resource-group terraform-aks-dev --name terraform-aks-dev-cluster
+```
+```
 az aks show --resource-group terraform-aks-dev --name terraform-aks-dev-cluster -o table
-
+```
+```
 # Get AKS Cluster Information using kubectl
 kubectl cluster-info
-
+```
+```
 # List Kubernetes Nodes
 kubectl get nodes
 ```
@@ -330,23 +342,26 @@ kubectl get nodes
   - Password: @AKSadmin11
   - Groups: terraform-aks-prod-administrators
   - Click on Create
-- Login and change password 
+- Login and change password
   - URL: https://portal.azure.com
-  - Username: taksadmin1@stacksimplifygmail.onmicrosoft.com  (Change your domain name)
+  - Username: taksadmin1@atingupta2005gmail.onmicrosoft.com  (Change your domain name)
   - Old Password: @AKSadmin11
   - New Password: @AKSadmin22
   - Confirm Password: @AKSadmin22
 
 
-## Step-13: Access Terraform created AKS Cluster 
+## Step-13: Access Terraform created AKS Cluster
 ```
 # Azure AKS Get Credentials with --admin
 az aks get-credentials --resource-group terraform-aks-dev --name terraform-aks-dev-cluster --overwrite-existing
-
+```
+```
 # List Kubernetes Nodes
 kubectl get nodes
+```
+```
 URL: https://microsoft.com/devicelogin
 Code: GUKJ3T9AC (sample)
-Username: taksadmin1@stacksimplifygmail.onmicrosoft.com  (Change your domain name)
+Username: taksadmin1@atingupta2005gmail.onmicrosoft.com  (Change your domain name)
 Password: @AKSadmin22
 ```

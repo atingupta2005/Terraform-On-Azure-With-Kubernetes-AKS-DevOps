@@ -30,20 +30,27 @@
 ```
 # Install on MAC OS
 brew install hashicorp/tap/terraform
-
+```
+```
 # Verify Terraform Version
 terraform version
-
+```
+```
 # To Upgrade on MAC OS
 brew upgrade hashicorp/tap/terraform
-
+```
+```
 # Verify Terraform Version
 terraform version
-
+```
+```
 # Verify Installation
 terraform help
+```
+```
 terraform help plan
-
+```
+```
 # Enable Tab Completion
 terraform -install-autocomplete
 ```
@@ -52,23 +59,28 @@ terraform -install-autocomplete
 ```
 # AZ CLI Current Version (if installed)
 az --version
-
+```
+```
 # Install Azure CLI (if not installed)
 brew update && brew install azure-cli
-
+```
+```
 # Upgrade az cli version
 az --version
-brew upgrade azure-cli 
-[or]
-az upgrade
-az --version
-
+brew upgrade azure-cli
+# [or]
+#az upgrade
+#az --version
+```
+```
 # Azure CLI Login
 az login
-
+```
+```
 # List Subscriptions
 az account list
-
+```
+```
 # Set Specific Subscription (if we have multiple subscriptions)
 az account set --subscription="SUBSCRIPTION_ID"
 ```
@@ -81,24 +93,33 @@ az account set --subscription="SUBSCRIPTION_ID"
 ```
 # Change Directory to v1 folder
 cd v1-terraform-azurerm-provider
-
+```
+```
 # Initialize Terraform
 terraform init
-
+```
+```
 # Explore ".terraform" folder
-cd .terraform
-Go inside folders and review (.terraform/plugins/registry.terraform.io/hashicorp/azurerm/2.35.0/darwin_amd64)
-
+tree .terraform
+# review (.terraform/plugins/registry.terraform.io/hashicorp/azurerm/2.35.0/darwin_amd64)
+```
+```
 # Execute terraform apply
-terraform apply 
+terraform apply
+```
+```
 ls -lrta
-discuss about "terraform.tfstate"
-
+#discuss about "terraform.tfstate"
+```
+```
 # Delete .terraform folder (Understand what happens)
-rm -rf .terraform 
-terraform apply (Should say could not load plugin)
-To fix execute "terraform init" 
-
+rm -rf .terraform
+```
+```
+terraform apply #(Should say could not load plugin)
+#To fix execute "terraform init"
+```
+```
 # Clean-Up V1 folder
 rm terraform.tfstate
 ls -lrta
@@ -116,16 +137,20 @@ ls -lrta
 # Change Directory to v2 folder
 cd ../
 cd v2-terraform-azurerm-resource-group
-
+```
+```
 # Initialize Terraform
 terraform init
-
+```
+```
 # Validate terraform templates
 terraform validate
-
+```
+```
 # Dry run to see what resources gets created
 terraform plan
-
+```
+```
 # Create Resource Group in Azure
 terraform apply
 ```
@@ -150,7 +175,8 @@ resource "azurerm_resource_group" "aksdev" {
 ```
 # Dry run to see what resources gets created
 terraform plan
-
+```
+```
 # Create Resource Group in Azure
 terraform apply
 ```
@@ -161,7 +187,8 @@ terraform apply
 ```
 # Understand what happens with this change
 terraform plan
-
+```
+```
 # Apply changes
 terraform apply
 ```
@@ -174,23 +201,25 @@ terraform apply
 - **Current State:**  Real Resources present in your cloud
 - **Command Order of Execution:** refresh, plan, make a decision, apply
 - Why? Lets understand that in detail about this order of execution
-### Step-07-01: Add a new tag to Resource Group using Azure Portal Management console 
+### Step-07-01: Add a new tag to Resource Group using Azure Portal Management console
 ```
 demotag: refreshtest
 ```
 
 ### Step-07-02: Execute terraform plan  
-- You should observe no changes to local state file because plan does the comparison in memory 
-- no update to tfstate file locally about the change 
+- You should observe no changes to local state file because plan does the comparison in memory
+- no update to tfstate file locally about the change
 ```
 # Execute Terraform plan
-terraform plan 
+terraform plan
 ```
-### Step-07-03: Execute terraform refresh 
+### Step-07-03: Execute terraform refresh
 - You should see local state file updated with new demo tag
 ```
 # Execute terraform refresh
 ls -lrta
+```
+```
 terraform refresh
 diff terraform.tfstate.backup terraform.tfstate
 ```
@@ -212,9 +241,17 @@ diff terraform.tfstate.backup terraform.tfstate
 ```
 # Execute commands
 ls -lrta
+```
+```
 terraform refresh
+```
+```
 diff terraform.tfstate.backup terraform.tfstate
+```
+```
 terraform plan
+```
+```
 terraform apply
 ```
 
@@ -224,7 +261,8 @@ terraform apply
 ```
 # Terraform Show
 terraform show
-
+```
+```
 # Terraform Providers
 terraform providers
 ```
@@ -233,11 +271,14 @@ terraform providers
 ## Step-09: Understand terraform destroy
 - Understand about `terraform destroy`
 ```
-# Delete newly created Resource Group in Azure 
+# Delete newly created Resource Group in Azure
 terraform destroy
-
+```
+```
 # Delete State (Deleting for github repo case for course purpose)
 rm -rf .terraform
+```
+```
 rm -rf terraform.tfstate
 ```
 

@@ -9,16 +9,16 @@ public class HelloWorldController {
 
 	//Simple Method
 	//URI - /helloworld
-	//GET 
+	//GET
 	//@RequestMapping(method = RequestMethod.GET, path = "/helloworld")
 	@GetMapping("/helloworld1")
 	public String helloWorld() {
 		return "Hello World1";
 	}
-	
+
 	@GetMapping("/helloworld-bean")
 	public UserDetails helloWorldBean() {
-		return new UserDetails("Kalyan", "Reddy", "Hyderabad");
+		return new UserDetails("Atin", "Gupta", "Noida");
 	}
-	
+
 }

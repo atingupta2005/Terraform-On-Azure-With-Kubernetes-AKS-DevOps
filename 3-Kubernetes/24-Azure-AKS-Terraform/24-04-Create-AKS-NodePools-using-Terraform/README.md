@@ -53,7 +53,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "win101" {
   os_type               = "Windows" # Default is Linux, we can change to Windows
   vm_size               = "Standard_DS2_v2"
   priority              = "Regular"  # Default is Regular, we can change to Spot with additional settings like eviction_policy, spot_max_price, node_labels and node_taints
-  #vnet_subnet_id        = azurerm_subnet.aks-default.id 
+  #vnet_subnet_id        = azurerm_subnet.aks-default.id
   node_labels = {
     "nodepool-type" = "user"
     "environment"   = "production"
@@ -71,31 +71,42 @@ resource "azurerm_kubernetes_cluster_node_pool" "win101" {
 
 ## Step-04: Deploy Terraform Manifests with nodepool additions (Linux & Windows)
 ```
-# Change Directory 
+# Change Directory
 cd 24-04-Create-AKS-NodePools-using-Terraform/terraform-manifests-aks
-
+```
+```
 # Initialize Terraform
 terraform init
-
+```
+```
 # Validate Terraform manifests
 terraform validate
-
+```
+```
 # Review the Terraform Plan
-terraform plan 
-
+terraform plan
+```
+```
 # Deploy Terraform manifests
-terraform apply 
+terraform apply
 ```
 
 ## Step-05: Verify if Nodepools added successfully
 ```
 # List Node Pools
 az aks nodepool list --resource-group terraform-aks-dev --cluster-name  terraform-aks-dev-cluster --output table
-
+```
+```
 # List Nodes using Labels
 kubectl get nodes -o wide
+```
+```
 kubectl get nodes -o wide -l nodepoolos=linux
+```
+```
 kubectl get nodes -o wide -l nodepoolos=windows
+```
+```
 kubectl get nodes -o wide -l environment=dev
 ```
 
@@ -105,7 +116,7 @@ kubectl get nodes -o wide -l environment=dev
 - Sample Java App to Linux Nodepool
 - Dotnet App to Windows Nodepool
 ```
-# Change Directory 
+# Change Directory
 cd 24-04-Create-AKS-NodePools-using-Terraform/
 
 # Deploy All Apps
@@ -117,26 +128,32 @@ kubectl get pods -o wide
 
 ## Step-07: Access Applications
 ```
-# List Services to get Public IP for each service we deployed 
+# List Services to get Public IP for each service we deployed
 kubectl get svc
-
+```
+```
 # Access Webserver App (Running on System Nodepool)
-http://\<public-ip-of-webserver-app\>/app1/index.html
-
+curl http://<public-ip-of-webserver-app>/app1/index.html
+```
+```
 # Access Java-App (Running on linux101 nodepool)
-http://\<public-ip-of-java-app\>
+curl http://<public-ip-of-java-app>
+```
+```
 Username: admin101
 Password: password101
-
+```
+```
 # Access Windows App (Running on win101 nodepool)
-http://\<public-ip-of-windows-app\>
+curl http://<public-ip-of-windows-app>
 ```
 
 ## Step-08: Destroy our Terraform Cluster
 ```
-# Change Directory 
+# Change Directory
 cd 24-04-Create-AKS-NodePools-using-Terraform/terraform-manifests-aks
-
+```
+```
 # Destroy all our Terraform Resources
 terraform destroy
 ```

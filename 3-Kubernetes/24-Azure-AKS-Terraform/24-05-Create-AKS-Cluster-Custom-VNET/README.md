@@ -61,82 +61,97 @@ variable "environment" {
   - 09-aks-cluster-windows-user-nodepools.tf
 ```
 # AKS Default Subnet ID
-vnet_subnet_id        = azurerm_subnet.aks-default.id 
+vnet_subnet_id        = azurerm_subnet.aks-default.id
 ```
 
 ## Step-06: Deploy Terraform Resources
 ```
 # Change Directory to Terraform Manifests folder
 cd 24-05-Create-AKS-Cluster-Custom-VNET/terraform-manifests-aks-custom-vnet
-
+```
+```
 # Initialize Terraform
 terraform init
-
+```
+```
 # Validate Terraform manifests
 terraform validate
-
+```
+```
 # Review the Terraform Plan
 terraform plan   # Verify terraform storage account in Azure to see if new file got created
-
-# Deploy Terraform manifests
-terraform apply 
 ```
-
-
+```
+# Deploy Terraform manifests
+terraform apply
+```
 
 ## Step-07: Verify if Nodepools added successfully
 ```
 # List Node Pools
 az aks nodepool list --resource-group terraform-aks-dev2 --cluster-name  terraform-aks-dev2-cluster --output table
-
+```
+```
 # Configure kubectl with Default Admin Credentials
 az aks get-credentials --resource-group terraform-aks-dev2 --name  terraform-aks-dev2-cluster --admin
-
+```
+```
 # List Nodes using Labels
 kubectl get nodes -o wide
+```
+```
 kubectl get nodes -o wide -l nodepoolos=linux
+```
+```
 kubectl get nodes -o wide -l nodepoolos=windows
+```
+```
 kubectl get nodes -o wide -l environment=dev2
 ```
-
 
 ## Step-06: Deploy Sample Applications for all 3 node pools
 - Webserver App to System Nodepool
 - Sample Java App to Linux Nodepool
 - Dotnet App to Windows Nodepool
 ```
-# Change Directory 
+# Change Directory
 cd 24-05-Create-AKS-Cluster-Custom-VNET/
-
+```
+```
 # Deploy All Apps
 kubectl apply -R -f kube-manifests/
-
+```
+```
 # List Pods
 kubectl get pods -o wide
 ```
 
 ## Step-07: Access Applications
 ```
-# List Services to get Public IP for each service we deployed 
+# List Services to get Public IP for each service we deployed
 kubectl get svc
-
+```
+```
 # Access Webserver App (Running on System Nodepool)
-http://\<public-ip-of-webserver-app\>/app1/index.html
-
+curl http://<public-ip-of-webserver-app>/app1/index.html
+```
+```
 # Access Java-App (Running on linux101 nodepool)
-http://\<public-ip-of-java-app\>
-Username: admin101
-Password: password101
-
+curl http://<public-ip-of-java-app>
+#Username: admin101
+#Password: password101
+```
+```
 # Access Windows App (Running on win101 nodepool)
-http://\<public-ip-of-windows-app\>
+curl http://<public-ip-of-windows-app>
 ```
 
 ## Step-08: Destroy our Terraform Cluster
 ```
-# Change Directory 
+# Change Directory
 cd 24-05-Create-AKS-Cluster-Custom-VNET/terraform-manifests-aks-custom-vnet
-
+```
+```
 # Destroy all our Terraform Resources
 terraform destroy
 ```

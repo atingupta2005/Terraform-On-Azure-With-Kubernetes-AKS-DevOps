@@ -29,27 +29,32 @@
 | DB_USERNAME  | root  |
 | DB_PASSWORD | dbpassword11  |  
 
-- **Problem Observation:** 
-  - If we deploy all manifests at a time, by the time mysql is ready our `User Management Web Application` pod will be throwing error due to unavailability of Database. 
+- **Problem Observation:**
+  - If we deploy all manifests at a time, by the time mysql is ready our `User Management Web Application` pod will be throwing error due to unavailability of Database.
   - To avoid such situations, we can apply `initContainers` concept to our User management Web Application `Deployment manifest`.
   - We will see that in our next section but for now lets continue to test the application
 
 ### Create User Management Web Application Load Balancer Service manifest
 - LoadBalancer Service
 
-## Step-03: Create UserManagement Web Application Deployment & Service 
+## Step-03: Create UserManagement Web Application Deployment & Service
 ```
 # Create Deployment & LoadBalancer Service
 kubectl apply -f kube-manifests/
-
+```
+```
 # List Pods
 kubectl get pods
-
+```
+```
 # Verify logs of Usermgmt Web Application Pod
-kubectl logs -f \<pod-name\> 
+kubectl logs -f <pod-name>
+```
+```
 # If we have only 1 pod, below commnad works well for getting the logs
 kubectl logs -f $(kubectl get po  | egrep -o 'usermgmt-webapp-[A-Za-z0-9-]+')
-
+```
+```
 # Verify sc, pvc, pv
 kubectl get sc,pvc,pv
 ```
@@ -58,11 +63,12 @@ kubectl get sc,pvc,pv
 ```
 # List Services
 kubectl get svc
-
+```
+```
 # Access Application
-http://\<External-IP-from-get-service-output\>
-Username: admin101
-Password: password101
+curl http://<External-IP-from-get-service-output>
+#Username: admin101
+#Password: password101
 ```
 
 ## Step-04: Test User Management Web Application using Browser
@@ -72,7 +78,7 @@ Password: password101
 - Usecase-2: Login, Create New User and Logout and login with new user
   - Username: admin101
   - Password: password101
-  - Create New User 
+  - Create New User
     - User Details: admin102, password102, fname102, lname102, admin102@gmail.com, ssn102
   - Login with newly user and list users
       - Username: admin102
@@ -82,12 +88,13 @@ Password: password101
 ```
 # Connect to MYSQL Database
 kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h mysql -pdbpassword11
-
+```
+```
 # Verify usermgmt schema got created which we provided in ConfigMap
-mysql\> show schemas;
-mysql\> use usermgmt;
-mysql\> show tables;
-mysql\> select * from user;
+mysql> show schemas;
+mysql> use webappdb;
+mysql> show tables;
+mysql> select * from user;
 ```
 
 ## Step-06: Clean-Up
@@ -95,17 +102,22 @@ mysql\> select * from user;
 ```
 # Delete All
 kubectl delete -f kube-manifests/
-
+```
+```
 # List Pods
 kubectl get pods
-
+```
+```
 # Verify sc, pvc, pv
 kubectl get sc,pvc,pv
-
+```
+```
 # Delete PV Exclusively
 kubectl get pv
-kubectl delete pv \<PV-NAME\>
-
-# Delete Azure Disks 
-Go to All Services -\> Disks -\> Select and Delete the Disk
 ```
+```
+kubectl delete pv <PV-NAME>
+```
+
+- Delete Azure Disks
+  - Go to All Services -> Disks -> Select and Delete the Disk

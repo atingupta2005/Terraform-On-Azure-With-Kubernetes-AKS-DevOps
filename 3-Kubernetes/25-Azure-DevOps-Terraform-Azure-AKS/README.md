@@ -95,35 +95,42 @@
 ```
 # Create folder in local deskop
 cd azure-devops-aks-demo-repos
+```
+```
 mkdir azure-devops-aks-kubernetes-terraform-pipeline
+```
+```
 cd azure-devops-aks-kubernetes-terraform-pipeline
-
+```
+```
 # Copy folders from Git-Repo-Files folder to new folder created in local desktop
 kube-manifests
 terraform-manifests
 pipeline-backups
-
-
+```
+```
 # Initialize Git Repo
 cd azure-devops-aks-kubernetes-terraform-pipeline
 git init
-
+```
+```
 # Add Files & Commit to Local Repo
 git add .
 git commit -am "First Commit"
-
+```
+```
 # Add Remote Origin and Push to Remote Repo
-git remote add origin https://github.com/stacksimplify/azure-devops-aks-kubernetes-terraform-pipeline.git
+git remote add origin https://github.com/atingupta2005/azure-devops-aks-kubernetes-terraform-pipeline.git
+```
+```
 git push --set-upstream origin master
+```
 
-# Verify the same on Github Repository
-Refersh browser for Repo you have created
-Example: https://github.com/stacksimplify/azure-devops-aks-kubernetes-terraform-pipeline.git
-```     
-
+- Verify the same on Github Repository
+  - Refersh browser for Repo you have created
 
 ## Step-05: Create New Azure DevOps Project for IAC
-- Go to -\> Azure DevOps -\> Select Organization -\> aksdemo2 -\>  Create New Project
+- Go to -> Azure DevOps -> Select Organization -> aksdemo2 ->  Create New Project
 - Project Name: terraform-azure-aks
 - Project Descritpion: Provision Azure AKS Cluster using Azure DevOps & Terraform
 - Visibility: Private
@@ -131,10 +138,10 @@ Example: https://github.com/stacksimplify/azure-devops-aks-kubernetes-terraform-
 
 ## Step-07: Create Azure RM Service Connection for Terraform Commands
 - This is a pre-requisite step required during Azure Pipelines
-- We can create from Azure Pipelines -\> Terraform commands screen but just to be in a orderly manner we are creating early.
-- Go to -\> Azure DevOps -\> Select Organization -\> Select project **terraform-azure-aks**
+- We can create from Azure Pipelines -> Terraform commands screen but just to be in a orderly manner we are creating early.
+- Go to -> Azure DevOps -> Select Organization -> Select project **terraform-azure-aks**
 - Go to **Project Settings**
-- Go to Pipelines -\> Service Connections -\> Create Service Connection
+- Go to Pipelines -> Service Connections -> Create Service Connection
 - Choose a Service Connection type: Azure Resource Manager
 - Authentication Method: Service Princiapl (automatic)
 - Scope Level: Subscription
@@ -148,8 +155,8 @@ Example: https://github.com/stacksimplify/azure-devops-aks-kubernetes-terraform-
 
 ## Step-08: VERY IMPORTANT FIX: Provide Permission to create Azure AD Groups
 - Provide permission for Service connection created in previous step to create Azure AD Groups
-- Go to -\> Azure DevOps -\> Select Organization -\> Select project **terraform-azure-aks**
-- Go to **Project Settings** -\> Pipelines -\> Service Connections
+- Go to -> Azure DevOps -> Select Organization -> Select project **terraform-azure-aks**
+- Go to **Project Settings** -> Pipelines -> Service Connections
 - Open **terraform-aks-azurerm-svc-con**
 - Click on **Manage Service Principal**, new tab will be opened
 - Click on **View API Permissions**
@@ -168,7 +175,8 @@ Example: https://github.com/stacksimplify/azure-devops-aks-kubernetes-terraform-
 ```
 # Create Folder
 mkdir $HOME/ssh-keys-teerraform-aks-devops
-
+```
+```
 # Create SSH Keys
 ssh-keygen \
     -m PEM \
@@ -177,27 +185,28 @@ ssh-keygen \
     -C "azureuser@myserver" \
     -f ~/ssh-keys-teerraform-aks-devops/aks-terraform-devops-ssh-key-ububtu \
 
-Note: We will have passphrase as : empty when asked
-
+#Note: We will have passphrase as : empty when asked
+```
+```
 # List Files
 ls -lrt $HOME/ssh-keys-teerraform-aks-devops
-Private File: aks-terraform-devops-ssh-key-ububtu (To be stored safe with us)
-Public File: aks-terraform-devops-ssh-key-ububtu.pub (To be uploaded to Azure DevOps)
+#Private File: aks-terraform-devops-ssh-key-ububtu (To be stored safe with us)
+#Public File: aks-terraform-devops-ssh-key-ububtu.pub (To be uploaded to Azure DevOps)
 ```
 
 ## Step-10: Upload file to Azure DevOps as Secure File
-- Go to Azure DevOps -\> aksdemo2 -\> terraform-azure-aks -\> Pipelines -\> Library
-- Secure File -\> Upload file named **aks-terraform-devops-ssh-key-ububtu.pub**
-- Open the file and click on **Pipeline permissions -\> Authorize for use in all pipelines**
+- Go to Azure DevOps -> aksdemo2 -> terraform-azure-aks -> Pipelines -> Library
+- Secure File -> Upload file named **aks-terraform-devops-ssh-key-ububtu.pub**
+- Open the file and click on **Pipeline permissions -> Authorize for use in all pipelines**
 - Click on **SAVE**
 
 
 ## Step-11: Create Azure Pipeline to Provision AKS Cluster
-- Go to -\> Azure DevOps -\> Select Organization -\> Select project **terraform-azure-aks**
-- Go to Pipelines -\> Pipelines -\> Create Pipeline
+- Go to -> Azure DevOps -> Select Organization -> Select project **terraform-azure-aks**
+- Go to Pipelines -> Pipelines -> Create Pipeline
 ### Where is your Code?
 - Github
-- Select a Repository: stacksimplify/azure-devops-aks-kubernetes-terraform-pipeline
+- Select a Repository: atingupta2005/azure-devops-aks-kubernetes-terraform-pipeline
 - Provide your github password
 - Click on **Approve and Install** on Github
 ### Configure your Pipeline
@@ -371,12 +380,16 @@ variables:
 ### Connect to AKS Cluster
 ```
 # Setup kubeconfig
-az aks get-credentials --resource-group \<Resource-Group-Name\>  --name \<AKS-Cluster-Name\>
+az aks get-credentials --resource-group <Resource-Group-Name>  --name <AKS-Cluster-Name>
+```
+```
 az aks get-credentials --resource-group terraform-aks-dev  --name terraform-aks-dev-cluster --admin
-
+```
+```
 # View Cluster Info
 kubectl cluster-info
-
+```
+```
 # List Kubernetes Worker Nodes
 kubectl get nodes
 ```
@@ -462,12 +475,16 @@ kubectl get nodes
 ### Connect to AKS Cluster
 ```
 # Setup kubeconfig
-az aks get-credentials --resource-group \<Resource-Group-Name\>  --name \<AKS-Cluster-Name\>
+az aks get-credentials --resource-group <Resource-Group-Name>  --name <AKS-Cluster-Name>
+```
+```
 az aks get-credentials --resource-group terraform-aks-qa  --name terraform-aks-qa-cluster --admin
-
+```
+```
 # View Cluster Info
 kubectl cluster-info
-
+```
+```
 # List Kubernetes Worker Nodes
 kubectl get nodes
 ```
@@ -509,7 +526,8 @@ resource "azurerm_kubernetes_cluster_node_pool" "linux102" {
 ```
 # First sync Remote repo with local repo
 git pull
-
+```
+```
 # Commit
 git add .
 git commit -am "Added New Node-Pool linux102"
@@ -521,32 +539,40 @@ git push
 ```
 # List Nodepools
 az aks nodepool list --cluster-name terraform-aks-dev-cluster --resource-group terraform-aks-dev -o table
-
+```
+```
 # Setup kubeconfig
-az aks get-credentials --resource-group \<Resource-Group-Name\>  --name \<AKS-Cluster-Name\>
+az aks get-credentials --resource-group <Resource-Group-Name>  --name <AKS-Cluster-Name>
+```
+```
 az aks get-credentials --resource-group terraform-aks-dev  --name terraform-aks-dev-cluster --admin
-
+```
+```
 # View Cluster Info
 kubectl cluster-info
-
+```
+```
 # List Kubernetes Worker Nodes
 kubectl get nodes
 ```
-
 
 ### Connect to QA AKS Cluster & Verify
 ```
 # List Nodepools
 az aks nodepool list --cluster-name terraform-aks-qa-cluster --resource-group terraform-aks-qa -o table
-
+```
+```
 # Setup kubeconfig
-az aks get-credentials --resource-group \<Resource-Group-Name\>  --name \<AKS-Cluster-Name\>
+az aks get-credentials --resource-group <Resource-Group-Name>  --name <AKS-Cluster-Name>
+```
+```
 az aks get-credentials --resource-group terraform-aks-qa  --name terraform-aks-qa-cluster --admin
-
-
+```
+```
 # View Cluster Info
 kubectl cluster-info
-
+```
+```
 # List Kubernetes Worker Nodes
 kubectl get nodes
 ```

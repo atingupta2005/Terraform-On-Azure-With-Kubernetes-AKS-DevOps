@@ -16,8 +16,8 @@ spec:
     spec:
       containers:
       - name: ca-java-app
-        #image: stacksimplify/kubenginx:1.0.0
-        image: stacksimplify/kube-helloworld:1.0.0
+        #image: atingupta2005/kubenginx:1.0.0
+        image: atingupta2005/kube-helloworld:1.0.0
         ports:
         - containerPort: 8080
         resources:

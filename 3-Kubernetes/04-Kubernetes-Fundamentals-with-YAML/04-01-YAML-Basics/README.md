@@ -30,7 +30,7 @@ person: # Dictionary
     - cycling
     - cookines
   hobbies: [cycling, cooking]   # List with a differnt notation  
-```  
+```
 
 ## Step-04: Multiple Lists
 - Dash indicates an element of an array
@@ -48,7 +48,7 @@ person: # Dictionary
       age: 22
     - name: friend2
       age: 25            
-```  
+```
 
 
 ## Step-05: Sample Pod Tempalte for Reference
@@ -62,7 +62,7 @@ metadata: # Dictionary
 spec:
   containers: # List
     - name: myapp
-      image: stacksimplify/kubenginx:1.0.0
+      image: atingupta2005/kubenginx:1.0.0
       ports:
         - containerPort: 80
           protocol: "TCP"

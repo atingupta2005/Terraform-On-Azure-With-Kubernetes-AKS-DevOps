@@ -24,17 +24,18 @@ metadata: # Dictionary
 spec:
   containers: # List
     - name: myapp
-      image: stacksimplify/kubenginx:1.0.0
+      image: atingupta2005/kubenginx:1.0.0
       ports:
         - containerPort: 80
 ```
 - **Create Pod**
 ```
 # Create Pod
-kubectl create -f 02-pod-definition.yml
-[or]
-kubectl apply -f 02-pod-definition.yml
-
+kubectl create -f kube-manifests/02-pod-definition.yml
+#[or]
+#kubectl apply -f kube-manifests/02-pod-definition.yml
+```
+```
 # List Pods
 kubectl get pods
 ```
@@ -60,14 +61,15 @@ spec:
 - **Create LoadBalancer Service for Pod**
 ```
 # Create Service
-kubectl apply -f 03-pod-LoadBalancer-service.yml
-
+kubectl apply -f kube-manifests/03-pod-LoadBalancer-service.yml
+```
+```
 # List Service
 kubectl get svc
-
+```
+```
 # Access Application
-http://\<Load-Balancer-Service-IP\>
-
+curl http://<Load-Balancer-Service-IP>
 ```
 
 ## API Object References

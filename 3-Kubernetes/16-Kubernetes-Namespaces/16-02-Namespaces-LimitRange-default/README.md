@@ -1,21 +1,21 @@
 ---
 title: Azure AKS Kubernetes Namespaces Limit Range
-description: Understand Kubernetes Namespaces Limit Range Concept Azure Kubernetes Service 
+description: Understand Kubernetes Namespaces Limit Range Concept Azure Kubernetes Service
 ---
 # Kubernetes Namespaces - LimitRange - Declarative using YAML
 
-[![Image](https://stacksimplify.com/course-images/azure-kubernetes-service-namespaces-limit-range.png "Azure Kubernetes Service - Masterclass")](https://stacksimplify.com/course-images/azure-kubernetes-service-namespaces-limit-range.png){:target="_blank"}  
-
-
 ## Pre-requisite Check (Optional)
-- We should already have our AKS Cluster UP and Running. 
+- We should already have our AKS Cluster UP and Running.
 - We should have configured our AKS Cluster credentials in command line to execute `kubectl` commands
 ```
 # Configure AKS Cluster Credentials from command line
 az aks get-credentials --name aksdemo1 --resource-group aks-rg1
-
+```
+```
 # List Worker Nodes
 kubectl get nodes
+```
+```
 kubectl get nodes -o wide
 ```
 
@@ -41,7 +41,7 @@ spec:
   limits:
     - default:
         memory: "512Mi" # If not specified the Container's memory limit is set to 512Mi, which is the default memory limit for the namespace.
-        cpu: "500m"  # If not specified default limit is 1 vCPU per container 
+        cpu: "500m"  # If not specified default limit is 1 vCPU per container
       defaultRequest:
         memory: "256Mi" # If not specified default it will take from whatever specified in limits.default.memory
         cpu: "300m" # If not specified default it will take from whatever specified in limits.default.cpu
@@ -49,7 +49,7 @@ spec:
 ```
 
 ## Step-03: Update all k8s manifest with namespace
-- Update all files from with `namespace: dev3` in top metadata section in folder `kube-manifests/` 
+- Update all files from with `namespace: dev3` in top metadata section in folder `kube-manifests/`
 - **Example**
 ```yaml
 # Deployment Manifest metadata section
@@ -70,30 +70,36 @@ metadata:
   labels:
     app: app1-nginx
   namespace: dev3   # Added namespace
-spec: 
+spec:
 ```
 
 ## Step-04: Create k8s objects & Test
 ```
 # Create All Objects
 kubectl apply -f kube-manifests/
-
+```
+```
 # List Pods
-kubectl get pods -n dev3 
-
+kubectl get pods -n dev3
+```
+```
 # View Pod Specification (CPU & Memory)
-kubectl get pod \<pod-name\> -o yaml -n dev3
-
+kubectl get pod <pod-name> -o yaml -n dev3
+```
+```
 # Get & Describe Limits
 kubectl get limits -n dev3
+```
+```
 kubectl describe limits default-cpu-mem-limit-range -n dev3
-
+```
+```
 # List Services
 kubectl get svc -n dev3
-
+```
+```
 # Access Application
-http://\<Public-IP-from-List-Services-Output\>/app1/index.html
-
+curl http://<Public-IP-from-List-Services-Output>/app1/index.html
 ```
 ## Step-05: Clean-Up
 - Delete all k8s objects created as part of this section

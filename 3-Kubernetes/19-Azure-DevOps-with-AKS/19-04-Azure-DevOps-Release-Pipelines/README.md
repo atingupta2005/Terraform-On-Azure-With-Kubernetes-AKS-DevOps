@@ -9,11 +9,11 @@ description: Create Azure Release Pipeline to Deploy Kubernetes Workloads to Dev
 - Create Release Pipelines to Deploy to Kubernetes Dev, QA, Staging and Prod namespaces
 - Add Pre-Deployment email approval for QA, Staging and Prod environment deployments
 
-[![Image](https://stacksimplify.com/course-images/azure-devops-release-pipelines-for-azure-aks.png "Azure AKS Kubernetes - Masterclass")](https://stacksimplify.com/course-images/azure-devops-release-pipelines-for-azure-aks.png)
 
-[![Image](https://stacksimplify.com/course-images/azure-devops-release-pipelines-demo-for-azure-aks.png "Azure AKS Kubernetes - Masterclass")](https://stacksimplify.com/course-images/azure-devops-release-pipelines-demo-for-azure-aks.png)
 
-[![Image](https://stacksimplify.com/course-images/azure-devops-release-pipelines-releases-demo-for-azzure-aks.png "Azure AKS Kubernetes - Masterclass")](https://stacksimplify.com/course-images/azure-devops-release-pipelines-releases-demo-for-azzure-aks.png)
+
+
+
 
 ## Step-02: Create Namespaces
 ```
@@ -32,7 +32,7 @@ kubectl get ns
 
 ## Step-03: Create Service Connections for Dev, QA, Staging and Prod Namespaces in Kubernetes Cluster
 ### Dev Service Connection
-- Go to Project -\> azure-devops-github-acr-aks-app1 -\> Project Settings -\> Pipelines -\> Service Connections
+- Go to Project -> azure-devops-github-acr-aks-app1 -> Project Settings -> Pipelines -> Service Connections
 - Click on **New Service Connection**
 - Choose a service or connection type: kubernetes
 - Authentication Method: Azure Subscription
@@ -43,10 +43,10 @@ kubectl get ns
 - Service connection name: dev-ns-k8s-aks-svc-conn
 - Description: Dev Namespace AKS Cluster Service Connection
 - Security: Grant access permission to all pipelines (default Checked)
-- Click on **SAVE** 
+- Click on **SAVE**
 
 ### QA Service Connection
-- Go to Project -\> azure-devops-github-acr-aks-app1 -\> Project Settings -\> Pipelines -\> Service Connections
+- Go to Project -> azure-devops-github-acr-aks-app1 -> Project Settings -> Pipelines -> Service Connections
 - Click on **New Service Connection**
 - Choose a service or connection type: kubernetes
 - Authentication Method: Azure Subscription
@@ -57,10 +57,10 @@ kubectl get ns
 - Service connection name: qa-ns-k8s-aks-svc-conn
 - Description: QA Namespace AKS Cluster Service Connection
 - Security: Grant access permission to all pipelines (default Checked)
-- Click on **SAVE** 
+- Click on **SAVE**
 
 ### Staging Service Connection
-- Go to Project -\> azure-devops-github-acr-aks-app1 -\> Project Settings -\> Pipelines -\> Service Connections
+- Go to Project -> azure-devops-github-acr-aks-app1 -> Project Settings -> Pipelines -> Service Connections
 - Click on **New Service Connection**
 - Choose a service or connection type: kubernetes
 - Authentication Method: Azure Subscription
@@ -71,11 +71,11 @@ kubectl get ns
 - Service connection name: staging-ns-k8s-aks-svc-conn
 - Description: Staging Namespace AKS Cluster Service Connection
 - Security: Grant access permission to all pipelines (default Checked)
-- Click on **SAVE** 
+- Click on **SAVE**
 
 
 ### Production Service Connection
-- Go to Project -\> azure-devops-github-acr-aks-app1 -\> Project Settings -\> Pipelines -\> Service Connections
+- Go to Project -> azure-devops-github-acr-aks-app1 -> Project Settings -> Pipelines -> Service Connections
 - Click on **New Service Connection**
 - Choose a service or connection type: kubernetes
 - Authentication Method: Azure Subscription
@@ -86,7 +86,7 @@ kubectl get ns
 - Service connection name: prod-ns-k8s-aks-svc-conn
 - Description: Production Namespace AKS Cluster Service Connection
 - Security: Grant access permission to all pipelines (default Checked)
-- Click on **SAVE** 
+- Click on **SAVE**
 
 ## Step-04: Create Release Pipeline - Add Artifacts
 - Release Pipeline Name: 01-app1-release-pipeline
@@ -104,11 +104,11 @@ kubectl get ns
 
 
 ## Step-05: Release Pipeline - Create Dev Stage
-- Go to Pipelines -\> Releases
+- Go to Pipelines -> Releases
 - Create new **Release Pipeline**
 ### Create Dev Stage and Test
 - Stage Name: Dev
-- Create Task 
+- Create Task
 - Agent Job: Change to Ubunut Linux (latest)
 ### Add Task: Create Secret
 - Display Name: Create Secret to allow image pull from ACR
@@ -139,7 +139,7 @@ Manifest: $(System.DefaultWorkingDirectory)/_04-custom2-BuildPushToACR-Publish-k
 - Click on **SAVE** to save release
 - Comment: Dev k8s Deploy task added
 
-## Step-06: Verify k8s Deployment Manifest Image 
+## Step-06: Verify k8s Deployment Manifest Image
 - Review the **image** value and update it from Container registry if required
 - File: kube-manifests/01-Deployment-and-LoadBalancer-Service.yml
 ```yaml
@@ -166,11 +166,11 @@ git push
 kubectl get svc -n dev
 
 # Access Application
-http://\<Public-IP-from-Get-Service-Output\>
+curl http://<Public-IP-from-Get-Service-Output>
 ```
 
 ## Step-08: Update Deploy to AKS Task with Build.SourceVersion in Release Pipelines
-- Go to Release Pipelines -\> 01-app1-release-pipeline -\> Edit -\> Dev Tasks
+- Go to Release Pipelines -> 01-app1-release-pipeline -> Edit -> Dev Tasks
 - Go to **Deploy to AKS** Task
 - Replace
 ```
@@ -199,7 +199,7 @@ git push
 kubectl get svc -n dev
 
 # Access Application
-http://\<Public-IP-from-Get-Service-Output\>
+curl http://<Public-IP-from-Get-Service-Output>
 ```
 - Verify Github Commit Id on Github Repository and Container Registry
 
@@ -209,8 +209,8 @@ http://\<Public-IP-from-Get-Service-Output\>
 - Click on **SAVE** to save release
 
 ### Clone Dev Stage to Create QA Stage
-- Go to Releases -\> 01-app1-release-pipeline -\> Edit
-- Select **Dev Stage** -\> Add -\> **Clone Stage**
+- Go to Releases -> 01-app1-release-pipeline -> Edit
+- Select **Dev Stage** -> Add -> **Clone Stage**
 - Stage Name: QA
 #### Task-1: Create Secret
 - Kubernetes service connection: qa-ns-k8s-aks-svc-conn
@@ -242,13 +242,22 @@ git push
 ```
 # Get Public IP
 kubectl get svc -n dev
+```
+```
 kubectl get svc -n qa
+```
+```
 kubectl get svc -n staging
+```
+```
 kubectl get svc -n prod
-kubect get svc --all-namespaces
-
+```
+```
+kubectl get svc --all-namespaces
+```
+```
 # Access Application
-http://\<Public-IP-from-Get-Service-Output\>
+curl http://<Public-IP-from-Get-Service-Output>
 ```
 
 ## Step-12: Clean-Up Apps
