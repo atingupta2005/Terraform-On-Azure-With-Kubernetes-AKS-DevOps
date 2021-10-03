@@ -15,6 +15,7 @@
 - Performing upgrades and rollbacks of charts
 
 ## Chart Structure
+```
 ├── Chart.yaml (meta info about chart)
 ├── templates (the actual template files)
 │   ├── service.yaml
@@ -23,7 +24,7 @@
 │   ├── nginx-ingress-1.1.2.tgz
 ├── requirements.yaml
 └── values (values for template files)
-
+```
 
 ## Commands
 - helm install <chartname>
