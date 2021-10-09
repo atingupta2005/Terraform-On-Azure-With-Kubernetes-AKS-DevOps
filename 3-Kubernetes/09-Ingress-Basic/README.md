@@ -25,7 +25,7 @@ az aks show --resource-group aks-rg1 --name aksdemo1 --query nodeResourceGroup -
 ```
 ```
 # REPLACE - Create Public IP: Replace Resource Group value
-az network public-ip create --resource-group MC_aks-rg1_aksdemo1_centralus --name myAKSPublicIPForIngress --sku Standard --allocation-method static --query publicIp.ipAddress -o tsv
+az network public-ip create --resource-group MC_aks-rg1_aksdemo1_centralus --name myAKSPublicIPForIngress --sku Basic --allocation-method static --query publicIp.ipAddress -o tsv
 ```
 - Make a note of Static IP which we will use in next step when installing Ingress Controller
 ```
@@ -36,8 +36,11 @@ az network public-ip create --resource-group MC_aks-rg1_aksdemo1_centralus --nam
 ## Step-03: Install Ingress Controller
 ```
 # Install Helm3 (if not installed)
-brew install helm
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
 ```
+
 ```
 # Create a namespace for your ingress resources
 kubectl create namespace ingress-basic
@@ -47,7 +50,7 @@ kubectl create namespace ingress-basic
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 ```
 ```
-helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+helm repo add stable https://charts.helm.sh/stable/
 ```
 ```
 helm repo update
@@ -79,6 +82,7 @@ helm install ingress-nginx ingress-nginx/ingress-nginx \
 ```
 # List Services with labels
 kubectl get service -l app.kubernetes.io/name=ingress-nginx --namespace ingress-basic
+kubectl describe service -l app.kubernetes.io/name=ingress-nginx --namespace ingress-basic
 ```
 ```
 # List Pods

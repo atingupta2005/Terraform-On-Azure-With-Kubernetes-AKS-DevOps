@@ -36,7 +36,7 @@ kubectl logs -f $(kubectl get po -n kube-system | egrep -o 'aci-connector-linux-
 - Attach ACR with AKS
 - Deploy kubernetes workloads and see if the docker image got pulled automatically from ACR we have created.
 
-## Step-02: Create Azure Container Registry
+## Step-02: Create Azure Container Registry using Portal
 - Go to Services -> Container Registries
 - Click on **Add**
 - Subscription: Azure Pass - Sponsorship
@@ -46,6 +46,14 @@ kubectl logs -f $(kubectl get po -n kube-system | egrep -o 'aci-connector-linux-
 - SKU: Basic  (Pricing Note: $0.167 per day)
 - Click on **Review + Create**
 - Click on **Create**
+
+
+## Step-02: Create Azure Container Registry using CLI
+```
+myName="ating"
+az group create --name "rgacr-$myName" --location eastus
+az acr create --resource-group "rgacr-$myName" --name "acr0612$myName" --sku Basic --admin-enabled true
+```
 
 ## Step-02: Build Docker Image Locally
 - Review Docker Manigests
@@ -90,7 +98,7 @@ docker stop kube-nginx-acr
 ### Build, Test Locally, Tag and Push to ACR
 ```
 # Export Command
-export ACR_REGISTRY=acrforaksdemo2.azurecr.io
+export ACR_REGISTRY=acr0612ating.azurecr.io
 export ACR_NAMESPACE=app1
 export ACR_IMAGE_NAME=kube-nginx-acr
 export ACR_IMAGE_TAG=v1
@@ -102,7 +110,7 @@ docker login $ACR_REGISTRY
 ```
 ```
 # Tag
-docker tag kube-nginx-acr:v1 acrforaksdemo2.azurecr.io/app1/kube-nginx-acr:v1
+docker tag kube-nginx-acr:v1 acr0612ating.azurecr.io/app1/kube-nginx-acr:v1
 ```
 ```
 # List Docker Images to verify
@@ -123,7 +131,7 @@ docker push $ACR_REGISTRY/$ACR_NAMESPACE/$ACR_IMAGE_NAME:$ACR_IMAGE_TAG
 ## Step-05: Configure ACR integration for existing AKS clusters
 ```
 #Set ACR NAME
-export ACR_NAME=acrforaksdemo2
+export ACR_NAME=acr0612ating
 echo $ACR_NAME
 ```
 ```
@@ -132,7 +140,7 @@ az aks update -n myAKSCluster -g myResourceGroup --attach-acr <acr-name>
 ```
 ```
 # Replace Cluster, Resource Group and ACR Repo Name
-az aks update -n aksdemo2 -g aks-rg2 --attach-acr $ACR_NAME
+az aks update -n ating-AKSCluster -g rg-ating-aks-cluster --attach-acr $ACR_NAME
 ```
 
 
@@ -179,12 +187,12 @@ kubectl delete -f kube-manifests/
 ## Step-08: Detach ACR from AKS Cluster (Optional)
 ```
 #Set ACR NAME
-export ACR_NAME=acrforaksdemo2
+export ACR_NAME=acr0612ating
 echo $ACR_NAME
 ```
 ```
 # Detach ACR with AKS Cluster
-az aks update -n aksdemo2 -g aks-rg2 --detach-acr $ACR_NAME
+az aks update -n ating-AKSCluster -g rg-ating-aks-cluster --detach-acr $ACR_NAME
 ```
 
 - Delete ACR Repository

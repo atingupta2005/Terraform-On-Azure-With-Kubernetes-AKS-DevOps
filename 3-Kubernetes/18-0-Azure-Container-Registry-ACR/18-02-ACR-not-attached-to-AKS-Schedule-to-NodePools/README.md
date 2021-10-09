@@ -11,7 +11,7 @@ description: Pull Docker Images from Azure Container Registry using Service Prin
 - We are going to leverage the same cluster for all 3 demos planned for Azure Container Registry and AKS.
 ```
 # Configure Command Line Credentials
-az aks get-credentials --name aksdemo2 --resource-group aks-rg2
+az aks get-credentials --name ating-AKSCluster --resource-group rg-ating-aks-cluster
 ```
 ```
 # Verify Nodes
@@ -91,7 +91,7 @@ docker stop acr-app2
 ### Build, Test Locally, Tag and Push to ACR
 ```
 # Export Command
-export ACR_REGISTRY=acrdemo2ss.azurecr.io
+export ACR_REGISTRY=acr0612ating.azurecr.io
 export ACR_NAMESPACE=app2
 export ACR_IMAGE_NAME=acr-app2
 export ACR_IMAGE_TAG=v1
@@ -103,7 +103,7 @@ docker login $ACR_REGISTRY
 ```
 ```
 # Tag
-docker tag acr-app2:v1 acrdemo2ss.azurecr.io/app2/acr-app2:v1
+docker tag acr-app2:v1 acr0612ating.azurecr.io/app2/acr-app2:v1
 ```
 ```
 # List Docker Images to verify
@@ -131,7 +131,7 @@ docker push $ACR_REGISTRY/$ACR_NAMESPACE/$ACR_IMAGE_NAME:$ACR_IMAGE_TAG
 # ACR_NAME: The name of your Azure Container Registry
 # SERVICE_PRINCIPAL_NAME: Must be unique within your AD tenant
 #ACR_NAME=<container-registry-name>
-ACR_NAME=acrdemo2ss
+ACR_NAME=acr0612ating
 SERVICE_PRINCIPAL_NAME=acr-sp-demo
 
 # Obtain the full registry ID for subsequent command args
@@ -154,15 +154,15 @@ echo "Service principal password: $SP_PASSWD"
 
 ## Step-06: Create Image Pull Secret
 ```
-kubectl create secret docker-registry acrdemo2ss-secret \
+kubectl create secret docker-registry acr0612ating-secret \
     --namespace default \
-    --docker-server=acrdemo2ss.azurecr.io \
-    --docker-username=80beacfe-7176-4ff5-ad22-dbb15528a9a8 \
-    --docker-password=0zjUzGzSx3_.xi1SC40VcWkdVyl8Ml8QNj    
+    --docker-server=acr0612ating.azurecr.io \
+    --docker-username=7a63a7a0-7e75-4f25-9031-398ba63e95d0 \
+    --docker-password=tUH4.50ZCeBfPQnwU.UlX-5U0RZHpBqhUA
 ```
 ```
 # List Secrets
-kubectl get secrets    
+kubectl get secrets
 ```
 
 

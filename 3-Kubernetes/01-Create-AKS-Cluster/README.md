@@ -21,6 +21,40 @@
 - **Review + Create**
   - Click on **Create**
 
+## Create AKS Cluster using Azure CLI
+- Open Azure Clout Shell
+- Set the value in myName
+```
+myName="ating"
+mylocation="eastus2"
+echo $myName $mylocation
+```
+
+- Create Resource Group
+```
+az group create --name "rg-$myName-aks-cluster" --location $mylocation
+```
+
+- Create AKS Cluster
+```
+az aks create --resource-group "rg-$myName-aks-cluster" --name "$myName-AKSCluster" --node-count 1  --load-balancer-sku basic --node-vm-size Standard_B2s --network-plugin azure  --enable-managed-identity  --generate-ssh-keys --location $mylocation
+```
+
+- Enable Virtual Nodes in AKS
+```
+az aks enable-addons --addons virtual-node --name  "$myName-AKSCluster" --resource-group "rg-$myName-aks-cluster" --subnet "subnet-virtual-nodes"
+```
+
+
+- Delete AKS Cluster
+```
+myName="ating"
+mylocation="westus2"
+az aks stop --name "$myName-AKSCluster"  --resource-group "rg-$myName-aks-cluster"
+az aks delete --name "$myName-AKSCluster"  --resource-group "rg-$myName-aks-cluster"
+az group delete -n "$myName-AKSCluster"
+az group delete -n mc_rg-$myName-aks-cluster_$myName-AKSCluster_$mylocation
+```
 
 ## Step-03: Cloud Shell - Configure kubectl to connect to AKS Cluster
 

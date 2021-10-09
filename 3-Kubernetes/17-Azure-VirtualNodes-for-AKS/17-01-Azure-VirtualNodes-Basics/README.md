@@ -11,7 +11,8 @@ description: Create Azure Kubernetes Services (AKS) cluster to use virtual nodes
 - What are [AKS Virtual Nodes](https://docs.microsoft.com/en-us/azure/aks/virtual-nodes-portal)?
 - **Important Note:** Virtual nodes require AKS clusters with [Azure CNI networking](https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni)
 
- ## Step-02: Create a new cluster using Azure Management Console
+## Step-02: Create a new cluster using Azure Management Console
+- Register Provider in Subscription - Microsoft.ContainerInstance
 - **Basics**
   - **Subscription:** Free Trial or Pay-as-you-go
   - **Resource Group:** Creat New: aks-rg2
@@ -39,6 +40,7 @@ description: Create Azure Kubernetes Services (AKS) cluster to use virtual nodes
   - Click on **Create**
 
 
+
 ## Step-03: Verify Nodes & ACI
 ```
 # Configure Command Line Credentials
@@ -62,11 +64,7 @@ kubectl logs -f $(kubectl get po -n kube-system | egrep -o 'aci-connector-linux-
 - We should see `virtual-node-aci-linux` node also listed for `kubectl get nodes` output
 - **Sample Output**
 ```
-ating-ubuntu-lts:azure-aks-kubernetes-masterclass kdaida$ kubectl get nodes
-NAME                                STATUS   ROLES   AGE   VERSION
-aks-agentpool-87689508-vmss000000   Ready    agent   24m   v1.17.11
-virtual-node-aci-linux              Ready    agent   21m   v1.14.3-vk-azure-aci-v1.2.1.1
-ating-ubuntu-lts:azure-aks-kubernetes-masterclass kdaida$
+kubectl get nodes
 ```
 
 ## Step-04: Update Deployment Manifest to Schedule Pod on Virtual Nodes

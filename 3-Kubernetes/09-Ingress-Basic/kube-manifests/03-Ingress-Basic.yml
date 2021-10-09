@@ -2,7 +2,9 @@ apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: nginxapp1-ingress-service
-spec:  
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
   rules:
   - http:
       paths:

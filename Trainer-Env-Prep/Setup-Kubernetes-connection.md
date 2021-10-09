@@ -1,7 +1,7 @@
 # Install kubectl
 ```
-apt -y update
-apt install -y curl
+sudo apt -y update
+sudo apt install -y curl
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 curl -LO https://dl.k8s.io/release/v1.22.0/bin/linux/amd64/kubectl
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
@@ -28,7 +28,8 @@ az login
 
 # Connect to Kubernetes Cluster
 ```
-az account set --subscription 633ef4c3-2130-49e8-8a79-628a449f1987
-az aks get-credentials --resource-group AKS-RG --name aks-test
+az login
+az account set --subscription f13d3fd6-64e2-4bad-911e-66add3bff19a
+az aks get-credentials --resource-group rgaks --name aksatin21
 git clone https://github.com/atingupta2005/Terraform-On-Azure-With-Kubernetes-AKS-DevOps
 ```

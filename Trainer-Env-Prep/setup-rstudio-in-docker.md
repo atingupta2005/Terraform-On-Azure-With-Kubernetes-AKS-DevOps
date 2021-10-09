@@ -1,8 +1,8 @@
-
 ```
-docker run --rm -p 8787:8787 -e PASSWORD=Azure@123456 rocker/rstudio
+docker run --name atinrstudio -p 8787:8787 -e PASSWORD=Azure@123456  atingupta2005/rstudio_aks:latest
+#docker run --name atinrstudio -p 8787:8787 -e PASSWORD=Azure@123456 rocker/rstudio --name atinrstudio
 docker ps
-docker exec -it  <container-id> bash
+docker exec -it atinrstudio bash
 ```
 
 - Now create users inside container and also install azure-cli, kubectl etc

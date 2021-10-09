@@ -139,7 +139,7 @@ spec:
 ## Step-05: Create Kubernetes Secret and Deploy ExternalDNS
 
 # Create Secret
-cd kube-manifests/01-ExteranlDNS
+cd kube-manifests/01-ExternalDNS
 kubectl create secret generic azure-config-file --from-file=azure.json
 cd ../..
 
@@ -149,7 +149,7 @@ kubectl get secrets
 
 
 # Deploy ExternalDNS
-kubectl apply -f kube-manifests/01-ExteranlDNS/external-dns.yml
+kubectl apply -f kube-manifests/01-ExternalDNS/external-dns.yml
 
 
 # Verify ExternalDNS Logs
