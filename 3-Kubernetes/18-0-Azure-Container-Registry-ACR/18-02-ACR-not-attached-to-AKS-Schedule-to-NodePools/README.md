@@ -154,12 +154,17 @@ echo "Service principal password: $SP_PASSWD"
 
 ## Step-06: Create Image Pull Secret
 ```
-kubectl create secret docker-registry acr0612ating-secret \
-    --namespace default \
-    --docker-server=acr0612ating.azurecr.io \
-    --docker-username=7a63a7a0-7e75-4f25-9031-398ba63e95d0 \
-    --docker-password=tUH4.50ZCeBfPQnwU.UlX-5U0RZHpBqhUA
+kubectl delete secret $ACR_NAME-secret
 ```
+
+```
+kubectl create secret docker-registry $ACR_NAME-secret \
+    --namespace default \
+    --docker-server=$ACR_REGISTRY \
+    --docker-username=$SP_APP_ID \
+    --docker-password=$SP_PASSWD
+```
+
 ```
 # List Secrets
 kubectl get secrets
