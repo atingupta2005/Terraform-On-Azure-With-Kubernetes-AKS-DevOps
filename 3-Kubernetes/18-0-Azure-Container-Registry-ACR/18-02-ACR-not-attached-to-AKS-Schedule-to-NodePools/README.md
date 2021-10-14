@@ -78,8 +78,8 @@ echo $ACR_REGISTRY_ID
 sudo apt install jq
 sp_details=$(az ad sp create-for-rbac --name http://$SERVICE_PRINCIPAL_NAME --scopes $ACR_REGISTRY_ID --role acrpull --output json)
 echo $sp_details | jq '.'
-SP_PASSWD=$(echo $sp_details | jq '.password')
-SP_APP_ID=$(echo $sp_details | jq '.appId')
+SP_PASSWD=$(echo $sp_details | jq '.password' | tr -d '"')
+SP_APP_ID=$(echo $sp_details | jq '.appId' | tr -d '"')
 ```
 
 ```
