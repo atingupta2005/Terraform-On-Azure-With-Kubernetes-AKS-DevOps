@@ -39,7 +39,10 @@ description: Create Azure Kubernetes Services (AKS) cluster to use virtual nodes
 - **Review + Create**
   - Click on **Create**
 
-
+- Enable Virtual Nodes in AKS
+```
+az aks enable-addons --addons virtual-node --name  "$myName-AKSCluster" --resource-group "rg-$myName-aks-cluster" --subnet "subnet-virtual-nodes"
+```
 
 ## Step-03: Verify Nodes & ACI
 ```
