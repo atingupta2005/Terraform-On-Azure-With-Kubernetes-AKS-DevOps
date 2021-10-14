@@ -54,14 +54,9 @@ echo $ACR_NAME, $SERVICE_PRINCIPAL_NAME
 ```
 # Change Directory
 cd docker-manifests
-```
-
-```
 # Docker Build
 docker build -t $ACR_IMAGE_NAME:$ACR_IMAGE_TAG .
-```
-
-```
+cd ..
 # List Docker Images
 docker images
 ```
