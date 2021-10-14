@@ -22,7 +22,15 @@ spec:
             - containerPort: 80
       imagePullSecrets:   # Update Image Pull Secret Name we creted
         - name: acrdemo2ss-secret  
-        
-
-
-   
+ 
+ 
+ # To schedule pods on Azure Virtual Nodes            
+ #     nodeSelector:
+ #       kubernetes.io/role: agent
+ #       beta.kubernetes.io/os: linux
+ #       type: virtual-kubelet
+ #     tolerations:
+ #     - key: virtual-kubelet.io/provider
+ #       operator: Exists
+ #     - key: azure.com/aci
+ #       effect: NoSchedule
