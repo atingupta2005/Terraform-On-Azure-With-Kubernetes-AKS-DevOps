@@ -76,7 +76,7 @@ echo $ACR_REGISTRY_ID
 ```
 # Create the service principal with rights scoped to the registry.
 sudo apt install jq
-sp_details=$(az ad sp create-for-rbac --name http://atingk8srepo-sp --scopes $ACR_REGISTRY_ID --role acrpull --output json)
+sp_details=$(az ad sp create-for-rbac --name http://$SERVICE_PRINCIPAL_NAME --scopes $ACR_REGISTRY_ID --role acrpull --output json)
 echo $sp_details | jq '.'
 SP_PASSWD=$(echo $sp_details | jq '.password')
 SP_APP_ID=$(echo $sp_details | jq '.appId')
