@@ -40,24 +40,33 @@ kubectl get nodes
 
 ## Step-02: Build Docker Image Locally
 ```
+# Export Command
+export ACR_NAME=acr0612ating
+export ACR_REGISTRY=$ACR_NAME.azurecr.io
+export ACR_NAMESPACE=app2
+export ACR_IMAGE_NAME=acr-app2
+export ACR_IMAGE_TAG=v1
+export SERVICE_PRINCIPAL_NAME=acr-sp-demo
+echo $ACR_REGISTRY, $ACR_NAMESPACE, $ACR_IMAGE_NAME, $ACR_IMAGE_TAG
+echo $ACR_NAME, $SERVICE_PRINCIPAL_NAME
+```
+
+```
 # Change Directory
 cd docker-manifests
 ```
+
 ```
 # Docker Build
-docker build -t acr-app2:v1 .
+docker build -t $ACR_IMAGE_NAME:$ACR_IMAGE_TAG .
 ```
+
 ```
 # List Docker Images
 docker images
 ```
 
 ## Step-03: Create Service Principal to access Azure Container Registry
-```
-ACR_NAME=acr0612ating
-SERVICE_PRINCIPAL_NAME=acr-sp-demo
-```
-
 ```
 # Obtain the full registry ID for subsequent command args
 ACR_REGISTRY_ID=$(az acr show --name $ACR_NAME --query id --output tsv)
@@ -90,17 +99,8 @@ echo "Service principal password: $SP_PASSWD"
 
 ### Build, Test Locally, Tag and Push to ACR
 ```
-# Export Command
-export ACR_REGISTRY=acr0612ating.azurecr.io
-export ACR_NAMESPACE=app2
-export ACR_IMAGE_NAME=acr-app2
-export ACR_IMAGE_TAG=v1
-echo $ACR_REGISTRY, $ACR_NAMESPACE, $ACR_IMAGE_NAME, $ACR_IMAGE_TAG
-```
-
-```
 # Tag
-docker tag acr-app2:v1 acr0612ating.azurecr.io/app2/acr-app2:v1
+docker tag $ACR_IMAGE_NAME:ACR_IMAGE_TAG $ACR_REGISTRY/$ACR_NAMESPACE/$ACR_IMAGE_NAME:$ACR_IMAGE_TAG
 ```
 
 ```
