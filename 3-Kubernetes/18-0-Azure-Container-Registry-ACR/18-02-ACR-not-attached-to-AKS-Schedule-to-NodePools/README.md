@@ -100,7 +100,7 @@ echo "Service principal password: $SP_PASSWD"
 ### Build, Test Locally, Tag and Push to ACR
 ```
 # Tag
-docker tag $ACR_IMAGE_NAME:ACR_IMAGE_TAG $ACR_REGISTRY/$ACR_NAMESPACE/$ACR_IMAGE_NAME:$ACR_IMAGE_TAG
+docker tag $ACR_IMAGE_NAME:$ACR_IMAGE_TAG $ACR_REGISTRY/$ACR_NAMESPACE/$ACR_IMAGE_NAME:$ACR_IMAGE_TAG
 ```
 
 ```
