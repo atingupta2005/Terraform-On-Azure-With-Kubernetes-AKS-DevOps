@@ -3,30 +3,18 @@ title: Azure AKS Pull ACR using Service Principal
 description: Pull Docker Images from Azure Container Registry using Service Principal to Azure AKS Node pools
 ---
 
+
 # Azure AKS Pull Docker Images from ACR using Service Principal
 
 ## Step-00: Pre-requisites
 - We should have Azure AKS Cluster Up and Running.
-- We have created a new aksdemo2 cluster as part of Azure Virtual Nodes demo in previous section.
-- We are going to leverage the same cluster for all 3 demos planned for Azure Container Registry and AKS.
 
 # Configure Command Line Credentials
-az aks get-credentials --name aksdemo2 --resource-group aks-rg2
+az aks get-credentials --name ating-AKSCluster --resource-group rg-ating-aks-cluster
 
 
 # Verify Nodes
 kubectl get nodes
-
-
-kubectl get nodes -o wide
-
-
-# Verify aci-connector-linux
-kubectl get pods -n kube-system
-
-
-# Verify logs of ACI Connector Linux
-kubectl logs -f $(kubectl get po -n kube-system | egrep -o 'aci-connector-linux-[A-Za-z0-9-]+') -n kube-system
 
 
 ## Step-01: Introduction
@@ -51,100 +39,51 @@ kubectl logs -f $(kubectl get po -n kube-system | egrep -o 'aci-connector-linux-
 
 ## Step-02: Build Docker Image Locally
 
+# Export Command
+export ACR_NAME=acr0612ating
+export ACR_REGISTRY=$ACR_NAME.azurecr.io
+export ACR_NAMESPACE=app2
+export ACR_IMAGE_NAME=acr-app2
+export ACR_IMAGE_TAG=v1
+export SERVICE_PRINCIPAL_NAME=$ACR_NAME-sp
+echo $ACR_REGISTRY, $ACR_NAMESPACE, $ACR_IMAGE_NAME, $ACR_IMAGE_TAG
+echo $ACR_NAME, $SERVICE_PRINCIPAL_NAME
+
+
+
 # Change Directory
 cd docker-manifests
-
-
 # Docker Build
-docker build -t acr-app2:v1 .
-
-
+docker build -t $ACR_IMAGE_NAME:$ACR_IMAGE_TAG .
+cd ..
 # List Docker Images
 docker images
 
 
-docker images acr-app2:v1
-
-
-## Step-03: Run locally and test
-
-# Run locally and Test
-docker run --name acr-app2 --rm -p 80:80 -d acr-app2:v1
-
-
-# Access Application locally
-curl http://localhost
-
-
-# Stop Docker Image
-docker stop acr-app2
-
-
-## Step-04: Enable Docker Login for ACR Repository
-- Go to Services -> Container Registries -> acrdemo2ss
-- Go to **Access Keys**
-- Click on **Enable Admin User**
-- Make a note of Username and password
-
-## Step-05: Push Docker Image to Azure Container Registry
-
-### Build, Test Locally, Tag and Push to ACR
-
-# Export Command
-export ACR_REGISTRY=acrdemo2ss.azurecr.io
-export ACR_NAMESPACE=app2
-export ACR_IMAGE_NAME=acr-app2
-export ACR_IMAGE_TAG=v1
-echo $ACR_REGISTRY, $ACR_NAMESPACE, $ACR_IMAGE_NAME, $ACR_IMAGE_TAG
-
-
-# Login to ACR
-docker login $ACR_REGISTRY
-
-
-# Tag
-docker tag acr-app2:v1 acrdemo2ss.azurecr.io/app2/acr-app2:v1
-
-
-# List Docker Images to verify
-docker images acr-app2:v1
-
-
-docker images $ACR_REGISTRY/$ACR_NAMESPACE/$ACR_IMAGE_NAME:$ACR_IMAGE_TAG
-
-
-# Push Docker Images
-docker push $ACR_REGISTRY/$ACR_NAMESPACE/$ACR_IMAGE_NAME:$ACR_IMAGE_TAG
-
-### Verify Docker Image in ACR Repository
-- Go to Services -> Container Registries -> acrdemo2ss
-- Go to **Repositories** -> **app2/acr-app2**
-
-## Step-05: Create Service Principal to access Azure Container Registry
-- Review file: shell-script/generate-service-principal.sh
-- Update ACR_NAME with your container registry name
-- Update SERVICE_PRINCIPAL_NAME as desired
-sh
-#!/bin/bash
-
-# Modify for your environment.
-# ACR_NAME: The name of your Azure Container Registry
-# SERVICE_PRINCIPAL_NAME: Must be unique within your AD tenant
-#ACR_NAME=<container-registry-name>
-ACR_NAME=acrdemo2ss
-SERVICE_PRINCIPAL_NAME=acr-sp-demo
+## Step-03: Create Service Principal to access Azure Container Registry
 
 # Obtain the full registry ID for subsequent command args
 ACR_REGISTRY_ID=$(az acr show --name $ACR_NAME --query id --output tsv)
+echo $ACR_REGISTRY_ID
 
-# Create the service principal with rights scoped to the registry.
-# Default permissions are for docker pull access. Modify the '--role'
-# argument value as desired:
-# acrpull:     pull only
-# acrpush:     push and pull
-# owner:       push, pull, and assign roles
-SP_PASSWD=$(az ad sp create-for-rbac --name http://$SERVICE_PRINCIPAL_NAME --scopes $ACR_REGISTRY_ID --role acrpull --query password --output tsv)
-SP_APP_ID=$(az ad sp show --id http://$SERVICE_PRINCIPAL_NAME --query appId --output tsv)
+
+
+#Create Service Principal
+sp_details=$(az ad sp create-for-rbac --name http://$SERVICE_PRINCIPAL_NAME --scopes $ACR_REGISTRY_ID --role acrpull --output json)
+
+
+
+#Install jq. It's used to query JSON output received from above command
+sudo apt install jq
+
+
+
+#Store SP ID and SP password in variables
+echo $sp_details | jq '.'
+SP_PASSWD=$(echo $sp_details | jq '.password' | tr -d '"')
+SP_APP_ID=$(echo $sp_details | jq '.appId' | tr -d '"')
+
+
 
 # Output the service principal's credentials; use these in your services and
 # applications to authenticate to the container registry.
@@ -152,17 +91,51 @@ echo "Service principal ID: $SP_APP_ID"
 echo "Service principal password: $SP_PASSWD"
 
 
+
+## Step-04: Disable Docker Login for ACR Repository (Optional)
+- Go to Services -> Container Registries -> acrdemo2ss
+- Go to **Access Keys**
+- Click on **Disable Admin User**
+
+## Step-05: Push Docker Image to Azure Container Registry
+
+### Build, Test Locally, Tag and Push to ACR
+
+# Tag
+docker tag $ACR_IMAGE_NAME:$ACR_IMAGE_TAG $ACR_REGISTRY/$ACR_NAMESPACE/$ACR_IMAGE_NAME:$ACR_IMAGE_TAG
+
+
+
+# Log in to Docker with service principal credentials
+docker login $ACR_REGISTRY --username $SP_APP_ID --password $SP_PASSWD
+
+
+
+az acr login --name $ACR_NAME
+
+
+
+# Push Docker Images
+docker push $ACR_REGISTRY/$ACR_NAMESPACE/$ACR_IMAGE_NAME:$ACR_IMAGE_TAG
+
+
+### Verify Docker Image in ACR Repository
+- Go to Services -> Container Registries -> acrdemo2ss
+- Go to **Repositories** -> **app2/acr-app2**
+
 ## Step-06: Create Image Pull Secret
 
-kubectl create secret docker-registry acrdemo2ss-secret \
+kubectl delete secret $ACR_NAME-secret
+kubectl create secret docker-registry $ACR_NAME-secret \
     --namespace default \
-    --docker-server=acrdemo2ss.azurecr.io \
-    --docker-username=80beacfe-7176-4ff5-ad22-dbb15528a9a8 \
-    --docker-password=0zjUzGzSx3_.xi1SC40VcWkdVyl8Ml8QNj    
+    --docker-server=$ACR_REGISTRY \
+    --docker-username=$SP_APP_ID \
+    --docker-password=$SP_PASSWD
+
 
 
 # List Secrets
-kubectl get secrets    
+kubectl get secrets
 
 
 

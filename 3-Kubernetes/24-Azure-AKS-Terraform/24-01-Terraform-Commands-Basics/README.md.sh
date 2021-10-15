@@ -15,62 +15,16 @@
   - terraform destroy
 
 
-## Pre-requisite-1: Install Visual Studio Code (VS Code Editor)
-- [Download Visual Studio Code](https://code.visualstudio.com/download)
-
-## Pre-requisite-2: Install HashiCorp Terraform plugin for VS Code
-- [Install Terraform Plugin for VS Code](https://marketplace.visualstudio.com/items?itemName=HashiCorp.terraform)
-
 ## Step-02: Terraform Install
 - **Referene Link:**
 - [Download Terraform](https://www.terraform.io/downloads.html)
 - [Install Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli)
-
-### MAC OS
-
-# Install on MAC OS
-brew install hashicorp/tap/terraform
-
-
-# Verify Terraform Version
-terraform version
-
-
-# To Upgrade on MAC OS
-brew upgrade hashicorp/tap/terraform
-
-
-# Verify Terraform Version
-terraform version
-
-
-# Verify Installation
-terraform help
-
-
-terraform help plan
-
-
-# Enable Tab Completion
-terraform -install-autocomplete
 
 
 ## Step-03: Install Azure CLI
 
 # AZ CLI Current Version (if installed)
 az --version
-
-
-# Install Azure CLI (if not installed)
-brew update && brew install azure-cli
-
-
-# Upgrade az cli version
-az --version
-brew upgrade azure-cli
-# [or]
-#az upgrade
-#az --version
 
 
 # Azure CLI Login
@@ -135,16 +89,18 @@ ls -lrta
 - terraform apply: Builds or changes infrastructure
 
 # Change Directory to v2 folder
-cd ../
-cd v2-terraform-azurerm-resource-group
+cd ../v2-terraform-azurerm-resource-group
+
 
 
 # Initialize Terraform
 terraform init
 
 
+
 # Validate terraform templates
 terraform validate
+
 
 
 # Dry run to see what resources gets created
@@ -171,6 +127,7 @@ resource "azurerm_resource_group" "aksdev" {
   }
 }
 
+
 - Run terraform plan and apply
 
 # Dry run to see what resources gets created
@@ -180,6 +137,7 @@ terraform plan
 # Create Resource Group in Azure
 terraform apply
 
+
 - Verify if resource group created in Azure using Management Console
 
 ## Step-06: Modify Resource Group Name and Understand what happens
@@ -187,6 +145,7 @@ terraform apply
 
 # Understand what happens with this change
 terraform plan
+
 
 
 # Apply changes
@@ -200,7 +159,7 @@ terraform apply
 - **Desired State:** Local Terraform Manifest (main.tf)
 - **Current State:**  Real Resources present in your cloud
 - **Command Order of Execution:** refresh, plan, make a decision, apply
-- Why? Lets understand that in detail about this order of execution
+
 ### Step-07-01: Add a new tag to Resource Group using Azure Portal Management console
 
 demotag: refreshtest

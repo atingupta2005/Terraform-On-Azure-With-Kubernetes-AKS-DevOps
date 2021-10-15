@@ -25,7 +25,7 @@ az aks show --resource-group aks-rg1 --name aksdemo1 --query nodeResourceGroup -
 
 
 # REPLACE - Create Public IP: Replace Resource Group value
-az network public-ip create --resource-group MC_rg-ating-aks-cluster_ating-AKSCluster_eastus2  --name myBasicAKSPublicIPForIngress --sku Basic --allocation-method static --query publicIp.ipAddress -o tsv
+az network public-ip create --resource-group MC_aks-rg1_aksdemo1_centralus --name myAKSPublicIPForIngress --sku Basic --allocation-method static --query publicIp.ipAddress -o tsv
 
 - Make a note of Static IP which we will use in next step when installing Ingress Controller
 
@@ -39,6 +39,7 @@ az network public-ip create --resource-group MC_rg-ating-aks-cluster_ating-AKSCl
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 chmod 700 get_helm.sh
 ./get_helm.sh
+
 
 
 # Create a namespace for your ingress resources
@@ -79,9 +80,16 @@ helm install ingress-nginx ingress-nginx/ingress-nginx \
     --set controller.service.loadBalancerIP="52.154.156.139"
 
 
+
+helm uninstall ingress-nginx  --namespace ingress-basic
+
+
+
+
 # List Services with labels
 kubectl get service -l app.kubernetes.io/name=ingress-nginx --namespace ingress-basic
 kubectl describe service -l app.kubernetes.io/name=ingress-nginx --namespace ingress-basic
+
 
 # List Pods
 kubectl get pods -n ingress-basic

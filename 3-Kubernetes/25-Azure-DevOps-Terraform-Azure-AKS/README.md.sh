@@ -9,7 +9,6 @@
 
 ## Step-02: Install Azure Market Place Plugins in Azure DevOps
 - Install below listed two plugins in your respective Azure DevOps Organization
-- Discuss about which plugin to use
 - We are going to use plugin-2 as on today it is very actively managed and good reviews and good features
 - [Plugin-1: Terraform by Microsoft Devlabs](https://marketplace.visualstudio.com/items?itemName=ms-devlabs.custom-terraform-tasks)
 - [Plugin-2: Terraform Build & Release Tasks](https://marketplace.visualstudio.com/items?itemName=charleszipp.azure-pipelines-tasks-terraform)
@@ -23,7 +22,6 @@
 - Two variables we will define in Azure DevOps and use it
   - Environment
   - SSH Public Key
-- Just comment the default values here (ideally not needed but we will do that)  
 
 ### 03-resource-group.tf
 - We are going to create resource groups for each environment with **terraform-aks-envname**

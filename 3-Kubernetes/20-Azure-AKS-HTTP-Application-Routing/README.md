@@ -10,9 +10,7 @@ description: Enable HTTP Application Routing AddOn to enable Ingress and Externa
 - Ingress and External DNS will be automatically installed and configured on Azure AKS Cluster
 - **Important Note:** HTTP application routing is only recommended for dev/test clusters
 
-## Step-02: Option-1: For existing Cluster Enable HTTP Application Routing Add On
-- To enable **HTTP Application Routing Add On** we have two options
-### Using Azure Portal
+## Step-02: For existing Cluster Enable HTTP Application Routing Add On
 - For existing clusters, enable HTTP Application Routing Add On using Azure Portal
 - Go to All Services -> Kubernetes Services -> aksdemo2
 - Go to Settings -> Networking

@@ -15,12 +15,6 @@
   - terraform destroy
 
 
-## Pre-requisite-1: Install Visual Studio Code (VS Code Editor)
-- [Download Visual Studio Code](https://code.visualstudio.com/download)
-
-## Pre-requisite-2: Install HashiCorp Terraform plugin for VS Code
-- [Install Terraform Plugin for VS Code](https://marketplace.visualstudio.com/items?itemName=HashiCorp.terraform)
-
 ## Step-02: Terraform Install
 - **Referene Link:**
 - [Download Terraform](https://www.terraform.io/downloads.html)
@@ -95,17 +89,19 @@ ls -lrta
 - terraform apply: Builds or changes infrastructure
 ```
 # Change Directory to v2 folder
-cd ../
-cd v2-terraform-azurerm-resource-group
+cd ../v2-terraform-azurerm-resource-group
 ```
+
 ```
 # Initialize Terraform
 terraform init
 ```
+
 ```
 # Validate terraform templates
 terraform validate
 ```
+
 ```
 # Dry run to see what resources gets created
 terraform plan
@@ -131,6 +127,7 @@ resource "azurerm_resource_group" "aksdev" {
   }
 }
 ```
+
 - Run terraform plan and apply
 ```
 # Dry run to see what resources gets created
@@ -140,6 +137,7 @@ terraform plan
 # Create Resource Group in Azure
 terraform apply
 ```
+
 - Verify if resource group created in Azure using Management Console
 
 ## Step-06: Modify Resource Group Name and Understand what happens
@@ -148,6 +146,7 @@ terraform apply
 # Understand what happens with this change
 terraform plan
 ```
+
 ```
 # Apply changes
 terraform apply

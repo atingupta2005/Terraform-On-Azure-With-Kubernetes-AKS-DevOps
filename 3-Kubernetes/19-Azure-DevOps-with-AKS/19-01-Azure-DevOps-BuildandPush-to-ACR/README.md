@@ -10,51 +10,34 @@ description: Create Azure Pipeline to Build and Push Docker Image to Azure Conta
 - Understand Azure Pipelines
 - Implement a pipeline to Build and Push Docker Image to Azure Container Registry
 
-## Step-02: Create Github Project and Check-In Code
-### Create Github Repo in Github
-- Name: azure-devops-github-acr-aks-app1
-- Description: Azure DevOps App1 Demo with AKS, Github and Azure Containter Registry
-- Repo Type: Public / Private (Your choice)
-- Click on **Create Repository**
+## Step-02: Import Github Project having the source code
+- Fork repo:
+  - https://github.com/atingupta2005/azure-devops-github-acr-aks-app1.git
 
-### Create Local Git Repo and Check-In Code
-- Create Local folders
+- Clone Repo
 ```
-# Create a folder for all Repos we are going to create
-mkdir azure-devops-aks-demo-repos
-cd azure-devops-aks-demo-repos
-```
-```
-# Create a Directory for Repo
-mkdir azure-devops-github-acr-aks-app1
+git clone https://github.com/your-github-login-id/azure-devops-github-acr-aks-app1.git
 cd azure-devops-github-acr-aks-app1
 ```
-- Copy all files from `Giti-Repository-files` folder to our new repo folder `azure-devops-github-acr-aks-app1`
-```
-# Initialize Git Repo
-cd azure-devops-github-acr-aks-app1
-git init
-```
+
 ```
 # Do local Commit
-echo "# Azure DevOps App1 Demo with AKS, Github and ACR" >> README.md
+echo "# Azure DevOps App1 Demo with AKS, Github and ACR $USER" >> README.md
 git add .
 git commit -am "V1 Base Commit"
 ```
-```
-# Link Github Remote Repository
-git remote add origin https://github.com/atingupta2005/azure-devops-github-acr-aks-app1.git
-```
+
 ```
 # Push to Remote Repository
 git push --set-upstream origin master
 ```
+
 ```
 # Go to Github Repo - Refresh and check files appeared in githbu repo
-https://github.com/atingupta2005/azure-devops-github-acr-aks-app1
+https://github.com/your-github-login-id/azure-devops-github-acr-aks-app1
 ```
 
-## Step-03: Review github checked-in files
+## Step-03: Review github files
 - kube-manifests
 - Dockerfile
 - index.html
@@ -75,7 +58,7 @@ https://github.com/atingupta2005/azure-devops-github-acr-aks-app1
   - https://dev.azure.com/
   - Sign in to Azure DevOps
 - Our Organization will be automatically created and if you want to manually create organization you can create one.
-- Organization Name: aksdemo1
+- Organization Name: aksdemo1-yourname
 
 
 ## Step-06 : Create DevOps Project
@@ -120,22 +103,26 @@ https://github.com/atingupta2005/azure-devops-github-acr-aks-app1
 git pull
 ls -lrt
 ```
+
 ```
 # Make changes to index.html
 index.html file - change version v2
 ```
+
 ```
 # Push changes
 git add .
 git commit -am "V2 Commit for index.html"
 git push
 ```
+
 - Verify Build logs
 - Verify ACR Image
 
 ## Step-12: Add Namespace for Docker Images stored in ACR
 - Go to Pipeline -> 01-Docker-Build-and-Push-to-ACR -> Edit
 - Update the below and Save
+
 ```yaml
 # Before
   imageRepository: 'app1nginx'
@@ -172,6 +159,7 @@ git push
 - Click on Pipeline -> Edit Pipeline
 - Review pipeline code
 - Review Service Connections
+
 ```yaml
 # Docker
 # Build and push an image to Azure Container Registry

@@ -21,7 +21,7 @@ kubectl get nodes -o wide
 ## Step-02: Create Pipeline for Deploy to AKS
 - Go to Pipleines -> Create new Pipleine
 - Where is your code?: Github
-- Select a Repository: "select your repo" (atingupta2005/azure-devops-github-acr-aks-app1)
+- Select a Repository: "select your repo" (azure-devops-github-acr-aks-app1)
 - Configure your pipeline: Deploy to Azure Kubernetes Service
 - Select Subscription: Azure Pass - Sponsorship (select your subscription)
 - Provide username and password (Azure cloud admin user)

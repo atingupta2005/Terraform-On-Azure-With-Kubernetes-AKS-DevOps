@@ -8,8 +8,6 @@ description: Pull Docker Images from Azure Container Registry using Service Prin
 
 ## Step-00: Pre-requisites
 - We should have Azure AKS Cluster Up and Running.
-- We have created a new aksdemo2 cluster as part of Azure Virtual Nodes demo in previous section.
-- We are going to leverage the same cluster for all 3 demos planned for Azure Container Registry and AKS.
 ```
 # Configure Command Line Credentials
 az aks get-credentials --name ating-AKSCluster --resource-group rg-ating-aks-cluster
@@ -70,9 +68,17 @@ echo $ACR_REGISTRY_ID
 ```
 
 ```
-# Create the service principal with rights scoped to the registry.
-sudo apt install jq
+#Create Service Principal
 sp_details=$(az ad sp create-for-rbac --name http://$SERVICE_PRINCIPAL_NAME --scopes $ACR_REGISTRY_ID --role acrpull --output json)
+```
+
+```
+#Install jq. It's used to query JSON output received from above command
+sudo apt install jq
+```
+
+```
+#Store SP ID and SP password in variables
 echo $sp_details | jq '.'
 SP_PASSWD=$(echo $sp_details | jq '.password' | tr -d '"')
 SP_APP_ID=$(echo $sp_details | jq '.appId' | tr -d '"')
@@ -86,7 +92,7 @@ echo "Service principal password: $SP_PASSWD"
 ```
 
 
-## Step-04: Disable Docker Login for ACR Repository
+## Step-04: Disable Docker Login for ACR Repository (Optional)
 - Go to Services -> Container Registries -> acrdemo2ss
 - Go to **Access Keys**
 - Click on **Disable Admin User**

@@ -69,7 +69,7 @@ kubectl get ns
 - Stage Name: Dev
 - Create Task
 - Agent Job: Change to Ubunut Linux (latest)
-### Add Task: Create Secret
+### Add Task: Deploy to Kubernetes
 - Display Name: Create Secret to allow image pull from ACR
 - Action: create secret
 - Kubernetes service connection: dev-ns-k8s-aks-svc-conn
@@ -171,14 +171,14 @@ curl http://<Public-IP-from-Get-Service-Output>
 - Go to Releases -> 01-app1-release-pipeline -> Edit
 - Select **Dev Stage** -> Add -> **Clone Stage**
 - Stage Name: Prod
-#### Task-1: Create Secret
+#### Task-1: Edit task - Create Secret
 - Kubernetes service connection: qa-ns-k8s-aks-svc-conn
 - Namespace: prod
 - Secret name: prod-aksdevopsacr-secret
 - Click SAVE
 - Commit Message: Prod Create Secret task updated
 
-#### Task-2: Deploy to AKS
+#### Task-2: Edit task - Deploy to AKS
 - Kubernetes service connection: qa-ns-k8s-aks-svc-conn
 - Namespace: prod
 - ImagePullSecrets: prod-aksdevopsacr-secret

@@ -55,7 +55,7 @@ curl http://<Public-IP-created-for-Ingress>
 ## Step-06: Clean-Up Applications
 
 # Delete Apps
-kubectl delete -f kube-manifests/
+kubectl delete -R -f kube-manifests/
 
 
 # Delete Azure Disk created for Usermgmt Web App
