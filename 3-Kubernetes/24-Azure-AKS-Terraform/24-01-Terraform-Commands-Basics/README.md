@@ -26,51 +26,11 @@
 - [Download Terraform](https://www.terraform.io/downloads.html)
 - [Install Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli)
 
-### MAC OS
-```
-# Install on MAC OS
-brew install hashicorp/tap/terraform
-```
-```
-# Verify Terraform Version
-terraform version
-```
-```
-# To Upgrade on MAC OS
-brew upgrade hashicorp/tap/terraform
-```
-```
-# Verify Terraform Version
-terraform version
-```
-```
-# Verify Installation
-terraform help
-```
-```
-terraform help plan
-```
-```
-# Enable Tab Completion
-terraform -install-autocomplete
-```
 
 ## Step-03: Install Azure CLI
 ```
 # AZ CLI Current Version (if installed)
 az --version
-```
-```
-# Install Azure CLI (if not installed)
-brew update && brew install azure-cli
-```
-```
-# Upgrade az cli version
-az --version
-brew upgrade azure-cli
-# [or]
-#az upgrade
-#az --version
 ```
 ```
 # Azure CLI Login
@@ -200,7 +160,7 @@ terraform apply
 - **Desired State:** Local Terraform Manifest (main.tf)
 - **Current State:**  Real Resources present in your cloud
 - **Command Order of Execution:** refresh, plan, make a decision, apply
-- Why? Lets understand that in detail about this order of execution
+
 ### Step-07-01: Add a new tag to Resource Group using Azure Portal Management console
 ```
 demotag: refreshtest

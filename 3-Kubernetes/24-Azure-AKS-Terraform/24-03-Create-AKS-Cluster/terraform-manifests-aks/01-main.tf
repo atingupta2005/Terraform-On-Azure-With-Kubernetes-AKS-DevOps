@@ -1,8 +1,8 @@
-# We will define 
+# We will define
 # 1. Terraform Settings Block
 # 1. Required Version Terraform
 # 2. Required Terraform Providers
-# 3. Terraform Remote State Storage with Azure Storage Account (last step of this section)
+# 3. Terraform Remote State Storage with Azure Storage Account
 # 2. Terraform Provider Block for AzureRM
 # 3. Terraform Resource Block: Define a Random Pet Resource
 
@@ -10,7 +10,7 @@
 terraform {
   # 1. Required Version Terraform
   required_version = ">= 0.13"
-  # 2. Required Terraform Providers  
+  # 2. Required Terraform Providers
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
@@ -32,7 +32,7 @@ terraform {
     storage_account_name  = "terraformstatexlrwdrzs"
     container_name        = "tfstatefiles"
     key                   = "dev.terraform.tfstate"
-  }  
+  }
 }
 
 
@@ -48,4 +48,3 @@ provider "azurerm" {
 resource "random_pet" "aksrandom" {
 
 }
-

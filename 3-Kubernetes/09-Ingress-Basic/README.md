@@ -79,6 +79,12 @@ helm install ingress-nginx ingress-nginx/ingress-nginx \
     --set controller.service.externalTrafficPolicy=Local \
     --set controller.service.loadBalancerIP="52.154.156.139"
 ```
+
+```
+helm uninstall ingress-nginx  --namespace ingress-basic
+```
+
+
 ```
 # List Services with labels
 kubectl get service -l app.kubernetes.io/name=ingress-nginx --namespace ingress-basic

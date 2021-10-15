@@ -3,6 +3,7 @@ title: Azure AKS Pull ACR using Service Principal
 description: Pull Docker Images from Azure Container Registry using Service Principal to Azure AKS Node pools
 ---
 
+
 # Azure AKS Pull Docker Images from ACR using Service Principal
 
 ## Step-00: Pre-requisites
@@ -99,11 +100,6 @@ docker tag $ACR_IMAGE_NAME:$ACR_IMAGE_TAG $ACR_REGISTRY/$ACR_NAMESPACE/$ACR_IMAG
 ```
 
 ```
-# List Docker Images to verify
-docker images $ACR_REGISTRY/$ACR_NAMESPACE/$ACR_IMAGE_NAME:$ACR_IMAGE_TAG
-```
-
-```
 # Log in to Docker with service principal credentials
 docker login $ACR_REGISTRY --username $SP_APP_ID --password $SP_PASSWD
 ```
@@ -121,13 +117,9 @@ docker push $ACR_REGISTRY/$ACR_NAMESPACE/$ACR_IMAGE_NAME:$ACR_IMAGE_TAG
 - Go to Services -> Container Registries -> acrdemo2ss
 - Go to **Repositories** -> **app2/acr-app2**
 
-
 ## Step-06: Create Image Pull Secret
 ```
 kubectl delete secret $ACR_NAME-secret
-```
-
-```
 kubectl create secret docker-registry $ACR_NAME-secret \
     --namespace default \
     --docker-server=$ACR_REGISTRY \

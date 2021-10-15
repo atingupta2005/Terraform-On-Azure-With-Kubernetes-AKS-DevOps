@@ -211,24 +211,14 @@ az network dns record-set a list -g dns-zones -z kubeoncloud.com
 - Perform `nslookup` test
 ```
 # nslookup Test
-ating-ubuntu-lts:01-ExternalDNS kdaida$ nslookup eapp1.kubeoncloud.com
-Server:		192.168.0.1
-Address:	192.168.0.1#53
-
-Non-authoritative answer:
-Name:	eapp1.kubeoncloud.com
-Address: 20.37.141.33
-
-ating-ubuntu-lts:01-ExternalDNS kdaida$
+nslookup eapp1.myaks.xyz
 ```
 
 ### Access Application and Test
 ```
 # Access Application
-curl http://eapp1.kubeoncloud.com
-curl http://eapp1.kubeoncloud.com/app1/index.html
-
-# Note: Replace kubeoncloud.com with your domain name
+curl http://eapp1.myaks.xyz
+curl http://eapp1.myaks.xyz/app1/index.html
 ```
 
 ## Step-07: Clean-Up
@@ -247,7 +237,7 @@ kubectl logs -f $(kubectl get po | egrep -o 'external-dns[A-Za-z0-9-]+')
 ```
 ```
 # Replace DNS Zones Resource Group and yourdomain
-az network dns record-set a list -g dns-zones -z kubeoncloud.com
+az network dns record-set a list -g rgakstraining -z myaks.xyz
 ```
 
 ```log

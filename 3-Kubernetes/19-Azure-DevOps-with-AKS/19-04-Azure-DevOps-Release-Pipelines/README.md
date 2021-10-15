@@ -6,14 +6,8 @@ description: Create Azure Release Pipeline to Deploy Kubernetes Workloads to Dev
 
 ## Step-01: Introduction
 - Understand Release Pipelines concept
-- Create Release Pipelines to Deploy to Kubernetes Dev, QA, Staging and Prod namespaces
-- Add Pre-Deployment email approval for QA, Staging and Prod environment deployments
-
-
-
-
-
-
+- Create Release Pipelines to Deploy to Kubernetes Dev and Prod namespaces
+- Add Pre-Deployment email approval for Prod environment deployments
 
 ## Step-02: Create Namespaces
 ```
@@ -22,8 +16,6 @@ kubectl get ns
 
 # Create Namespaces
 kubectl create ns dev
-kubectl create ns qa
-kubectl create ns staging
 kubectl create ns prod
 
 # List Namespaces
@@ -44,35 +36,6 @@ kubectl get ns
 - Description: Dev Namespace AKS Cluster Service Connection
 - Security: Grant access permission to all pipelines (default Checked)
 - Click on **SAVE**
-
-### QA Service Connection
-- Go to Project -> azure-devops-github-acr-aks-app1 -> Project Settings -> Pipelines -> Service Connections
-- Click on **New Service Connection**
-- Choose a service or connection type: kubernetes
-- Authentication Method: Azure Subscription
-- Username: Azure Cloud Administrator
-- Password: Azure Cloud Admin Password
-- Cluster: aksdemo2
-- Namespace: qa
-- Service connection name: qa-ns-k8s-aks-svc-conn
-- Description: QA Namespace AKS Cluster Service Connection
-- Security: Grant access permission to all pipelines (default Checked)
-- Click on **SAVE**
-
-### Staging Service Connection
-- Go to Project -> azure-devops-github-acr-aks-app1 -> Project Settings -> Pipelines -> Service Connections
-- Click on **New Service Connection**
-- Choose a service or connection type: kubernetes
-- Authentication Method: Azure Subscription
-- Username: Azure Cloud Administrator
-- Password: Azure Cloud Admin Password
-- Cluster: aksdemo2
-- Namespace: staging
-- Service connection name: staging-ns-k8s-aks-svc-conn
-- Description: Staging Namespace AKS Cluster Service Connection
-- Security: Grant access permission to all pipelines (default Checked)
-- Click on **SAVE**
-
 
 ### Production Service Connection
 - Go to Project -> azure-devops-github-acr-aks-app1 -> Project Settings -> Pipelines -> Service Connections
@@ -102,11 +65,7 @@ kubectl get ns
 ### Continuous Deployment Trigger
 - Continuous deployment trigger: Enabled
 
-
 ## Step-05: Release Pipeline - Create Dev Stage
-- Go to Pipelines -> Releases
-- Create new **Release Pipeline**
-### Create Dev Stage and Test
 - Stage Name: Dev
 - Create Task
 - Agent Job: Change to Ubunut Linux (latest)
@@ -203,30 +162,28 @@ curl http://<Public-IP-from-Get-Service-Output>
 ```
 - Verify Github Commit Id on Github Repository and Container Registry
 
-## Step-10: Create QA, Staging and Prod Release Stages
-- Create QA, Staging and Prod Stages
+## Step-10: Create Prod Release Stage
+- Create Prod Stage
 - Add Email Approvals
 - Click on **SAVE** to save release
 
-### Clone Dev Stage to Create QA Stage
+### Clone Dev Stage to Create Prod Stage
 - Go to Releases -> 01-app1-release-pipeline -> Edit
 - Select **Dev Stage** -> Add -> **Clone Stage**
-- Stage Name: QA
+- Stage Name: Prod
 #### Task-1: Create Secret
 - Kubernetes service connection: qa-ns-k8s-aks-svc-conn
-- Namespace: qa
-- Secret name: qa-aksdevopsacr-secret
+- Namespace: prod
+- Secret name: prod-aksdevopsacr-secret
 - Click SAVE
-- Commit Message: QA Create Secret task updated
+- Commit Message: Prod Create Secret task updated
 
 #### Task-2: Deploy to AKS
 - Kubernetes service connection: qa-ns-k8s-aks-svc-conn
-- Namespace: qa
-- ImagePullSecrets: qa-aksdevopsacr-secret
+- Namespace: prod
+- ImagePullSecrets: prod-aksdevopsacr-secret
 - Click SAVE
-- Commit Message: QA Deploy to AKS task updated
-
-
+- Commit Message: Prod Deploy to AKS task updated
 
 ## Step-11: Check-In Code and Test
 - Update index.html
@@ -242,12 +199,6 @@ git push
 ```
 # Get Public IP
 kubectl get svc -n dev
-```
-```
-kubectl get svc -n qa
-```
-```
-kubectl get svc -n staging
 ```
 ```
 kubectl get svc -n prod
@@ -267,8 +218,6 @@ kubectl get pod,svc --all-namespaces
 
 # Clean-Up all Apps in Kubernetes
 kubectl delete ns dev
-kubectl delete ns qa
-kubectl delete ns staging
 kubectl delete ns prod
 
 # After Clean-Up: List all Pods and Services
