@@ -80,52 +80,8 @@
 
 
 
-## Step-04: Create Github Repository
-
-### Create Github Repository in Github
-- Create Repository in your github
-- Name: azure-devops-aks-kubernetes-terraform-pipeline
-- Descritpion: Provision AKS Cluster using Azure DevOps Pipelines
-- Repository Type: Public or Private (Your Choice)
-- Click on **Create Repository**
-
-### Copy files, Initialize Local Repo, Push to Remote Git Repo
-```
-# Create folder in local deskop
-cd azure-devops-aks-demo-repos
-```
-```
-mkdir azure-devops-aks-kubernetes-terraform-pipeline
-```
-```
-cd azure-devops-aks-kubernetes-terraform-pipeline
-```
-```
-# Copy folders from Git-Repo-Files folder to new folder created in local desktop
-kube-manifests
-terraform-manifests
-pipeline-backups
-```
-```
-# Initialize Git Repo
-cd azure-devops-aks-kubernetes-terraform-pipeline
-git init
-```
-```
-# Add Files & Commit to Local Repo
-git add .
-git commit -am "First Commit"
-```
-```
-# Add Remote Origin and Push to Remote Repo
-git remote add origin https://github.com/atingupta2005/azure-devops-aks-kubernetes-terraform-pipeline.git
-```
-```
-git push --set-upstream origin master
-```
-
-- Verify the same on Github Repository
-  - Refersh browser for Repo you have created
+## Step-04: Import/Fork Github Repository
+    - https://github.com/atingupta2005/azure-devops-aks-kubernetes-terraform-pipeline
 
 ## Step-05: Create New Azure DevOps Project for IAC
 - Go to -> Azure DevOps -> Select Organization -> aksdemo2 ->  Create New Project
