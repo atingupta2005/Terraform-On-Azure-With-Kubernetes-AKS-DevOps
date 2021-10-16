@@ -255,7 +255,7 @@ resource "azurerm_resource_group" "aks_rg" {
 - Output values are like the return values of a Terraform module
 - Output values are a way to expose some of that information to the user of your module.
 - A child module can use outputs to expose a subset of its resource attributes to a parent module
-- A root module can use outputs to print certain values in the CLI output after running terraform apply
+- A root module can use outputs to print certain values in the CLI output after running terraform apply -auto-approve
 
 # Create Outputs
 # 1. Resource Group Location
@@ -297,7 +297,7 @@ terraform plan -out v1out.plan
 terrafrom apply
 
 
-terraform apply v1out.plan
+terraform apply -auto-approve v1out.plan
 
 
 # Verify current infrastructure state

@@ -30,7 +30,7 @@ resource "azurerm_subnet" "aks-default" {
 
 
 ## Step-03: Update 01-main.tf to change the state storage key name
-- We are going to change the state storage key name considering this as a separate cluster for us because old cluster we destroyed using terraform destroy
+- We are going to change the state storage key name considering this as a separate cluster for us because old cluster we destroyed using terraform destroy -auto-approve
 
 # Configure Terraform State Storage
 terraform {
@@ -83,7 +83,7 @@ terraform plan   # Verify terraform storage account in Azure to see if new file 
 
 
 # Deploy Terraform manifests
-terraform apply
+terraform apply -auto-approve
 
 
 ## Step-07: Verify if Nodepools added successfully
@@ -153,5 +153,5 @@ cd 24-05-Create-AKS-Cluster-Custom-VNET/terraform-manifests-aks-custom-vnet
 
 
 # Destroy all our Terraform Resources
-terraform destroy
+terraform destroy -auto-approve
 

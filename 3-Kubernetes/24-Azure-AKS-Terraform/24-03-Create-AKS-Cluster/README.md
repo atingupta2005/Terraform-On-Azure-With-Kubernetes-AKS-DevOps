@@ -19,15 +19,9 @@ mkdir $HOME/.ssh/aks-prod-sshkeys-terraform
 ```
 ```
 # Create SSH Key
-ssh-keygen \
-    -m PEM \
-    -t rsa \
-    -b 4096 \
-    -C "azureuser@myserver" \
-    -f ~/.ssh/aks-prod-sshkeys-terraform/aksprodsshkey \
-    -N mypassphrase
-
+ssh-keygen -m PEM -t rsa -b 4096 -C "azureuser@myserver" -f ~/.ssh/aks-prod-sshkeys-terraform/aksprodsshkey -N mypassphrase
 ```
+
 ```
 # List Files
 ls -lrt $HOME/.ssh/aks-prod-sshkeys-terraform
@@ -295,9 +289,17 @@ terraform validate
 # Review the Terraform Plan
 terraform plan
 ```
+
+```
+az provider register -n Microsoft.ContainerService
+az feature register --namespace Microsoft.ContainerService -n AutoUpgradePreview
+```
+
+- Note for 5- 10 min
+
 ```
 # Deploy Terraform manifests
-terraform apply
+terraform apply -auto-approve
 ```
 
 ## Step-10: Access Terraform created AKS cluster using AKS default admin

@@ -297,7 +297,7 @@ terraform plan
 
 
 # Deploy Terraform manifests
-terraform apply
+terraform apply -auto-approve
 
 
 ## Step-10: Access Terraform created AKS cluster using AKS default admin

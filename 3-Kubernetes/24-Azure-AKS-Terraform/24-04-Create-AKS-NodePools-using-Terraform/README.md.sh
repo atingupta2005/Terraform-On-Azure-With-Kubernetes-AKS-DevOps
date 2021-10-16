@@ -88,7 +88,7 @@ terraform plan
 
 
 # Deploy Terraform manifests
-terraform apply
+terraform apply -auto-approve
 
 
 ## Step-05: Verify if Nodepools added successfully
@@ -155,5 +155,5 @@ cd 24-04-Create-AKS-NodePools-using-Terraform/terraform-manifests-aks
 
 
 # Destroy all our Terraform Resources
-terraform destroy
+terraform destroy -auto-approve
 

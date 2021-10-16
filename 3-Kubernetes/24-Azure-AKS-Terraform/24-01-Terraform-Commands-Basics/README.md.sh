@@ -8,11 +8,11 @@
   - terraform init
   - terraform plan
   - terraform validate
-  - terraform apply
+  - terraform apply -auto-approve
   - terraform show
   - terraform refresh
   - terraform providers
-  - terraform destroy
+  - terraform destroy -auto-approve
 
 
 ## Step-02: Terraform Install
@@ -43,7 +43,7 @@ az account set --subscription="SUBSCRIPTION_ID"
 - Understand about [Terraform Providers](https://www.terraform.io/docs/providers/index.html)
 - Understand about [azurerm terraform provider](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs), version and features
 - terraform init: Initialize a Terraform working directory
-- terraform apply: Builds or changes infrastructure
+- terraform apply -auto-approve: Builds or changes infrastructure
 
 # Change Directory to v1 folder
 cd v1-terraform-azurerm-provider
@@ -58,8 +58,8 @@ tree .terraform
 # review (.terraform/plugins/registry.terraform.io/hashicorp/azurerm/2.35.0/darwin_amd64)
 
 
-# Execute terraform apply
-terraform apply
+# Execute terraform apply -auto-approve
+terraform apply -auto-approve
 
 
 ls -lrta
@@ -70,7 +70,7 @@ ls -lrta
 rm -rf .terraform
 
 
-terraform apply #(Should say could not load plugin)
+terraform apply -auto-approve #(Should say could not load plugin)
 #To fix execute "terraform init"
 
 
@@ -82,11 +82,11 @@ ls -lrta
 ## Step-04: Understand terraform plan, apply & Create Azure Resource Group
 - Authenticate to Azure using Azure CLI `az login`
 - Understand about `terraform plan`
-- Understand about `terraform apply`
+- Understand about `terraform apply -auto-approve`
 - Create Azure Resource Group using Terraform
 - terraform init: Initialize a Terraform working directory
 - terraform plan: Generate and show an execution plan
-- terraform apply: Builds or changes infrastructure
+- terraform apply -auto-approve: Builds or changes infrastructure
 
 # Change Directory to v2 folder
 cd ../v2-terraform-azurerm-resource-group
@@ -108,7 +108,7 @@ terraform plan
 
 
 # Create Resource Group in Azure
-terraform apply
+terraform apply -auto-approve
 
 - Verify if resource group created in Azure using Management Console
 
@@ -135,7 +135,7 @@ terraform plan
 
 
 # Create Resource Group in Azure
-terraform apply
+terraform apply -auto-approve
 
 
 - Verify if resource group created in Azure using Management Console
@@ -149,7 +149,7 @@ terraform plan
 
 
 # Apply changes
-terraform apply
+terraform apply -auto-approve
 
 - Verify if resource group with new name got re-created in Azure using Management Console
 
@@ -185,7 +185,7 @@ diff terraform.tfstate.backup terraform.tfstate
 ### Step-07-04: Why you need to the execution in this order (refresh, plan, make a decision, apply) ?
 - There are changes happened in your infra manually and not via terraform.
 - Now decision to be made if you want those changes or not.
-- **Choice-1:** If you dont want those changes proceed with terraform apply so manual changes will be removed.
+- **Choice-1:** If you dont want those changes proceed with terraform apply -auto-approve so manual changes will be removed.
 - **Choice-2:** If you want those changes, refer terraform.tfstate file about changes and embed them in your terraform manifests (example: main.tf) and proceed with flow (referesh, plan, review execution plan and apply)
 
 ### Step-07-05: I picked choice-2, so i will update the tags in main.tf
@@ -211,7 +211,7 @@ diff terraform.tfstate.backup terraform.tfstate
 terraform plan
 
 
-terraform apply
+terraform apply -auto-approve
 
 
 ## Step-08: Understand terraform show, providers
@@ -227,11 +227,11 @@ terraform providers
 
 
 
-## Step-09: Understand terraform destroy
-- Understand about `terraform destroy`
+## Step-09: Understand terraform destroy -auto-approve
+- Understand about `terraform destroy -auto-approve`
 
 # Delete newly created Resource Group in Azure
-terraform destroy
+terraform destroy -auto-approve
 
 
 # Delete State (Deleting for github repo case for course purpose)
