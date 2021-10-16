@@ -37,6 +37,13 @@ kubectl get nodes
 - Click on **Review + Create**
 - Click on **Create**
 
+## Step-02: Create Azure Container Registry using CLI
+```
+myName="ating"
+az group create --name "rgacr-$myName" --location eastus
+az acr create --resource-group "rgacr-$myName" --name "acr0612$myName" --sku Basic --admin-enabled true
+```
+
 ## Step-02: Build Docker Image Locally
 ```
 # Export Command
