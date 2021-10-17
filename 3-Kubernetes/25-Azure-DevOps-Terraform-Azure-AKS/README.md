@@ -15,9 +15,6 @@
 
 
 ## Step-03: Review Terraform Manifests
-### 01-main.tf
-- Comment Terraform Backend, because we are going to configure that in Azure DevOps
-
 ### 02-variables.tf
 - Two variables we will define in Azure DevOps and use it
   - Environment
@@ -126,21 +123,17 @@
 ## Step-09: Create SSH Public Key for Linux VMs
 - Create this out of your git repository
 - **Important Note:**  We should not have these files in our git repos for security Reasons
+
 ```
 # Create Folder
 mkdir $HOME/ssh-keys-teerraform-aks-devops
 ```
+
 ```
 # Create SSH Keys
-ssh-keygen \
-    -m PEM \
-    -t rsa \
-    -b 4096 \
-    -C "azureuser@myserver" \
-    -f ~/ssh-keys-teerraform-aks-devops/aks-terraform-devops-ssh-key-ububtu \
-
-#Note: We will have passphrase as : empty when asked
+ssh-keygen -m PEM -t rsa -b 4096 -C "azureuser@myserver" -f ~/ssh-keys-teerraform-aks-devops/aks-terraform-devops-ssh-key-ububtu
 ```
+
 ```
 # List Files
 ls -lrt $HOME/ssh-keys-teerraform-aks-devops
@@ -164,149 +157,8 @@ ls -lrt $HOME/ssh-keys-teerraform-aks-devops
 - Provide your github password
 - Click on **Approve and Install** on Github
 ### Configure your Pipeline
-- Select Pipeline: Starter Pipeline  
-- Design your Pipeline
+- Select Pipeline: Existing Pipeline
 - Pipeline Name: 01-terraform-provision-aks-cluster-pipeline.yml
-### Stage-1: Validate Stage
-- **Stage-1:** Terraform Validate Stage
-  - **Step-1:** Publish Artifacts to Pipeline (Pipeline artifacts provide a way to share files between stages in a pipeline or between different pipelines. )
-  - **Step-2:** Install Latest Terraform (0.13.5) (Ideally not needed if we use default Agents)
-  - **Step-3:** Validate Terraform Manifests
-```yaml
-trigger:
-- main
-
-pool:
-  vmImage: 'ubuntu-latest'
-
-# Stage-1: Terraform Validate Stage
-## Step-1: Publish Artifacts to Pipeline (Pipeline artifacts provide a way to share files between stages in a pipeline or between different pipelines. )
-## Step-2: Install Latest Terraform (0.13.5) (Ideally not needed if we use default Ubuntu Agents)
-## Step-3: Validate Terraform Manifests (terraform init, terraform validate)
-
-stages:
-- stage: TerraformValidate
-  jobs:
-    - job: TerraformValidateJob
-      continueOnError: false
-      steps:
-      - task: PublishPipelineArtifact@1
-        displayName: Publish Artifacts
-        inputs:
-          targetPath: '$(System.DefaultWorkingDirectory)/terraform-manifests'
-          artifact: 'terraform-manifests-out'
-          publishLocation: 'pipeline'
-      - task: TerraformInstaller@0
-        displayName: Terraform Install
-        inputs:
-          terraformVersion: 'latest'
-      - task: TerraformCLI@0
-        displayName: Terraform Init
-        inputs:
-          command: 'init'
-          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform-manifests'
-          backendType: 'azurerm'
-          backendServiceArm: 'terraform-aks-azurerm-svc-con'
-          backendAzureRmResourceGroupName: 'terraform-storage-rg'
-          backendAzureRmStorageAccountName: 'terraformstatexlrwdrzs'
-          backendAzureRmContainerName: 'tfstatefiles'
-          backendAzureRmKey: 'aks-base.tfstate'
-          allowTelemetryCollection: false
-      - task: TerraformCLI@0
-        displayName: Terraform Validate
-        inputs:
-          command: 'validate'
-          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform-manifests'
-          allowTelemetryCollection: false       
-```
-
-
-### Pipeline Save and Run
-- Click on **Save and Run**
-- Commit Message: First Pipeline Commit - Validate terraform manifests
-- Click on **Job** and Verify Pipeline
-
-
-## Stage-12: Deploy Dev AKS Cluster
-- **Stage-2:** Deploy Stages for Dev & QA
-  - **Deployment-1:** Deploy Dev AKS Cluster
-    - **Step-1:** Define Variables for environments
-    - **Step-2:** Download SSH Secure File
-    - **Step-3:** Terraform Initialize (State Storage to store in Azure Storage Account for Dev AKS Cluster)
-    - **Step-4:** Terraform Plan (Create Plan)
-    - **Step-5:** Terraform Apply (Use the plan created in previous step)
-- [Azure DevOps Pipelines - Deployment Jobs](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/deployment-jobs?view=azure-devops)
-- [Azure DevOps Pipelines - Environments](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/environments?view=azure-devops)
-
-### Stage-2: Deployment-1: Deploy Dev AKS Cluster
-```yaml
-# Stage-2: Deploy Stages for Dev & QA
-# Deployment-1: Deploy Dev AKS Cluster
-## Step-1: Define Variables for environments
-## Step-2: Download SSH Secure File
-## Step-3: Terraform Initialize (State Storage to store in Azure Storage Account for Dev AKS Cluster)
-## Step-4: Terraform Plan (Create Plan)
-## Step-5: Terraform Apply (Use the plan created in previous step)
-
-# Define Variables
-variables:
-- name: DEV_ENVIRONMENT
-  value: dev
-- name: QA_ENVIRONMENT
-  value: qa
-# Stage-2: Deploy Stages for Dev & QA
-# Deployment-1: Deploy Dev AKS Cluster
-## Step-1: Define Variables for environments
-## Step-2: Download SSH Secure File
-## Step-3: Terraform Initialize (State Storage to store in Azure Storage Account for Dev AKS Cluster)
-## Step-4: Terraform Plan (Create Plan)
-## Step-5: Terraform Apply (Use the plan created in previous step)
-
-- stage: DeployAKSClusters
-  jobs:
-    - deployment: DeployDevAKSCluster
-      displayName: DeployDevAKSCluster
-      pool:
-        vmImage: 'ubuntu-latest'
-      environment: $(DEV_ENVIRONMENT)      
-      strategy:
-        runOnce:
-          deploy:
-            steps:            
-            - task: DownloadSecureFile@1
-              displayName: Download SSH Key
-              name: sshkey
-              inputs:
-                secureFile: 'aks-terraform-devops-ssh-key-ububtu.pub'
-            - task: TerraformCLI@0
-              displayName: Terraform Init
-              inputs:
-                command: 'init'
-                workingDirectory: '$(Pipeline.Workspace)/terraform-manifests-out'
-                backendType: 'azurerm'
-                backendServiceArm: 'terraform-aks-azurerm-svc-con'
-                backendAzureRmResourceGroupName: 'terraform-storage-rg'
-                backendAzureRmStorageAccountName: 'terraformstatexlrwdrzs'
-                backendAzureRmContainerName: 'tfstatefiles'
-                backendAzureRmKey: 'aks-$(DEV_ENVIRONMENT).tfstate'
-                allowTelemetryCollection: false
-            - task: TerraformCLI@0
-              displayName: Terraform Plan
-              inputs:
-                command: 'plan'
-                workingDirectory: '$(Pipeline.Workspace)/terraform-manifests-out'
-                environmentServiceName: 'terraform-aks-azurerm-svc-con'
-                commandOptions: '-var ssh_public_key=$(sshkey.secureFilePath) -var environment=$(DEV_ENVIRONMENT) -out $(Pipeline.Workspace)/terraform-manifests-out/$(DEV_ENVIRONMENT)-$(Build.BuildId).out'
-                allowTelemetryCollection: false
-            - task: TerraformCLI@0
-              displayName: Terraform Apply
-              inputs:
-                command: 'apply'
-                workingDirectory: '$(Pipeline.Workspace)/terraform-manifests-out'
-                environmentServiceName: 'terraform-aks-azurerm-svc-con'
-                commandOptions: '$(Pipeline.Workspace)/terraform-manifests-out/$(DEV_ENVIRONMENT)-$(Build.BuildId).out'
-                allowTelemetryCollection: false
-```
 
 
 ### Pipeline Save and Run
@@ -318,12 +170,6 @@ variables:
 ## Step-13: Verify all the resources created
 ### Verify Pipeline logs
 - Verify Pipeline logs for all the tasks
-
-### Verify new Storage Account in Azure Mgmt Console
-- Verify if `terraform init` command ran successfully from Azure Pipelines
-- Verify Storage Account
-- Verify Storage Container
-- Verify tfstate file got created in storage container
 
 ### Verify new AKS Cluster in Azure Mgmt Console
 - Verify Resource Group

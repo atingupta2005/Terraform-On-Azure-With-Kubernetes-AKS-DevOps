@@ -203,10 +203,11 @@ time="2020-08-24T11:30:55Z" level=info msg="Updating TXT record named 'eapp1' to
 ```
 # Template Command
 #az network dns record-set a list -g <Resource-Group-dnz-zones> -z <yourdomain.com>
+#az network dns record-set a list -g rgakstraining -z myaks.xyz
 ```
 ```
 # Replace DNS Zones Resource Group and yourdomain
-az network dns record-set a list -g dns-zones -z kubeoncloud.com
+az network dns record-set a list -g rgakstraining -z myaks.xyz
 ```
 - Perform `nslookup` test
 ```

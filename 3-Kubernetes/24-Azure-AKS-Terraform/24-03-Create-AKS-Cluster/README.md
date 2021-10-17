@@ -49,7 +49,7 @@ variable "windows_admin_username" {
 # Windows Admin Password for k8s worker nodes
 variable "windows_admin_password" {
   type = string
-  default = "P@ssw0rd1234"
+  default = "P@ssw0rd123456789"
   description = "This variable defines the Windows admin password k8s Worker nodes"  
 }
 ```

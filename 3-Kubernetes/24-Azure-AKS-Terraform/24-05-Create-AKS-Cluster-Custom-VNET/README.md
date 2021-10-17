@@ -29,20 +29,6 @@ resource "azurerm_subnet" "aks-default" {
 }
 ```
 
-## Step-03: Update 01-main.tf to change the state storage key name
-- We are going to change the state storage key name considering this as a separate cluster for us because old cluster we destroyed using terraform destroy -auto-approve
-```
-# Configure Terraform State Storage
-terraform {
-  backend "azurerm" {
-    resource_group_name   = "terraform-storage-rg"
-    storage_account_name  = "terraformstatexlrwdrzs"
-    container_name        = "prodtfstate"
-    key                   = "terraform-custom-vnet.tfstate"
-  }
-}
-```
-
 ## Step-04: Update variables.tf with environment name
 - We are also going to change cluster environment name as dev2
 ```
@@ -67,20 +53,24 @@ vnet_subnet_id        = azurerm_subnet.aks-default.id
 ## Step-06: Deploy Terraform Resources
 ```
 # Change Directory to Terraform Manifests folder
-cd 24-05-Create-AKS-Cluster-Custom-VNET/terraform-manifests-aks-custom-vnet
+cd terraform-manifests-aks-custom-vnet
 ```
+
 ```
 # Initialize Terraform
 terraform init
 ```
+
 ```
 # Validate Terraform manifests
 terraform validate
 ```
+
 ```
 # Review the Terraform Plan
 terraform plan   # Verify terraform storage account in Azure to see if new file got created
 ```
+
 ```
 # Deploy Terraform manifests
 terraform apply -auto-approve

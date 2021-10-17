@@ -47,7 +47,6 @@ resource "azurerm_resource_group" "aksdev" {   # BLOCK
     - [Azure AD Provider](https://registry.terraform.io/providers/hashicorp/azuread/latest)
     - [Random Provider](https://registry.terraform.io/providers/hashicorp/random/latest)
     - Append with **/docs** for above 3 links to get their equivalent documentation
-  - Terraform State Storage Backend
 - Create a file **01-main.tf** and create terraform providers
 ```
 # Terraform Settings Block (https://www.terraform.io/docs/configuration/terraform.html)
@@ -72,13 +71,6 @@ terraform {
       source  = "hashicorp/random"
       version = "~> 3.0"
     }
-  }
-# Configure Terraform State Storage
-    backend "azurerm" {
-    resource_group_name   = "terraform-storage-rg"
-    storage_account_name  = "terraformstatexlrwdrzs"
-    container_name        = "prodtfstate"
-    key                   = "terraform.tfstate"
   }
 }
 
@@ -322,57 +314,6 @@ terraform fmt
 - Verify if Resource Group got created in Azure Mgmt Console
 - Understand about terraform state file named **terraform.tfstate**
 - Migrate this state file to Azure Storage Account
-
-## Step-13: Migrate Terraform State Storage to Azure Storage Account
-
-### Create Azure Storage Account in new Resource Group
-- Why should be we create terraform state storage in different resource group?
-  - State storage is key for all terraform resources and it should be deleted at any point of time even accidentally.
-- **Create New Resource Group:** terraform-storage-rg
-- **Create Storage Account:** terraformstatexlrwdrzs  (Note: Name should be unique across Azure)
-- **Create Container Name:** tfstatefiles
-- Upload the file **terraform.tfstate** to storage account container
-
-### Update main.tf with Terraform State Storage
-```
-# Configure Terraform State Storage
-terraform {
-  backend "azurerm" {
-    resource_group_name   = "terraform-storage-rg"
-    storage_account_name  = "terraformstatexlrwdrzs"
-    container_name        = "tfstatefiles"
-    key                   = "terraform.tfstate"
-  }
-}
-```
-
-### Migrate terraform backend by re-initializing
-- First backup local terraform.tfstate
-```
-# Backup existing terraform.tfstate present locally
-mkdir BACKUP-LOCAL-TFSTATE
-```
-```
-mv terraform.tfstate BACKUP-LOCAL-TFSTATE
-```
-```
-# Try terraform validate
-terraform validate
-```
-```
-# Try terraform plan (Should fail telling us to re-initialize backed)
-terraform plan
-```
-```
-# Re-Initialize Terraform Backend
-terraform init
-```
-```
-# Verify if any local state file
-ls -lrta
-```
-- This completes successful migration of **terraform.tfstate** from local to Azure Storage Container
-- No local dependency now. Straight away initialize your terraform files from any folder and start working
 
 ## References
 - [Terraform Syntax](https://www.terraform.io/docs/configuration/syntax.html)

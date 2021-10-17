@@ -42,21 +42,21 @@ ls -lrt $HOME/.ssh/aks-prod-sshkeys-terraform
 # SSH Public Key for Linux VMs
 variable "ssh_public_key" {
   default = "~/.ssh/aks-prod-sshkeys-terraform/aksprodsshkey.pub"
-  description = "This variable defines the SSH Public Key for Linux k8s Worker nodes"  
+  description = "This variable defines the SSH Public Key for Linux k8s Worker nodes"
 }
 
 # Windows Admin Username for k8s worker nodes
 variable "windows_admin_username" {
   type = string
   default = "azureuser"
-  description = "This variable defines the Windows admin username k8s Worker nodes"  
+  description = "This variable defines the Windows admin username k8s Worker nodes"
 }
 
 # Windows Admin Password for k8s worker nodes
 variable "windows_admin_password" {
   type = string
-  default = "P@ssw0rd1234"
-  description = "This variable defines the Windows admin password k8s Worker nodes"  
+  default = "P@ssw0rd123456789"
+  description = "This variable defines the Windows admin password k8s Worker nodes"
 }
 
 
@@ -77,7 +77,7 @@ az aks get-versions --location centralus -o table
 # Datasource to get Latest Azure AKS latest Version
 data "azurerm_kubernetes_service_versions" "current" {
   location = azurerm_resource_group.aks_rg.location
-  include_preview = false  
+  include_preview = false
 }
 
 - [Data Source: azurerm_kubernetes_service_versions](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/kubernetes_service_versions)
@@ -136,7 +136,7 @@ resource "azuread_group" "aks_administrators" {
   - Windows Admin Profile
   - Linux Profile
 7. Network Profile
-8. Cluster Tags  
+8. Cluster Tags
 */
 
 resource "azurerm_kubernetes_cluster" "aks_cluster" {
@@ -364,4 +364,3 @@ URL: https://microsoft.com/devicelogin
 Code: GUKJ3T9AC (sample)
 Username: taksadmin1@atingupta2005gmail.onmicrosoft.com  (Change your domain name)
 Password: @AKSadmin22
-

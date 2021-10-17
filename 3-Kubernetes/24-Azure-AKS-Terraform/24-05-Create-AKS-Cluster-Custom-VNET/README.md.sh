@@ -29,27 +29,13 @@ resource "azurerm_subnet" "aks-default" {
 }
 
 
-## Step-03: Update 01-main.tf to change the state storage key name
-- We are going to change the state storage key name considering this as a separate cluster for us because old cluster we destroyed using terraform destroy -auto-approve
-
-# Configure Terraform State Storage
-terraform {
-  backend "azurerm" {
-    resource_group_name   = "terraform-storage-rg"
-    storage_account_name  = "terraformstatexlrwdrzs"
-    container_name        = "prodtfstate"
-    key                   = "terraform-custom-vnet.tfstate"
-  }
-}
-
-
 ## Step-04: Update variables.tf with environment name
 - We are also going to change cluster environment name as dev2
 
 # Azure AKS Environment Name
 variable "environment" {
-  type = string  
-  description = "This variable defines the Environment"  
+  type = string
+  description = "This variable defines the Environment"
   default = "dev2"
 }
 
@@ -154,4 +140,3 @@ cd 24-05-Create-AKS-Cluster-Custom-VNET/terraform-manifests-aks-custom-vnet
 
 # Destroy all our Terraform Resources
 terraform destroy -auto-approve
-
