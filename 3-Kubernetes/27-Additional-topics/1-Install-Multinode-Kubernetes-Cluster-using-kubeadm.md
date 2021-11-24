@@ -4,10 +4,15 @@ Follow this documentation to set up a Kubernetes cluster on __Ubuntu 20.04 LTS__
 This documentation guides you in setting up a cluster with one master node and one worker node.
 
 ## Assumptions
-|Role|FQDN|IP|OS|RAM|CPU|
+|Role|FQDN|Private IP|OS|RAM|CPU|
 |----|----|----|----|----|----|
 |Master|vmk8smaster.westus2.cloudapp.azure.com|10.1.0.4|Ubuntu 20.04|2G|2|
 |Worker|vmk8sworker.westus2.cloudapp.azure.com|10.1.0.5|Ubuntu 20.04|1G|1|
+
+## Open all ports on all the VMs
+```
+sudo iptables -P INPUT ACCEPT  
+```
 
 ## On both Kmaster and Kworker
 ##### Login as `root` user
@@ -17,7 +22,7 @@ sudo su -
 Perform all the commands as root user unless otherwise specified
 ##### Disable Firewall
 ```
-ufw disable
+	
 ```
 ##### Disable swap
 ```
@@ -48,19 +53,50 @@ sysctl --system
   curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
   echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list
 }
+
+
+### Configure Docker
+```
+sudo mkdir /etc/docker
+sudo cat /etc/docker/daemon.json
+cat <<EOF | sudo tee /etc/docker/daemon.json
+{
+"exec-opts": ["native.cgroupdriver=systemd"],
+"log-driver": "json-file",
+"log-opts": {
+"max-size": "100m"
+},
+"storage-driver": "overlay2"
+}
+EOF
+sudo cat /etc/docker/daemon.json
+```
+
+```
+sudo systemctl enable docker
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+```
+
 ```
 ##### Install Kubernetes components
 ```
 apt update && apt install -y kubeadm=1.18.5-00 kubelet=1.18.5-00 kubectl=1.18.5-00
 ```
+
+```
+sudo systemctl status kubelet
+```
+
+
 ##### In case you are using LXC containers for Kubernetes nodes
 Hack required to provision K8s v1.15+ in LXC containers
 ```
 {
-  mknod /dev/kmsg c 1 11
-  echo '#!/bin/sh -e' >> /etc/rc.local
-  echo 'mknod /dev/kmsg c 1 11' >> /etc/rc.local
-  chmod +x /etc/rc.local
+mknod /dev/kmsg c 1 11
+echo '#!/bin/sh -e' >> /etc/rc.local
+echo 'mknod /dev/kmsg c 1 11' >> /etc/rc.local
+chmod +x /etc/rc.local
 }
 ```
 
@@ -74,7 +110,7 @@ kubeadm reset -f
 ##### Initialize Kubernetes Cluster
 - Update the below command with the ip address of kmaster
 ```
-kubeadm init --apiserver-advertise-address=10.1.0.4 --pod-network-cidr=192.168.0.0/16  --ignore-preflight-errors=all
+kubeadm init --apiserver-advertise-address=10.0.0.5 --pod-network-cidr=192.168.0.0/16  --ignore-preflight-errors=all
 ```
 
 ##### Deploy Calico network
